@@ -228,10 +228,20 @@ Underworld.prototype.drawSlope = function(slopeObject, texId){
 
 Underworld.prototype.drawUI = function(){
 	var game = this;
+	var player = game.map.player;
+	if (!player) return;
 	
 	var ctx = game.UI.ctx;
 	
-	ctx.drawImage(game.images.uiBronzeSword, 200, 136);
+	if (!player.destroyed)
+		ctx.drawImage(game.images.uiBronzeSword, 200, 136);
+	
+	// If the player is hurt draw a red screen
+	if (player.hurt > 0.0){
+		ctx.fillStyle = "rgba(255,0,0,0.5)";
+		ctx.fillRect(0,0,ctx.width,ctx.height);
+	}
+	
 	game.console.render(8, 130);
 };
 

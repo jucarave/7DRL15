@@ -15,6 +15,9 @@ function Player(position, direction, mapManager){
 	this.jog = vec4(0.0, 1, 0.0, 1);
 	this.onWater = false;
 	this.moved = false;
+
+	this.hurt = 0.0;	
+	this.attackWait = 0;
 	
 	if (DEBUG){
 		DEBUG.player = this;
@@ -27,6 +30,17 @@ function Player(position, direction, mapManager){
 		}
 	}
 }
+
+Player.prototype.receiveDamage = function(dmg){
+	this.hurt = 5.0;
+	
+	var player = this.mapManager.game.player;
+	player.hp -= dmg;
+	if (player.hp <= 0){
+		this.mapManager.addMessage("Game over!");
+		this.destroyed = true;
+	}
+};
 
 Player.prototype.castAttack = function(target){
 	var game = this.mapManager.game;
@@ -152,13 +166,21 @@ Player.prototype.checkAction = function(){
 			if (object && object.activate)
 				object.activate();
 		}
-	}else if (this.mapManager.game.getMouseButtonPressed()){	// Melee attack
-		var xx = (this.position.a + Math.cos(this.rotation.b)) << 0;
-		var zz = (this.position.c - Math.sin(this.rotation.b)) << 0;
+	}else if (this.mapManager.game.getMouseButtonPressed() && this.attackWait == 0){	// Melee attack
+		var xx = (this.position.a) << 0;
+		var zz = (this.position.c) << 0;
 		
 		var object = this.mapManager.getInstanceAtGrid(vec3(xx, this.position.b, zz));
+		
+		if (!object){
+			xx = (this.position.a + Math.cos(this.rotation.b)) << 0;
+			zz = (this.position.c - Math.sin(this.rotation.b)) << 0;
+			object = this.mapManager.getInstanceAtGrid(vec3(xx, this.position.b, zz));
+		}
+		
 		if (object && object.enemy){
 			this.castAttack(object);
+			this.attackWait = 30;
 		}
 	}
 };
@@ -194,6 +216,8 @@ Player.prototype.doFloat = function(){
 };
 
 Player.prototype.step = function(){
+	if (this.hurt > 0.0) return;
+	
 	this.doFloat();
 	this.movement();
 	this.checkAction();
@@ -223,6 +247,13 @@ Player.prototype.step = function(){
 
 Player.prototype.loop = function(){
 	if (DEBUG.onDebug) return;
+	if (this.destroyed){
+		if (this.cameraHeight > 0.2) this.cameraHeight -= 0.01; 
+		return;
+	}
+	
+	if (this.attackWait > 0) this.attackWait -= 1;
+	if (this.hurt > 0) this.hurt -= 1;
 	
 	this.moved = false;
 	this.step();

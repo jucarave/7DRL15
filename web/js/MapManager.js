@@ -114,7 +114,7 @@ MapManager.prototype.getInstanceAtGrid = function(position){
 	return null;
 };
 
-MapManager.prototype.getInstanceNormal = function(pos, spd, h){
+MapManager.prototype.getInstanceNormal = function(pos, spd, h, self){
 	var p = pos.clone();
 	p.a = p.a + spd.a;
 	p.c = p.c + spd.b;
@@ -123,6 +123,7 @@ MapManager.prototype.getInstanceNormal = function(pos, spd, h){
 	for (var i=0,len=this.instances.length;i<len;i++){
 		var ins = this.instances[i];
 		if (!ins || ins.destroyed) continue;
+		if (ins === self) continue;
 		
 		var xx = Math.abs(ins.position.a - p.a);
 		var zz = Math.abs(ins.position.c - p.c);
@@ -193,6 +194,17 @@ MapManager.prototype.getDoorNormal = function(pos, spd, h, inWater){
 			else return ObjectFactory.normals.left;
 		}
 	}
+};
+
+MapManager.prototype.isSolid = function(x, y){
+	if (!this.map[y]) return false;
+	if (this.map[y][x] === undefined) return false;
+	if (this.map[y][x] === 0) return false;
+	
+	t = this.map[y][x];
+	if (!t.w && !t.dw && !t.wd) return false;
+	
+	return true;
 };
 
 MapManager.prototype.getWallNormal = function(pos, spd, h, inWater){

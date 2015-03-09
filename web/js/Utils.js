@@ -40,6 +40,26 @@ Math.radToDeg = function(radians){
 	return ((radians * this.degRelation) + 720) % 360;
 };
 
+Math.getAngle = function(/*Vec2*/ a, /*Vec2*/ b){
+	var xx = Math.abs(a.a - b.a);
+	var yy = Math.abs(a.c - b.c);
+	
+	var ang = Math.atan2(yy, xx);
+	
+	// Adjust the angle according to both positions
+	if (b.a <= a.a && b.c <= a.c){
+		ang = Math.PI - ang;
+	}else if (b.a <= a.a && b.c > a.c){
+		ang = Math.PI + ang;
+	}else if (b.a > a.a && b.c > a.c){
+		ang = Math.PI2 - ang;
+	}
+	
+	ang = (ang + Math.PI2) % Math.PI2;
+	
+	return ang;
+};
+
 Math.PI_2 = Math.PI / 2;
 Math.PI2 = Math.PI * 2;
 Math.PI3_2 = Math.PI * 3 / 2;

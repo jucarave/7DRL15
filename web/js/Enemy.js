@@ -14,23 +14,10 @@ function Enemy(position, enemy, mapManager){
 	this.destroyed = false;
 	this.hurt = 0.0;
 	
+	this.attackWait = 0.0;
+	
 	this.visible = true;
 }
-
-Enemy.prototype.lookFor = function(){
-	var p = this.mapManager.player.position;
-	
-	var dx = Math.abs(p.a - this.position.a);
-	var dz = Math.abs(p.c - this.position.c);
-	
-	if (!this.target && (dx <= 6 || dz <= 6)){
-		this.target = true;
-		this.animation = "run";
-	}else if (this.target && (dx > 15 || dz > 15)){
-		this.target = false;
-		this.animation = "stand";
-	}
-};
 
 Enemy.prototype.receiveDamage = function(dmg){
 	this.hurt = 5.0;
@@ -42,7 +29,121 @@ Enemy.prototype.receiveDamage = function(dmg){
 	}
 };
 
+Enemy.prototype.lookFor = function(){
+	var player = this.mapManager.player;
+	if (!player.moved) return;
+	var p = player.position;
+	
+	var dx = Math.abs(p.a - this.position.a);
+	var dz = Math.abs(p.c - this.position.c);
+	
+	if (!this.target && (dx <= 4 || dz <= 4)){
+		// Cast a ray towards the player to check if he's on the vision of the creature
+		var rx = this.position.a;
+		var ry = this.position.c;
+		var dir = Math.getAngle(this.position, p);
+		var dx = Math.cos(dir) * 0.3;
+		var dy = -Math.sin(dir) * 0.3;
+		
+		var search = 15;
+		while (search > 0){
+			rx += dx;
+			ry += dy;
+			
+			var cx = (rx << 0);
+			var cy = (ry << 0);
+			
+			if (this.mapManager.isSolid(cx, cy)){
+				return;
+			}else{
+				var px = (p.a << 0);
+				var py = (p.c << 0);
+				
+				if (cx == px && cy == py){
+					this.target = this.mapManager.player;
+					search = 0;
+				}
+			}
+			
+			search -= 1;
+		}
+	}
+};
+
+Enemy.prototype.moveTo = function(xTo, zTo){
+	var movement = vec2(xTo, zTo);
+	var spd = vec2(xTo * 1.5, 0);
+	var fakePos = this.position.clone();
+		
+	for (var i=0;i<2;i++){
+		var normal = this.mapManager.getWallNormal(fakePos, spd, this.cameraHeight, this.onWater);
+		if (!normal){ normal = this.mapManager.getDoorNormal(fakePos, spd, this.cameraHeight, this.onWater); }
+		if (!normal){ normal = this.mapManager.getInstanceNormal(fakePos, spd, this.cameraHeight, this); } 
+		
+		if (normal){
+			normal = normal.clone();
+			var dist = movement.dot(normal);
+			normal.multiply(-dist);
+			movement.sum(normal);
+		}
+		
+		fakePos.a += movement.a;
+		
+		spd = vec2(0, zTo * 1.5);
+	}
+	
+	if (movement.a != 0 || movement.b != 0){
+		this.position.a += movement.a;
+		this.position.c += movement.b;
+	}
+};
+
+Enemy.prototype.attackPlayer = function(player){
+	if (this.hurt > 0.0) return;
+	if (this.attackWait > 0){
+		this.attackWait -= 1;
+		return;
+	}
+	
+	var str = rollDice(this.enemy.stats.str);
+	var dfs = rollDice(this.mapManager.game.player.stats.dfs);
+	
+	var dmg = Math.max(str - dfs, 0);
+	
+	this.mapManager.addMessage(this.enemy.name + " is attacking you!");
+	
+	if (dmg > 0){
+		this.mapManager.addMessage(dmg + " points inflicted");
+		player.receiveDamage(dmg);
+	}else{
+		this.mapManager.addMessage("Blocked!");
+	}
+	
+	this.attackWait = 30;
+};
+
 Enemy.prototype.step = function(){
+	if (this.target){
+		var player = this.mapManager.player;
+		if (player.destroyed) return;
+		var p = player.position;
+		
+		var xx = Math.abs(p.a - this.position.a);
+		var yy = Math.abs(p.c - this.position.c);
+		
+		if (xx <= 1 && yy <=1){
+			this.attackPlayer(player);
+			return;
+		}
+		
+		var dir = Math.getAngle(this.position, p);
+		var dx = Math.cos(dir) * 0.05;
+		var dy = -Math.sin(dir) * 0.05;
+		
+		this.moveTo(dx, dy);
+	}else{
+		this.lookFor();
+	}
 };
 
 Enemy.prototype.getTextureCode = function(){
