@@ -3,6 +3,7 @@ uniform sampler2D uSampler;
 varying mediump vec2 vTextureCoord;
 varying mediump float vVertexIsDark;
 varying mediump float vVertexDepth;
+varying mediump float vPaintInRed;
 
 void main(void){
 	mediump vec4 color = texture2D(uSampler, vec2(vTextureCoord.s, vTextureCoord.t));
@@ -11,6 +12,11 @@ void main(void){
 	
 	if (vVertexIsDark == 1.0){ color.rgb *= 0.5; }
 	color.rgb *= vVertexDepth;
+	
+	if (vPaintInRed == 1.0){
+		color.r = 255.0;
+		color.gb *= 0.0;
+	}
 	
 	gl_FragColor = color;
 }

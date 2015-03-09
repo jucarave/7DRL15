@@ -104,6 +104,7 @@ WebGL.prototype.processShaders = function(){
 	this.uSampler = gl.getUniformLocation(this.shaderProgram, "uSampler");
 	this.uTransformationMatrix = gl.getUniformLocation(this.shaderProgram, "uTransformationMatrix");
 	this.uPerspectiveMatrix = gl.getUniformLocation(this.shaderProgram, "uPerspectiveMatrix");
+	this.uPaintInRed = gl.getUniformLocation(this.shaderProgram, "uPaintInRed");
 };
 
 WebGL.prototype.getShaderCode = function(shader){
@@ -189,6 +190,10 @@ WebGL.prototype.drawObject = function(object, camera, texture){
 		gl.bindBuffer(gl.ARRAY_BUFFER, object.darkBuffer);
 		gl.vertexAttribPointer(this.aVertexIsDark, object.darkBuffer.itemSize, gl.UNSIGNED_BYTE, false, 0, 0);
 	}
+	
+	// Paint the object in red (When hurt for example)
+	var red = (object.paintInRed)? 1.0 : 0.0; 
+	gl.uniform1f(this.uPaintInRed, red);
 	
 	// Set the texture to work with
 	gl.activeTexture(gl.TEXTURE0);

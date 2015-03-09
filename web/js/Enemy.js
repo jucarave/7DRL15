@@ -12,6 +12,7 @@ function Enemy(position, enemy, mapManager){
 	this.imgSpd = 1/4;
 	this.imgInd = 0;
 	this.destroyed = false;
+	this.hurt = 0.0;
 	
 	this.visible = true;
 }
@@ -32,6 +33,8 @@ Enemy.prototype.lookFor = function(){
 };
 
 Enemy.prototype.receiveDamage = function(dmg){
+	this.hurt = 5.0;
+	
 	this.enemy.hp -= dmg;
 	if (this.enemy.hp <= 0){
 		this.mapManager.addMessage(this.enemy.name + " killed");
@@ -52,12 +55,15 @@ Enemy.prototype.getTextureCode = function(){
 
 Enemy.prototype.draw = function(){
 	if (!this.visible) return;
+	if (this.destroyed) return;
+	
 	var game = this.mapManager.game;
 	
 	if (this.billboard && this.textureCoords){
 		this.billboard.texBuffer = this.textureCoords[(this.imgInd << 0)];
 	}
 	
+	this.billboard.paintInRed = (this.hurt > 0);
 	game.drawBillboard(this.position,this.getTextureCode(),this.billboard);
 };
 
@@ -68,6 +74,8 @@ Enemy.prototype.loop = function(){
 			this.imgInd = 0;
 		}
 	}
+	
+	if (--this.hurt < 0){ this.hurt = 0.0; }
 	
 	this.step();
 	
