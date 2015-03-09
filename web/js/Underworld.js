@@ -1,9 +1,9 @@
 /*===================================================
-				 BUGL Source Code
+				 7DRL15 Source Code
 				
 			By Camilo Ramírez (Jucarave)
 			
-					  2014
+					  2015
 ===================================================*/
 
 function Underworld(){
@@ -12,6 +12,7 @@ function Underworld(){
 	this.GL = new WebGL(this.size, $$("divGame"));
 	this.UI = new UI(this.size, $$("divGame"));
 	
+	this.player = new PlayerStats();
 	this.inventory = new Inventory(10);
 	this.console = new Console(10, 10, 300, this);
 	this.font = '10px "Courier"';

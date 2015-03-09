@@ -179,9 +179,9 @@ MapAssembler.prototype.parseMap = function(mapData, GL){
 MapAssembler.prototype.parseObjects = function(mapData){
 	for (var i=0,len=mapData.objects.length;i<len;i++){
 		var o = mapData.objects[i];
-		var x = o.x + 0.5;
+		var x = o.x;
 		var y = o.y;
-		var z = o.z + 0.5;
+		var z = o.z;
 		
 		switch (o.type){
 			case "player":
@@ -190,17 +190,18 @@ MapAssembler.prototype.parseObjects = function(mapData){
 			break;
 			case "item":
 				var item = ItemFactory.getItemByCode(o.item, o.amount);
-				this.mapManager.instances.push(new Item(vec3(x - 0.5, y, z - 0.5), item, this.mapManager));
+				this.mapManager.instances.push(new Item(vec3(x, y, z), item, this.mapManager));
 			break;
 			case "enemy":
-				this.mapManager.instances.push(new Enemy(vec3(x - 0.5, y, z - 0.5), o.enemy, this.mapManager));
+				var enemy = EnemyFactory.getEnemy(o.enemy);
+				this.mapManager.instances.push(new Enemy(vec3(x, y, z), enemy, this.mapManager));
 			break;
 			case "door":
 				var xx = (x << 0) - ((o.dir == "H")? 1 : 0);
 				var zz = (z << 0) - ((o.dir == "V")? 1 : 0);
 				var tile = mapData.map[zz][xx].w;
 				
-				this.mapManager.doors.push(new Door(this.mapManager, vec3(x - 0.5, y, z - 0.5), o.dir, "door1", tile));
+				this.mapManager.doors.push(new Door(this.mapManager, vec3(x, y, z), o.dir, "door1", tile));
 			break;
 		}
 	}

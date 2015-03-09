@@ -512,9 +512,9 @@ var ObjectFactory = {
 					
 					var vertexOff = vertices.length / 3;
 					for (var i=0,len=vv.vertices.length;i<len;i+=3){
-						xx = vv.vertices[i] + x;
+						xx = vv.vertices[i] + x + 0.5;
 						yy = vv.vertices[i+1] + mapData[y][x].y;
-						zz = vv.vertices[i+2] + y;
+						zz = vv.vertices[i+2] + y + 0.5;
 						
 						vertices.push(xx, yy, zz);
 					}

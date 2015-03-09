@@ -28,6 +28,8 @@
 		<script type="text/javascript" src="<?php echo $contextPath; ?>js/Lifter.js<?php echo $ver; ?>"></script>
 		<script type="text/javascript" src="<?php echo $contextPath; ?>js/ItemFactory.js<?php echo $ver; ?>"></script>
 		<script type="text/javascript" src="<?php echo $contextPath; ?>js/Object3D.js<?php echo $ver; ?>"></script>
+		<script type="text/javascript" src="<?php echo $contextPath; ?>js/EnemyFactory.js<?php echo $ver; ?>"></script>
+		<script type="text/javascript" src="<?php echo $contextPath; ?>js/PlayerStats.js<?php echo $ver; ?>"></script>
 		
 		<script type="text/javascript" src="<?php echo $contextPath; ?>js/Debug.js<?php echo $ver; ?>"></script>
 		

@@ -52,7 +52,7 @@ var Matrix = {
 		tMat = this.matrixMultiplication(tMat, this.getTranslation(object.position.a, object.position.b, object.position.c));
 		
 		// Move the object in relation to the camera
-		tMat = this.matrixMultiplication(tMat, this.getTranslation(-camera.position.a + 0.5, -camera.position.b - camera.cameraHeight, -camera.position.c + 0.5));
+		tMat = this.matrixMultiplication(tMat, this.getTranslation(-camera.position.a, -camera.position.b - camera.cameraHeight, -camera.position.c));
 		
 		// Rotate the object in the camera direction (I don't really rotate in the Z axis)
 		tMat = this.matrixMultiplication(tMat, this.getRotationY(camera.rotation.b - Math.PI_2));

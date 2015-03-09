@@ -101,7 +101,12 @@ MapManager.prototype.getInstanceAt = function(position){
 
 MapManager.prototype.getInstanceAtGrid = function(position){
 	for (var i=0,len=this.instances.length;i<len;i++){
-		if (this.instances[i].position.a == position.a && this.instances[i].position.c == position.c){
+		if (this.instances[i].destroyed) continue;
+		
+		var x = Math.floor(this.instances[i].position.a);
+		var z = Math.floor(this.instances[i].position.c);
+		
+		if (x == position.a && z == position.c){
 			return (this.instances[i]);
 		}
 	}
@@ -111,22 +116,35 @@ MapManager.prototype.getInstanceAtGrid = function(position){
 
 MapManager.prototype.getInstanceNormal = function(pos, spd, h){
 	var p = pos.clone();
-	p.a = ((p.a + spd.a) << 0);
-	p.b = (p.b << 0);
-	p.c = ((p.c + spd.b) << 0);
+	p.a = p.a + spd.a;
+	p.c = p.c + spd.b;
 	
-	var ins = this.getInstanceAtGrid(p);
-	if (!ins) return null;
-	
-	if (ins.height){
-		if (pos.b + h < ins.position.b) return null;
-		if (pos.b >= ins.position.b + ins.height) return null;
+	var inst = null, hor;
+	for (var i=0,len=this.instances.length;i<len;i++){
+		var ins = this.instances[i];
+		if (!ins || ins.destroyed) continue;
+		
+		var xx = Math.abs(ins.position.a - p.a);
+		var zz = Math.abs(ins.position.c - p.c);
+		
+		if (xx <= 0.5 && zz <= 0.5){
+			if (pos.a <= ins.position.a - 0.5 || pos.a >= ins.position.a + 0.5) hor = true;
+			else if (pos.c <= ins.position.c - 0.5 || pos.c >= ins.position.c + 0.5) hor = false;  
+			inst = ins;
+			i = len;
+		}
 	}
 	
-	if (pos.a > ins.position.a + 1) return ObjectFactory.normals.right; else
-	if (pos.a < ins.position.a) return ObjectFactory.normals.left; else
-	if (pos.c < ins.position.c) return ObjectFactory.normals.up; else
-	if (pos.c > ins.position.c + 1) return ObjectFactory.normals.down;
+	
+	if (!inst) return null;
+	
+	if (inst.height){
+		if (pos.b + h < inst.position.b) return null;
+		if (pos.b >= inst.position.b + inst.height) return null;
+	}
+	
+	if (hor) return ObjectFactory.normals.right;
+	return ObjectFactory.normals.up;
 };
 
 MapManager.prototype.wallHasNormal = function(x, y, normal){

@@ -28,6 +28,25 @@ function Player(position, direction, mapManager){
 	}
 }
 
+Player.prototype.castAttack = function(target){
+	var game = this.mapManager.game;
+	var ps = game.player;
+	
+	var str = rollDice(ps.stats.str);
+	var dfs = rollDice(target.enemy.stats.dfs);
+	
+	var dmg = Math.max(str - dfs, 0);
+	
+	this.mapManager.addMessage("Attacking to " + target.enemy.name);
+	
+	if (dmg > 0){
+		this.mapManager.addMessage(dmg + " points inflicted");
+		target.receiveDamage(dmg);
+	}else{
+		this.mapManager.addMessage("Blocked!");
+	}
+};
+
 Player.prototype.jogMovement = function(){
 	if (this.onWater){
 		this.jog.a += 0.005 * this.jog.b;
@@ -138,8 +157,9 @@ Player.prototype.checkAction = function(){
 		var zz = (this.position.c - Math.sin(this.rotation.b)) << 0;
 		
 		var object = this.mapManager.getInstanceAtGrid(vec3(xx, this.position.b, zz));
-		if (object && object.enemy)
-			object.destroyed = true;
+		if (object && object.enemy){
+			this.castAttack(object);
+		}
 	}
 };
 

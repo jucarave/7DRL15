@@ -1,10 +1,10 @@
-function Enemy(position, textureBase, mapManager){
+function Enemy(position, enemy, mapManager){
 	this.position = position;
-	this.textureBase = textureBase;
+	this.textureBase = enemy.textureBase;
 	this.mapManager = mapManager;
 	
 	this.animation = "run";
-	this.enemy = true;
+	this.enemy = enemy;
 	this.target = false;
 	this.billboard = ObjectFactory.billboard(vec3(1.0, 1.0, 1.0), vec2(1.0, 1.0), this.mapManager.game.GL.ctx);
 	this.textureCoords = AnimatedTexture.getByNumFrames(4);
@@ -28,6 +28,14 @@ Enemy.prototype.lookFor = function(){
 	}else if (this.target && (dx > 15 || dz > 15)){
 		this.target = false;
 		this.animation = "stand";
+	}
+};
+
+Enemy.prototype.receiveDamage = function(dmg){
+	this.enemy.hp -= dmg;
+	if (this.enemy.hp <= 0){
+		this.mapManager.addMessage(this.enemy.name + " killed");
+		this.destroyed = true;
 	}
 };
 
