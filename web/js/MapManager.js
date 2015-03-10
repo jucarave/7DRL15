@@ -114,6 +114,24 @@ MapManager.prototype.getInstanceAtGrid = function(position){
 	return null;
 };
 
+MapManager.prototype.getInstancesNearest = function(position, distance, hasProperty){
+	var ret = [];
+	for (var i=0,len=this.instances.length;i<len;i++){
+		if (this.instances[i].destroyed) continue;
+		if (hasProperty && !this.instances[i][hasProperty]) continue;
+		
+		var x = this.instances[i].position.a - position.a;
+		var z = this.instances[i].position.c - position.c;
+		
+		if (x <= distance && z <= distance){
+			ret.push(this.instances[i]);
+		}
+	}
+	
+	return ret;
+};
+
+
 MapManager.prototype.getInstanceNormal = function(pos, spd, h, self){
 	var p = pos.clone();
 	p.a = p.a + spd.a;

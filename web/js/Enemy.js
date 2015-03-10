@@ -13,6 +13,7 @@ function Enemy(position, enemy, mapManager){
 	this.imgInd = 0;
 	this.destroyed = false;
 	this.hurt = 0.0;
+	this.targetY = position.b;
 	
 	this.attackWait = 0.0;
 	
@@ -70,6 +71,12 @@ Enemy.prototype.lookFor = function(){
 	}
 };
 
+Enemy.prototype.doVerticalChecks = function(){
+	var pointY = this.mapManager.getYFloor(this.position.a, this.position.c);
+	var py = Math.floor((pointY - this.position.b) * 100) / 100;
+	if (py <= 0.3) this.targetY = pointY;
+};
+
 Enemy.prototype.moveTo = function(xTo, zTo){
 	var movement = vec2(xTo, zTo);
 	var spd = vec2(xTo * 1.5, 0);
@@ -93,6 +100,7 @@ Enemy.prototype.moveTo = function(xTo, zTo){
 	}
 	
 	if (movement.a != 0 || movement.b != 0){
+		this.doVerticalChecks();
 		this.position.a += movement.a;
 		this.position.c += movement.b;
 	}
@@ -174,6 +182,14 @@ Enemy.prototype.loop = function(){
 		if ((this.imgInd << 0) >= this.numFrames){
 			this.imgInd = 0;
 		}
+	}
+	
+	if (this.targetY < this.position.b){
+		this.position.b -= 0.1;
+		if (this.position.b <= this.targetY) this.position.b = this.targetY;
+	}else if (this.targetY > this.position.b){
+		this.position.b += 0.08;
+		if (this.position.b >= this.targetY) this.position.b = this.targetY;
 	}
 	
 	if (--this.hurt < 0){ this.hurt = 0.0; }

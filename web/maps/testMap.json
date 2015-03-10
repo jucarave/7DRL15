@@ -76,6 +76,13 @@
             "y":0,
             "type":"enemy",
             "enemy":"bat"
+        },
+        {
+            "x":5.5,
+            "z":6.3,
+            "y":0,
+            "type":"enemy",
+            "enemy":"bat"
         }
     ],
     "map":

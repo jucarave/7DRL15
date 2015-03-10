@@ -168,20 +168,34 @@ Player.prototype.checkAction = function(){
 				object.activate();
 		}
 	}else if (this.mapManager.game.getMouseButtonPressed() && this.attackWait == 0){	// Melee attack
-		var xx = (this.position.a) << 0;
-		var zz = (this.position.c) << 0;
+		var enemies = this.mapManager.getInstancesNearest(this.position, 1.0, 'enemy');
 		
-		var object = this.mapManager.getInstanceAtGrid(vec3(xx, this.position.b, zz));
+		var xx = this.position.a;
+		var zz = this.position.c;
+		var dx = Math.cos(this.rotation.b) * 0.1;
+		var dz = -Math.sin(this.rotation.b) * 0.1;
 		
-		if (!object){
-			xx = (this.position.a + Math.cos(this.rotation.b)) << 0;
-			zz = (this.position.c - Math.sin(this.rotation.b)) << 0;
-			object = this.mapManager.getInstanceAtGrid(vec3(xx, this.position.b, zz));
-		}
-		
-		if (object && object.enemy){
-			this.castAttack(object);
-			this.attackWait = 30;
+		for (var i=0;i<10;i++){
+			xx += dx;
+			zz += dz;
+			var object;
+			
+			for (var j=0,jlen=enemies.length;j<jlen;j++){
+				var ins = enemies[j];
+				var x = ins.position.a - xx;
+				var z = ins.position.c - zz;
+				
+				if (x < 0.3 && z < 0.3){
+					object = ins;
+					j = jlen;
+				}
+			}
+			
+			if (object && object.enemy){
+				this.castAttack(object);
+				this.attackWait = 30;
+				i = 11;
+			}
 		}
 	}
 };

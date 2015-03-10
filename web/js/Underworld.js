@@ -279,10 +279,10 @@ Underworld.prototype.checkInvControl = function(){
 	var ps = this.player;
 	if (!player || player.destroyed) return;
 	
-	if (this.getKeyPressed(49)){
+	if (this.getKeyPressed(49)){ // 1
 		if (ps.potions > 0){
 			if (ps.hp == ps.mHP){
-				this.console.addSFMessage("Health already at max");
+				this.console.addSFMessage("Health is already at max");
 				return;
 			}
 			
