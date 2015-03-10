@@ -61,16 +61,14 @@
             "z":7.5,
             "y":0,
             "type":"item",
-            "item":"sword",
-            "amount": 1
+            "item":"sword"
         },
         {
             "x":2.5,
             "z":7.5,
             "y":0,
             "type":"item",
-            "item":"hpPotion",
-            "amount": 1
+            "item":"hpPotion"
         },
         {
             "x":6.3,

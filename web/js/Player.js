@@ -37,6 +37,7 @@ Player.prototype.receiveDamage = function(dmg){
 	var player = this.mapManager.game.player;
 	player.hp -= dmg;
 	if (player.hp <= 0){
+		player.hp = 0;
 		this.mapManager.addMessage("Game over!");
 		this.destroyed = true;
 	}

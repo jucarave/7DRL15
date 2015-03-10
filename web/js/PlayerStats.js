@@ -6,4 +6,6 @@ function PlayerStats(){
 		str: '5D3',
 		dfs: '3D3'
 	};
+	
+	this.potions = 0;
 }

@@ -189,7 +189,7 @@ MapAssembler.prototype.parseObjects = function(mapData){
 				DEBUG.player = this.mapManager.player;
 			break;
 			case "item":
-				var item = ItemFactory.getItemByCode(o.item, o.amount);
+				var item = ItemFactory.getItemByCode(o.item);
 				this.mapManager.instances.push(new Item(vec3(x, y, z), item, this.mapManager));
 			break;
 			case "enemy":

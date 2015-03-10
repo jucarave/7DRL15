@@ -60,6 +60,7 @@ Underworld.prototype.loadImages = function(){
 	// Weapons in UI
 	this.images.uiBronzeSword = this.GL.loadImage(cp + "img/UIBronzeSword.png?version=" + version, false);
 	
+	this.images.uiItems = this.GL.loadImage(cp + "img/itemsUI.png?version=" + version, false, 0, 0, {imgNum: 1, imgVNum: 1});
 	this.images.titleScreen = this.GL.loadImage(cp + "img/titleScreen.png?version=" + version, false);
 	this.images.scrollFont = this.GL.loadImage(cp + "img/scrollFontWhite.png?version=" + version, false);
 };
@@ -162,6 +163,18 @@ Underworld.prototype.loadGame = function(){
 	}
 };
 
+Underworld.prototype.addItem = function(item){
+	if (item.type == 'potion'){
+		if (this.player.potions == 16) return false;
+		this.player.potions += 1;
+		return true;
+	}else if (item.type == 'weapon'){
+		return this.inventory.addItem(item);
+	}
+	
+	return false;
+};
+
 Underworld.prototype.drawObject = function(object, texture){
 	var camera = this.map.player;
 	
@@ -228,12 +241,29 @@ Underworld.prototype.drawSlope = function(slopeObject, texId){
 Underworld.prototype.drawUI = function(){
 	var game = this;
 	var player = game.map.player;
+	var ps = this.player;
 	if (!player) return;
 	
 	var ctx = game.UI.ctx;
 	
-	if (!player.destroyed)
-		ctx.drawImage(game.images.uiBronzeSword, 200, 136);
+	if (!player.destroyed) ctx.drawImage(game.images.uiBronzeSword, 200, 136);
+	
+	// Draw health bar
+	var hp = ps.hp / ps.mHP;
+	ctx.fillStyle = "rgb(122,0,0)";
+	ctx.fillRect(8,8,80,4);
+	ctx.fillStyle = "rgb(200,0,0)";
+	ctx.fillRect(8,8,80 * hp,4);
+	
+	// Draw potions
+	var x = 0, y = 0;
+	for (var i=0;i<ps.potions;i++){
+		this.UI.drawSprite(this.images.uiItems, 8 + (x * 10), 16 + (y * 10), 0);
+		if (++x == 8){
+			x = 0;
+			y += 1;
+		}
+	}
 	
 	// If the player is hurt draw a red screen
 	if (player.hurt > 0.0){
@@ -242,6 +272,27 @@ Underworld.prototype.drawUI = function(){
 	}
 	
 	game.console.render(8, 130);
+};
+
+Underworld.prototype.checkInvControl = function(){
+	var player = this.map.player;
+	var ps = this.player;
+	if (!player || player.destroyed) return;
+	
+	if (this.getKeyPressed(49)){
+		if (ps.potions > 0){
+			if (ps.hp == ps.mHP){
+				this.console.addSFMessage("Health already at max");
+				return;
+			}
+			
+			ps.potions -= 1;
+			ps.hp = Math.min(ps.mHP, ps.hp + 5);
+			this.console.addSFMessage("Potion used");
+		}else{
+			this.console.addSFMessage("No more potions left.");
+		}
+	}
 };
 
 Underworld.prototype.loop = function(){
@@ -266,6 +317,7 @@ Underworld.prototype.loop = function(){
 			gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 			game.UI.clear();
 			
+			game.checkInvControl();
 			game.map.loop();
 			
 			game.drawUI();
