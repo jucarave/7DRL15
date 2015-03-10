@@ -40,6 +40,15 @@ Math.radToDeg = function(radians){
 	return ((radians * this.degRelation) + 720) % 360;
 };
 
+Math.iRandom = function(a, b){
+	if (b === undefined){
+		b = a;
+		a = 0;
+	}
+	
+	return a + Math.round(Math.random() * (b - a));
+};
+
 Math.getAngle = function(/*Vec2*/ a, /*Vec2*/ b){
 	var xx = Math.abs(a.a - b.a);
 	var yy = Math.abs(a.c - b.c);
