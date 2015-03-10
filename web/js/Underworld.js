@@ -61,7 +61,6 @@ Underworld.prototype.loadImages = function(){
 	this.images.uiBronzeSword = this.GL.loadImage(cp + "img/UIBronzeSword.png?version=" + version, false);
 	
 	this.images.titleScreen = this.GL.loadImage(cp + "img/titleScreen.png?version=" + version, false);
-	this.images.viewport = this.GL.loadImage(cp + "img/buUI.png?version=" + version, false);
 	this.images.scrollFont = this.GL.loadImage(cp + "img/scrollFontWhite.png?version=" + version, false);
 };
 
@@ -86,7 +85,7 @@ Underworld.prototype.loadTextures = function(){
 	
 	// Items
 	this.objectTex.items = this.GL.loadImage(cp + "img/texItems.png?version=" + version, true, 1, true);
-	
+	this.objectTex.items.buffers = AnimatedTexture.getTextureBufferCoords(2, 1, this.GL.ctx);
 	
 	// Enemies
 	this.objectTex.bat_run = this.GL.loadImage(cp + "img/texBatRun.png?version=" + version, true, 1, true);

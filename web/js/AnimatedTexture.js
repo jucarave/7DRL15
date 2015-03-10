@@ -67,5 +67,26 @@ var AnimatedTexture = {
 		this.itemCoords.push({code: code, buffer: buffer});
 		
 		return buffer;
+	},
+	
+	getTextureBufferCoords: function(xImgNum, yImgNum, gl){
+		var ret = [];
+		var width = 1 / xImgNum;
+		var height = 1 / yImgNum;
+		
+		for (var i=0;i<yImgNum;i++){
+			for (var j=0;j<xImgNum;j++){
+				var x1 = j * width;
+				var y1 = i * height;
+				
+				var x2 = x1 + width;
+				var y2 = y1 + height;
+				
+				var coords = [x2,y2,x1,y2,x2,y1,x1,y1];
+				ret.push(this.prepareBuffer(coords, gl));
+			}
+		}
+		
+		return ret;
 	}
 };

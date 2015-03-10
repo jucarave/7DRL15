@@ -65,6 +65,14 @@
             "amount": 1
         },
         {
+            "x":2.5,
+            "z":7.5,
+            "y":0,
+            "type":"item",
+            "item":"hpPotion",
+            "amount": 1
+        },
+        {
             "x":6.3,
             "z":6.3,
             "y":0,

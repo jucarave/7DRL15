@@ -9,7 +9,7 @@ function Enemy(position, enemy, mapManager){
 	this.billboard = ObjectFactory.billboard(vec3(1.0, 1.0, 1.0), vec2(1.0, 1.0), this.mapManager.game.GL.ctx);
 	this.textureCoords = AnimatedTexture.getByNumFrames(4);
 	this.numFrames = 4;
-	this.imgSpd = 1/4;
+	this.imgSpd = 1/7;
 	this.imgInd = 0;
 	this.destroyed = false;
 	this.hurt = 0.0;

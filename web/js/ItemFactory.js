@@ -1,6 +1,7 @@
 var ItemFactory = {
 	items: {
-		sword: {name: "Bronze sword", tex: "items", subImg: vec2(0,0), stack: false},
+		hpPotion: {name: "Health potion", tex: "items", subImg: 0, stack: true},
+		sword: {name: "Bronze sword", tex: "items", subImg: 1, stack: false}
 	},
 	
 	getItemByCode: function(itemCode, amount){

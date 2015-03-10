@@ -5,7 +5,7 @@ function Player(position, direction, mapManager){
 	
 	this.rotationSpd = vec2(Math.degToRad(1), Math.degToRad(4));
 	this.movementSpd = 0.1;
-	this.cameraHeight = 0.5;
+	this.cameraHeight = 0.7;
 	this.maxVertRotation = Math.degToRad(45);
 	
 	this.targetY = position.b;
@@ -201,7 +201,7 @@ Player.prototype.doVerticalChecks = function(){
 		this.onWater = false;
 	}
 	
-	this.cameraHeight = 0.5 + this.jog.a + this.jog.c;
+	this.cameraHeight = 0.7 + this.jog.a + this.jog.c;
 };
 
 Player.prototype.doFloat = function(){
@@ -209,7 +209,7 @@ Player.prototype.doFloat = function(){
 		this.jog.c += 0.005 * this.jog.d;
 		if (this.jog.c >= 0.03 && this.jog.d == 1) this.jog.d = -1; else
 		if (this.jog.c <= -0.03 && this.jog.d == -1) this.jog.d = 1;
-		this.cameraHeight = 0.5 + this.jog.a + this.jog.c;
+		this.cameraHeight = 0.7 + this.jog.a + this.jog.c;
 	}else{
 		this.jog.c = 0.0;
 	}

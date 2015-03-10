@@ -29,6 +29,8 @@ Item.prototype.draw = function(){
 	if (this.destroyed) return;
 	
 	var game = this.mapManager.game;
+	
+	this.billboard.texBuffer = game.objectTex[this.item.tex].buffers[this.item.subImg];
 	game.drawBillboard(this.position,this.textureCode,this.billboard);
 };
 
