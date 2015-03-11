@@ -272,6 +272,7 @@ Underworld.prototype.drawUI = function(){
 	// Draw scrolls
 	this.UI.drawSprite(this.images.uiItems, 0, 32, 1);
 	
+	
 	// If the player is hurt draw a red screen
 	if (player.hurt > 0.0){
 		ctx.fillStyle = "rgba(255,0,0,0.5)";

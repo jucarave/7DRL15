@@ -14,6 +14,7 @@ function Enemy(position, enemy, mapManager){
 	this.destroyed = false;
 	this.hurt = 0.0;
 	this.targetY = position.b;
+	this.solid = true;
 	
 	this.attackWait = 0.0;
 	
