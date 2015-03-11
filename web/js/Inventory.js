@@ -1,9 +1,7 @@
-function Inventory(limitItems, limitEquip){
+function Inventory(limitItems){
 	this.items = [];
-	this.equipment = [];
 	
 	this.limitItems = limitItems;
-	this.limitEquip = limitEquip;
 }
 
 Inventory.prototype.addItem = function(item){
@@ -25,10 +23,36 @@ Inventory.prototype.addItem = function(item){
 	return true;
 };
 
-
-Inventory.prototype.addEquipment = function(equip){
-	if (this.equip.length == this.limitEquip){ return false; }
+Inventory.prototype.equipItem = function(itemId){
+	var type = this.items[itemId].type;
 	
-	this.equip.push(equip);
-	return true;
+	for (var i=0,len=this.items.length;i<len;i++){
+		var item = this.items[i];
+		
+		if (item.type == type){
+			item.equipped = false;
+		}
+	}
+	
+	this.items[itemId].equipped = true;
+};
+
+Inventory.prototype.getEquippedItem = function(type){
+	for (var i=0,len=this.items.length;i<len;i++){
+		var item = this.items[i];
+		
+		if (item.type == type && item.equipped){
+			return item;
+		}
+	}
+	
+	return null;
+};
+
+Inventory.prototype.getWeapon = function(){
+	return this.getEquippedItem('weapon');
+};
+
+Inventory.prototype.getArmour = function(){
+	return this.getEquippedItem('armour');
 };

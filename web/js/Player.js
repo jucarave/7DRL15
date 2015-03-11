@@ -43,23 +43,23 @@ Player.prototype.receiveDamage = function(dmg){
 	}
 };
 
-Player.prototype.castMissile = function(){
+Player.prototype.castMissile = function(weapon){
 	var game = this.mapManager.game;
 	var ps = game.player;
 	
 	var str = rollDice(ps.stats.str);
-	str += 3; 	// Arrow damage
+	if (weapon) str += rollDice(weapon.str);
 	
-	var missile = new Missile(this.position.clone(), this.rotation.clone(), 'arrow', 'enemy', this.mapManager);
+	var missile = new Missile(this.position.clone(), this.rotation.clone(), weapon.code, 'enemy', this.mapManager);
 	missile.str = str;
 	
-	this.mapManager.addMessage("Shooting arrow");
+	this.mapManager.addMessage("Shooting " + weapon.subItemName);
 	this.mapManager.instances.push(missile);
 	this.attackWait = 30;
 	this.moved = true;
 };
 
-Player.prototype.meleeAttack = function(){
+Player.prototype.meleeAttack = function(weapon){
 	var enemies = this.mapManager.getInstancesNearest(this.position, 1.0, 'enemy');
 		
 	var xx = this.position.a;
@@ -84,7 +84,7 @@ Player.prototype.meleeAttack = function(){
 		}
 		
 		if (object && object.enemy){
-			this.castAttack(object);
+			this.castAttack(object, weapon);
 			this.attackWait = 30;
 			this.moved = true;
 			i = 11;
@@ -92,12 +92,14 @@ Player.prototype.meleeAttack = function(){
 	}
 };
 
-Player.prototype.castAttack = function(target){
+Player.prototype.castAttack = function(target, weapon){
 	var game = this.mapManager.game;
 	var ps = game.player;
 	
 	var str = rollDice(ps.stats.str);
 	var dfs = rollDice(target.enemy.stats.dfs);
+	
+	if (weapon) str += rollDice(weapon.str);
 	
 	var dmg = Math.max(str - dfs, 0);
 	
@@ -202,7 +204,8 @@ Player.prototype.movement = function(){
 };
 
 Player.prototype.checkAction = function(){
-	if (this.mapManager.game.getKeyPressed(69)){ // E Key
+	var game = this.mapManager.game;
+	if (game.getKeyPressed(69)){ // E Key
 		var xx = (this.position.a + Math.cos(this.rotation.b) * 0.6) << 0;
 		var zz = (this.position.c - Math.sin(this.rotation.b) * 0.6) << 0;
 		
@@ -216,9 +219,14 @@ Player.prototype.checkAction = function(){
 			if (object && object.activate)
 				object.activate();
 		}
-	}else if (this.mapManager.game.getMouseButtonPressed() && this.attackWait == 0){	// Melee attack
-		// this.meleeAttack();
-		this.castMissile();
+	}else if (game.getMouseButtonPressed() && this.attackWait == 0){	// Melee attack
+		var weapon = game.inventory.getWeapon();
+		
+		if (!weapon || !weapon.ranged){ 
+			this.meleeAttack(weapon);
+		}else{
+			this.castMissile(weapon);
+		}
 	}
 };
 

@@ -18,7 +18,11 @@ Item.prototype.activate = function(){
 	var game = this.mapManager.game;
 	if (this.item.isItem){
 		if (game.addItem(this.item)){
-			mm.addMessage(this.item.name + " picked.");
+			var stat = '';
+			if (this.item.status !== undefined)
+				stat = ItemFactory.getStatusName(this.item.status) + ' ';
+			
+			mm.addMessage(stat + this.item.name + " picked.");
 			this.destroyed = true;
 		}else{
 			mm.addMessage("You can't carry any more items");

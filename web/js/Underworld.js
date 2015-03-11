@@ -14,6 +14,7 @@ function Underworld(){
 	
 	this.player = new PlayerStats();
 	this.inventory = new Inventory(10);
+	this.magicScrolls = [0,0,0];
 	this.console = new Console(10, 10, 300, this);
 	this.font = '10px "Courier"';
 	
@@ -172,7 +173,14 @@ Underworld.prototype.addItem = function(item){
 		if (this.player.potions == 16) return false;
 		this.player.potions += 1;
 		return true;
-	}else if (item.type == 'weapon'){
+	}else if (item.type.indexOf('magic_') == 0){
+		var ind = parseInt(item.type.replace('magic_', ''), 10) - 1;
+		
+		if (this.magicScrolls[ind] == 10) return false;
+		this.magicScrolls[ind] += 1;
+		
+		return true;
+	}else if (item.type == 'weapon' || item.type == 'armour'){
 		return this.inventory.addItem(item);
 	}
 	
@@ -291,7 +299,7 @@ Underworld.prototype.checkInvControl = function(){
 	var ps = this.player;
 	if (!player || player.destroyed) return;
 	
-	if (this.getKeyPressed(49)){ // 1
+	if (this.getKeyPressed(49)){ // 1: Use potion
 		if (ps.potions > 0){
 			if (ps.hp == ps.mHP){
 				this.console.addSFMessage("Health is already at max");

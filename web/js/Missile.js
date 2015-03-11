@@ -10,10 +10,30 @@ function Missile(position, rotation, type, target, mapManager){
 	this.destroyed = false;
 	this.solid = false;
 	this.str = 0;
+	this.speed = 0.3;
 	
 	var subImg = 0;
 	switch (type){
-		case 'arrow': subImg = 0; break;
+		case 'sling': 
+			subImg = 0;
+			this.speed = 0.2; 
+		break;
+		case 'bow': 
+			subImg = 1;
+			this.speed = 0.4; 
+		break;
+		case 'crossbow': 
+			subImg = 2; 
+			this.speed = 0.5;
+		break;
+		case 'magicMissile': 
+			subImg = 3; 
+			this.speed = 0.5;
+		break;
+		case 'fireExplosion':
+			subImg = 4; 
+			this.speed = 0.6;
+		break;
 	}
 	
 	this.textureCode = 'bolts';
@@ -72,10 +92,9 @@ Missile.prototype.checkCollision = function(){
 };
 
 Missile.prototype.step = function(){
-	console.log("Alive");
-	var xTo = Math.cos(this.rotation.b) * 0.3;
-	var yTo = Math.sin(this.rotation.a) * 0.3;
-	var zTo = -Math.sin(this.rotation.b) * 0.3;
+	var xTo = Math.cos(this.rotation.b) * this.speed;
+	var yTo = Math.sin(this.rotation.a) * this.speed;
+	var zTo = -Math.sin(this.rotation.b) * this.speed;
 	
 	this.position.sum(vec3(xTo, yTo, zTo));
 	
