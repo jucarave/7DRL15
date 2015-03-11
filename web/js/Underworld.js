@@ -258,7 +258,7 @@ Underworld.prototype.drawUI = function(){
 	
 	var ctx = game.UI.ctx;
 	
-	if (!player.destroyed) ctx.drawImage(game.images.uiBronzeSword, 200, 136);
+	//if (!player.destroyed) ctx.drawImage(game.images.uiBronzeSword, 200, 136);
 	
 	// Draw health bar
 	var hp = ps.hp / ps.mHP;

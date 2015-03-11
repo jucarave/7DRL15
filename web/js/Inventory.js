@@ -56,3 +56,17 @@ Inventory.prototype.getWeapon = function(){
 Inventory.prototype.getArmour = function(){
 	return this.getEquippedItem('armour');
 };
+
+Inventory.prototype.destroyItem = function(item){
+	item.status = 0.0;
+	item.equipped = false;
+	
+	for (var i=0,len=this.items.length;i<len;i++){
+		var it = this.items[i];
+		
+		if (it === item){
+			this.items.splice(i, 1);
+			return;
+		}
+	}
+}

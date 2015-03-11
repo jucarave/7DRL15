@@ -48,10 +48,11 @@ Player.prototype.castMissile = function(weapon){
 	var ps = game.player;
 	
 	var str = rollDice(ps.stats.str);
-	if (weapon) str += rollDice(weapon.str);
+	if (weapon) str += rollDice(weapon.str) * weapon.status;
 	
 	var missile = new Missile(this.position.clone(), this.rotation.clone(), weapon.code, 'enemy', this.mapManager);
 	missile.str = str;
+	weapon.status *= (1.0 - weapon.wear);
 	
 	this.mapManager.addMessage("Shooting " + weapon.subItemName);
 	this.mapManager.instances.push(missile);
@@ -99,7 +100,7 @@ Player.prototype.castAttack = function(target, weapon){
 	var str = rollDice(ps.stats.str);
 	var dfs = rollDice(target.enemy.stats.dfs);
 	
-	if (weapon) str += rollDice(weapon.str);
+	if (weapon) str += rollDice(weapon.str) * weapon.status;
 	
 	var dmg = Math.max(str - dfs, 0);
 	
@@ -111,6 +112,8 @@ Player.prototype.castAttack = function(target, weapon){
 	}else{
 		this.mapManager.addMessage("Blocked!");
 	}
+	
+	weapon.status *= (1.0 - weapon.wear);
 };
 
 Player.prototype.jogMovement = function(){
@@ -224,8 +227,13 @@ Player.prototype.checkAction = function(){
 		
 		if (!weapon || !weapon.ranged){ 
 			this.meleeAttack(weapon);
-		}else{
+		}else if (weapon && weapon.ranged){
 			this.castMissile(weapon);
+		}
+		
+		if (weapon && weapon.status < 0.05){
+			this.mapManager.game.inventory.destroyItem(weapon);
+			this.mapManager.addMessage(weapon.name + " damaged!");
 		}
 	}
 };
