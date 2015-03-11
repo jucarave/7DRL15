@@ -5,11 +5,12 @@ function Item(position, item, mapManager){
 	this.item = item;
 	this.mapManager = mapManager;
 	this.billboard = ObjectFactory.billboard(vec3(1.0,1.0,1.0), vec2(1.0, 1.0), gl);
+	this.billboard.texBuffer = mapManager.game.objectTex[this.item.tex].buffers[this.item.subImg];
 	
 	this.textureCode = item.tex;
-	this.billboard.texBuffer = AnimatedTexture.parseItemTexCoord(item.subImg, mapManager.game.getObjectTexture(item.tex), gl);
 	
 	this.destroyed = false;
+	this.solid = false;
 }
 
 Item.prototype.activate = function(){
@@ -29,8 +30,6 @@ Item.prototype.draw = function(){
 	if (this.destroyed) return;
 	
 	var game = this.mapManager.game;
-	
-	this.billboard.texBuffer = game.objectTex[this.item.tex].buffers[this.item.subImg];
 	game.drawBillboard(this.position,this.textureCode,this.billboard);
 };
 

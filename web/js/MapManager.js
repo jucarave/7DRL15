@@ -140,7 +140,7 @@ MapManager.prototype.getInstanceNormal = function(pos, spd, h, self){
 	var inst = null, hor;
 	for (var i=0,len=this.instances.length;i<len;i++){
 		var ins = this.instances[i];
-		if (!ins || ins.destroyed) continue;
+		if (!ins || ins.destroyed || !ins.solid) continue;
 		if (ins === self) continue;
 		
 		var xx = Math.abs(ins.position.a - p.a);

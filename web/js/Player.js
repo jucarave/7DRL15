@@ -43,6 +43,55 @@ Player.prototype.receiveDamage = function(dmg){
 	}
 };
 
+Player.prototype.castMissile = function(){
+	var game = this.mapManager.game;
+	var ps = game.player;
+	
+	var str = rollDice(ps.stats.str);
+	str += 3; 	// Arrow damage
+	
+	var missile = new Missile(this.position.clone(), this.rotation.clone(), 'arrow', 'enemy', this.mapManager);
+	missile.str = str;
+	
+	this.mapManager.addMessage("Shooting arrow");
+	this.mapManager.instances.push(missile);
+	this.attackWait = 30;
+	this.moved = true;
+};
+
+Player.prototype.meleeAttack = function(){
+	var enemies = this.mapManager.getInstancesNearest(this.position, 1.0, 'enemy');
+		
+	var xx = this.position.a;
+	var zz = this.position.c;
+	var dx = Math.cos(this.rotation.b) * 0.1;
+	var dz = -Math.sin(this.rotation.b) * 0.1;
+	
+	for (var i=0;i<10;i++){
+		xx += dx;
+		zz += dz;
+		var object;
+		
+		for (var j=0,jlen=enemies.length;j<jlen;j++){
+			var ins = enemies[j];
+			var x = ins.position.a - xx;
+			var z = ins.position.c - zz;
+			
+			if (x < 0.3 && z < 0.3){
+				object = ins;
+				j = jlen;
+			}
+		}
+		
+		if (object && object.enemy){
+			this.castAttack(object);
+			this.attackWait = 30;
+			this.moved = true;
+			i = 11;
+		}
+	}
+};
+
 Player.prototype.castAttack = function(target){
 	var game = this.mapManager.game;
 	var ps = game.player;
@@ -168,35 +217,8 @@ Player.prototype.checkAction = function(){
 				object.activate();
 		}
 	}else if (this.mapManager.game.getMouseButtonPressed() && this.attackWait == 0){	// Melee attack
-		var enemies = this.mapManager.getInstancesNearest(this.position, 1.0, 'enemy');
-		
-		var xx = this.position.a;
-		var zz = this.position.c;
-		var dx = Math.cos(this.rotation.b) * 0.1;
-		var dz = -Math.sin(this.rotation.b) * 0.1;
-		
-		for (var i=0;i<10;i++){
-			xx += dx;
-			zz += dz;
-			var object;
-			
-			for (var j=0,jlen=enemies.length;j<jlen;j++){
-				var ins = enemies[j];
-				var x = ins.position.a - xx;
-				var z = ins.position.c - zz;
-				
-				if (x < 0.3 && z < 0.3){
-					object = ins;
-					j = jlen;
-				}
-			}
-			
-			if (object && object.enemy){
-				this.castAttack(object);
-				this.attackWait = 30;
-				i = 11;
-			}
-		}
+		// this.meleeAttack();
+		this.castMissile();
 	}
 };
 

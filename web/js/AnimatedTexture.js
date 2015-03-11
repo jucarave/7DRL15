@@ -47,28 +47,6 @@ var AnimatedTexture = {
 		if (numFrames == 4) return this._4Frames;
 	},
 	
-	parseItemTexCoord: function(subImg, image, gl){
-		var wx, wy, ww, wh;
-		ww = 1 / image.imgNum;
-		wh = 1 / image.vImgNum;
-		
-		wx = ww * subImg.a;
-		wy = wh * subImg.b;
-		ww = wx + ww;
-		wh = wy + wh;
-		
-		var code = "si_" + wx + "_" + wy + "_" + ww + "_" + wh;
-		for (var i=0,len=this.itemCoords.length;i<len;i++){
-			if (this.itemCoords[i].code == code)
-				return this.itemCoords[i].buffer;
-		}
-		
-		var buffer = this.prepareBuffer([ww,wh,wx,wh,ww,wy,wx,wy], gl);
-		this.itemCoords.push({code: code, buffer: buffer});
-		
-		return buffer;
-	},
-	
 	getTextureBufferCoords: function(xImgNum, yImgNum, gl){
 		var ret = [];
 		var width = 1 / xImgNum;

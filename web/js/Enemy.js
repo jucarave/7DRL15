@@ -25,6 +25,7 @@ Enemy.prototype.receiveDamage = function(dmg){
 	
 	this.enemy.hp -= dmg;
 	if (this.enemy.hp <= 0){
+		this.mapManager.game.addExperience(this.enemy.stats.exp);
 		this.mapManager.addMessage(this.enemy.name + " killed");
 		this.destroyed = true;
 	}

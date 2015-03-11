@@ -88,6 +88,10 @@ Underworld.prototype.loadTextures = function(){
 	this.objectTex.items = this.GL.loadImage(cp + "img/texItems.png?version=" + version, true, 1, true);
 	this.objectTex.items.buffers = AnimatedTexture.getTextureBufferCoords(2, 1, this.GL.ctx);
 	
+	// Magic Bolts
+	this.objectTex.bolts = this.GL.loadImage(cp + "img/texBolts.png?version=" + version, true, 1, true);
+	this.objectTex.bolts.buffers = AnimatedTexture.getTextureBufferCoords(1, 1, this.GL.ctx);
+	
 	// Enemies
 	this.objectTex.bat_run = this.GL.loadImage(cp + "img/texBatRun.png?version=" + version, true, 1, true);
 	
@@ -272,6 +276,10 @@ Underworld.prototype.drawUI = function(){
 	}
 	
 	game.console.render(8, 130);
+};
+
+Underworld.prototype.addExperience = function(expPoints){
+	this.player.addExperience(expPoints, this.console);
 };
 
 Underworld.prototype.checkInvControl = function(){
