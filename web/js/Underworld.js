@@ -60,7 +60,7 @@ Underworld.prototype.loadImages = function(){
 	// Weapons in UI
 	this.images.uiBronzeSword = this.GL.loadImage(cp + "img/UIBronzeSword.png?version=" + version, false);
 	
-	this.images.uiItems = this.GL.loadImage(cp + "img/itemsUI.png?version=" + version, false, 0, 0, {imgNum: 1, imgVNum: 1});
+	this.images.uiItems = this.GL.loadImage(cp + "img/itemsUI.png?version=" + version, false, 0, 0, {imgNum: 2, imgVNum: 1});
 	this.images.titleScreen = this.GL.loadImage(cp + "img/titleScreen.png?version=" + version, false);
 	this.images.scrollFont = this.GL.loadImage(cp + "img/scrollFontWhite.png?version=" + version, false);
 };
@@ -262,12 +262,15 @@ Underworld.prototype.drawUI = function(){
 	// Draw potions
 	var x = 0, y = 0;
 	for (var i=0;i<ps.potions;i++){
-		this.UI.drawSprite(this.images.uiItems, 8 + (x * 10), 16 + (y * 10), 0);
+		this.UI.drawSprite(this.images.uiItems, -4 + (x * 10), 2 + (y * 10), 0);
 		if (++x == 8){
 			x = 0;
 			y += 1;
 		}
 	}
+	
+	// Draw scrolls
+	this.UI.drawSprite(this.images.uiItems, 0, 32, 1);
 	
 	// If the player is hurt draw a red screen
 	if (player.hurt > 0.0){
