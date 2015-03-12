@@ -28,6 +28,7 @@ function Underworld(){
 	this.textures = {wall: [], floor: [], ceil: []};
 	this.objectTex = {};
 	this.models = {};
+	this.protection = 0;
 	
 	this.fps = (1000 / 30) << 0;
 	this.lastT = 0;
@@ -283,6 +284,9 @@ Underworld.prototype.drawUI = function(){
 	if (player.hurt > 0.0){
 		ctx.fillStyle = "rgba(255,0,0,0.5)";
 		ctx.fillRect(0,0,ctx.width,ctx.height);
+	}else if (this.protection >= 0.0){	// If the player has protection then draw it slightly blue
+		ctx.fillStyle = "rgba(40,40,255,0.2)";
+		ctx.fillRect(0,0,ctx.width,ctx.height);
 	}
 	
 	game.console.render(8, 130);
@@ -310,7 +314,21 @@ Underworld.prototype.checkInvControl = function(){
 		}else{
 			this.console.addSFMessage("No more potions left.");
 		}
+	}else if (this.getKeyPressed(50)){	// 2: Use protection
+		var ms = this.magicScrolls[0];
+		if (ms > 0){
+			this.magicScrolls[0] -= 1;
+			
+			this.protection = 200;
+			this.console.addSFMessage("Protection!");
+		}else{
+			this.console.addSFMessage("No more protection scrolls left.");
+		}
 	}
+};
+
+Underworld.prototype.globalLoop = function(){
+	if (this.protection > 0){ this.protection -= 1; }
 };
 
 Underworld.prototype.loop = function(){
@@ -334,6 +352,7 @@ Underworld.prototype.loop = function(){
 			gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 			game.UI.clear();
 			
+			game.map.globalLoop();
 			game.checkInvControl();
 			game.map.loop();
 			

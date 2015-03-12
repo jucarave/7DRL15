@@ -118,6 +118,11 @@ Enemy.prototype.attackPlayer = function(player){
 	var str = rollDice(this.enemy.stats.str);
 	var dfs = rollDice(this.mapManager.game.player.stats.dfs);
 	
+	// Check if the player has the protection spell
+	if (this.mapManager.game.protection > 0){
+		dfs += 15;
+	}
+	
 	var dmg = Math.max(str - dfs, 0);
 	
 	this.mapManager.addMessage(this.enemy.name + " is attacking you!");
