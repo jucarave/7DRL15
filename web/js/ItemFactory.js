@@ -2,9 +2,9 @@ var ItemFactory = {
 	items: {
 		// Items
 		hpPotion: {name: "Health potion", tex: "items", subImg: 0, type: 'potion'},
-		protection: {name: "Protection", tex: "items", subImg: 1, type: 'magic_1'},
-		magicMissile: {name: "Magic missile", tex: "items", subImg: 2, type: 'magic_2', str: '4D4'},
-		fireExplosion: {name: "Fire explosion", tex: "items", subImg: 3, type: 'magic_3', str: '5D4'},
+		protection: {name: "Scroll of protection", tex: "items", subImg: 1, type: 'magic_1'},
+		magicMissile: {name: "Scroll of magic missile", tex: "items", subImg: 2, type: 'magic_2', str: '4D4'},
+		fireExplosion: {name: "Scroll of fire explosion", tex: "items", subImg: 3, type: 'magic_3', str: '5D4'},
 		
 		// Weapons
 		staff: {name: "Staff", tex: "items", subImg: 4, type: 'weapon', str: '2D1', wear: 0.02},

@@ -52,7 +52,7 @@ Player.prototype.castMissile = function(weapon){
 	
 	var missile = new Missile(this.position.clone(), this.rotation.clone(), weapon.code, 'enemy', this.mapManager);
 	missile.str = str;
-	weapon.status *= (1.0 - weapon.wear);
+	if (weapon) weapon.status *= (1.0 - weapon.wear);
 	
 	this.mapManager.addMessage("Shooting " + weapon.subItemName);
 	this.mapManager.instances.push(missile);
@@ -113,7 +113,7 @@ Player.prototype.castAttack = function(target, weapon){
 		this.mapManager.addMessage("Blocked!");
 	}
 	
-	weapon.status *= (1.0 - weapon.wear);
+	if (weapon) weapon.status *= (1.0 - weapon.wear);
 };
 
 Player.prototype.jogMovement = function(){

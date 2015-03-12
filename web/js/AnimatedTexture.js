@@ -55,7 +55,7 @@ var AnimatedTexture = {
 		for (var i=0;i<yImgNum;i++){
 			for (var j=0;j<xImgNum;j++){
 				var x1 = j * width;
-				var y1 = i * height;
+				var y1 = 1 - i * height - height;
 				
 				var x2 = x1 + width;
 				var y2 = y1 + height;

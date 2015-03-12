@@ -87,7 +87,7 @@ Underworld.prototype.loadTextures = function(){
 	
 	// Items
 	this.objectTex.items = this.GL.loadImage(cp + "img/texItems.png?version=" + version, true, 1, true);
-	this.objectTex.items.buffers = AnimatedTexture.getTextureBufferCoords(2, 1, this.GL.ctx);
+	this.objectTex.items.buffers = AnimatedTexture.getTextureBufferCoords(8, 2, this.GL.ctx);
 	
 	// Magic Bolts
 	this.objectTex.bolts = this.GL.loadImage(cp + "img/texBolts.png?version=" + version, true, 1, true);
