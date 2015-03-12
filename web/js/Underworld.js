@@ -95,8 +95,6 @@ Underworld.prototype.loadTextures = function(){
 	
 	// Enemies
 	this.objectTex.bat_run = this.GL.loadImage(cp + "img/texBatRun.png?version=" + version, true, 1, true);
-	
-	DEBUG.setTextures(this.textures);
 };
 
 Underworld.prototype.postLoading = function(){
@@ -323,7 +321,6 @@ Underworld.prototype.loop = function(){
 	
 	// Limit the game to the base speed of the game
 	if (dT > game.fps){
-		game.resetDebugParameters();
 		game.lastT = now - (dT % game.fps);
 		
 		if (!game.GL.active){
@@ -341,8 +338,6 @@ Underworld.prototype.loop = function(){
 			game.map.loop();
 			
 			game.drawUI();
-			
-			game.debugLoop(now);
 		}
 		
 		if (this.scene != null){
@@ -385,7 +380,6 @@ addEvent(window, "load", function(){
 	addEvent(document, "keydown", function(e){
 		if (window.event) e = window.event;
 		
-		DEBUG.keyDown(e.keyCode);
 		if (e.keyCode == 8){
 			e.preventDefault();
 			e.cancelBubble = true;

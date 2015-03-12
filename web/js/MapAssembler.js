@@ -186,7 +186,6 @@ MapAssembler.prototype.parseObjects = function(mapData){
 		switch (o.type){
 			case "player":
 				this.mapManager.player = new Player(vec3(x, y, z), vec3(0.0, o.dir * Math.PI_2, 0.0), this.mapManager);
-				DEBUG.player = this.mapManager.player;
 			break;
 			case "item":
 				var item = ItemFactory.getItemByCode(o.item);

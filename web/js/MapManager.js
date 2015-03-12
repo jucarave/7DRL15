@@ -316,7 +316,6 @@ MapManager.prototype.drawMap = function(){
 		if (x < mtd.boundaries[0] || x > mtd.boundaries[2] || y < mtd.boundaries[1] || y > mtd.boundaries[3])
 			continue;
 		
-		DEBUG.sectorsCount++;
 		if (mtd.type == "B"){ // Blocks
 			this.game.drawBlock(mtd, mtd.texInd);
 		}else if (mtd.type == "F"){ // Floors
@@ -434,7 +433,6 @@ MapManager.prototype.loop = function(){
 			continue;
 		}
 		
-		DEBUG.instancesCount++;
 		ins.loop();
 	}
 	
@@ -447,7 +445,6 @@ MapManager.prototype.loop = function(){
 		
 		if (xx > 6 || zz > 6) continue;
 		
-		DEBUG.instancesCount++;
 		ins.loop();
 		this.game.drawDoor(ins.position.a, ins.position.b, ins.position.c, ins.rotation, ins.textureCode);
 		this.game.drawDoorWall(ins.doorPosition.a, ins.doorPosition.b, ins.doorPosition.c, ins.wallTexture, (ins.dir == "V"));
