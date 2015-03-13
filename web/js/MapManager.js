@@ -378,15 +378,15 @@ MapManager.prototype.getInstancesToDraw = function(){
 			continue;
 		}
 		
-		var xx = Math.abs(ins.position.a - (this.player.position.a - 0.5));
-		var zz = Math.abs(ins.position.c - (this.player.position.c - 0.5));
+		var xx = Math.abs(ins.position.a - this.player.position.a);
+		var zz = Math.abs(ins.position.c - this.player.position.c);
 		
 		if (xx > 6 || zz > 6) continue;
 		
 		var dist = xx * xx + zz * zz;
 		var added = false;
 		for (var j=0,jlen=this.orderInstances.length;j<jlen;j++){
-			if (dist >= this.orderInstances[j].dist){
+			if (dist > this.orderInstances[j].dist){
 				this.orderInstances.splice(j,0,{ins: ins, dist: dist});
 				added = true;
 				j = jlen;
@@ -420,7 +420,7 @@ MapManager.prototype.loop = function(){
 	
 	this.drawMap();
 	
-	if (this.player.moved){ this.getInstancesToDraw(); }
+	this.getInstancesToDraw();
 	
 	for (var i=0,len=this.orderInstances.length;i<len;i++){
 		var ins = this.orderInstances[i];

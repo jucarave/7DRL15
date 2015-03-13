@@ -68,7 +68,21 @@
             "z":6.3,
             "y":0,
             "type":"enemy",
-            "enemy":"bat"
+            "enemy":"rat"
+        },
+        {
+            "x":5.5,
+            "z":5.5,
+            "y":0,
+            "type":"enemy",
+            "enemy":"spider"
+        },
+        {
+            "x":5.5,
+            "z":7.5,
+            "y":0,
+            "type":"enemy",
+            "enemy":"troll"
         },
         {
             "x":1.5,

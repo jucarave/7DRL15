@@ -96,6 +96,9 @@ Underworld.prototype.loadTextures = function(){
 	
 	// Enemies
 	this.objectTex.bat_run = this.GL.loadImage(cp + "img/texBatRun.png?version=" + version, true, 1, true);
+	this.objectTex.rat_run = this.GL.loadImage(cp + "img/texRatRun.png?version=" + version, true, 2, true);
+	this.objectTex.spider_run = this.GL.loadImage(cp + "img/texSpiderRun.png?version=" + version, true, 3, true);
+	this.objectTex.troll_run = this.GL.loadImage(cp + "img/texTrollRun.png?version=" + version, true, 4, true);
 };
 
 Underworld.prototype.postLoading = function(){
