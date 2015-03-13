@@ -2,6 +2,8 @@ function PlayerStats(){
 	this.hp = 10;
 	this.mHP = 10;
 	
+	this.virtue = null;
+	
 	this.lvl = 1;
 	this.exp = 0;
 	

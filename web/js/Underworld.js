@@ -64,6 +64,7 @@ Underworld.prototype.loadImages = function(){
 	
 	this.images.uiItems = this.GL.loadImage(cp + "img/itemsUI.png?version=" + version, false, 0, 0, {imgNum: 2, imgVNum: 1});
 	this.images.titleScreen = this.GL.loadImage(cp + "img/titleScreen.png?version=" + version, false);
+	this.images.selectClass = this.GL.loadImage(cp + "img/selectClass.png?version=" + version, false);
 	this.images.scrollFont = this.GL.loadImage(cp + "img/scrollFontWhite.png?version=" + version, false);
 };
 
@@ -163,7 +164,7 @@ Underworld.prototype.loadGame = function(){
 		game.postLoading();
 		game.printGreet();
 		
-		game.loadMap("test");
+		game.scene = new TitleScreen(this);
 		game.loop();
 	}else{
 		requestAnimFrame(function(){ game.loadGame(); });
@@ -426,7 +427,8 @@ addEvent(window, "load", function(){
 	addEvent(canvas, "mousedown", function(e){
 		if (window.event) e = window.event;
 		
-		canvas.requestPointerLock();
+		if (game.map != null)
+			canvas.requestPointerLock();
 		
 		game.mouse.a = Math.round((e.clientX - canvas.offsetLeft) / game.UI.scale);
 		game.mouse.b = Math.round((e.clientY - canvas.offsetTop) / game.UI.scale);
