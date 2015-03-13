@@ -181,20 +181,6 @@
             "y":0,
             "type":"item",
             "item":"chain"
-        },
-        {
-            "x":2.5,
-            "z":14.5,
-            "y":0,
-            "type":"item",
-            "item":"plate"
-        },
-        {
-            "x":3.5,
-            "z":14.5,
-            "y":0,
-            "type":"item",
-            "item":"mystic"
         }
     ],
     "map":

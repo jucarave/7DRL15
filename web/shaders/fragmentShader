@@ -14,7 +14,6 @@ void main(void){
 	color.rgb *= vVertexDepth;
 	
 	if (vPaintInRed == 1.0){
-		color.r = 255.0;
 		color.gb *= 0.0;
 	}
 	

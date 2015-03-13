@@ -178,8 +178,6 @@ WebGL.prototype.parseTexture = function(img){
 WebGL.prototype.drawObject = function(object, camera, texture){
 	var gl = this.ctx;
 	
-	window.DEBUG.trianglesCount += object.indicesBuffer.numItems / 3;
-
 	// Pass the vertices data to the shader
 	gl.bindBuffer(gl.ARRAY_BUFFER, object.vertexBuffer);
 	gl.vertexAttribPointer(this.aVertexPosition, object.vertexBuffer.itemSize, gl.FLOAT, false, 0, 0);

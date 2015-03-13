@@ -128,7 +128,7 @@ Underworld.prototype.getUI = function(){
 };
 
 Underworld.prototype.getTextureById = function(textureId, type){
-	if (!this.textures[type][textureId]) throw "Invalid textureId: " + textureId;
+	if (!this.textures[type][textureId]) textureId = 1;
 	
 	return this.textures[type][textureId];
 };
@@ -284,7 +284,7 @@ Underworld.prototype.drawUI = function(){
 	if (player.hurt > 0.0){
 		ctx.fillStyle = "rgba(255,0,0,0.5)";
 		ctx.fillRect(0,0,ctx.width,ctx.height);
-	}else if (this.protection >= 0.0){	// If the player has protection then draw it slightly blue
+	}else if (this.protection > 0.0){	// If the player has protection then draw it slightly blue
 		ctx.fillStyle = "rgba(40,40,255,0.2)";
 		ctx.fillRect(0,0,ctx.width,ctx.height);
 	}
@@ -319,7 +319,7 @@ Underworld.prototype.checkInvControl = function(){
 		if (ms > 0){
 			this.magicScrolls[0] -= 1;
 			
-			this.protection = 200;
+			this.protection = 400;
 			this.console.addSFMessage("Protection!");
 		}else{
 			this.console.addSFMessage("No more protection scrolls left.");
@@ -352,7 +352,7 @@ Underworld.prototype.loop = function(){
 			gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 			game.UI.clear();
 			
-			game.map.globalLoop();
+			game.globalLoop();
 			game.checkInvControl();
 			game.map.loop();
 			
