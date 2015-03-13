@@ -144,9 +144,9 @@ Underworld.prototype.getObjectTexture = function(textureCode){
 	return this.objectTex[textureCode];
 };
 
-Underworld.prototype.loadMap = function(map){
+Underworld.prototype.loadMap = function(map, depth){
 	var game = this;
-	game.map = new MapManager(this, map);
+	game.map = new MapManager(this, map, 1);
 	game.scene = null;
 };
 

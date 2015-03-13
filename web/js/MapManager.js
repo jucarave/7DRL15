@@ -1,4 +1,4 @@
-function MapManager(game, map){
+function MapManager(game, map, depth){
 	this.map = null;
 	
 	this.waterTiles = [];
@@ -14,6 +14,43 @@ function MapManager(game, map){
 	
 	if (map == "test"){
 		this.loadMap("testMap");
+	} else {
+		this.generateMap(depth);
+	}
+}
+
+MapManager.prototype.generateMap = function(depth){
+	var config = {
+		MIN_WIDTH: 10,
+		MIN_HEIGHT: 10,
+		MAX_WIDTH: 20,
+		MAX_HEIGHT: 20,
+		LEVEL_WIDTH: 64,
+		LEVEL_HEIGHT: 64,
+		SUBDIVISION_DEPTH: 3,
+		SLICE_RANGE_START: 3/8,
+		SLICE_RANGE_END: 5/8,
+		RIVER_SEGMENT_LENGTH: 10,
+		MIN_RIVER_SEGMENTS: 10,
+		MAX_RIVER_SEGMENTS: 20,
+		MIN_RIVERS: 3,
+		MAX_RIVERS: 5
+	};
+	var generator = new Generator(config);
+	var kramgineExporter = new KramgineExporter(config);
+	var generatedLevel = generator.generateLevel(depth);
+	
+	var mapM = this;
+	try{
+		var mapData = kramgineExporter.getLevel(generatedLevel.level);
+		new MapAssembler(mapM, mapData, mapM.game.GL.ctx);
+		mapM.map = mapData.map;
+		mapM.waterTiles = [101];
+		mapM.getInstancesToDraw();
+	}catch (e){
+		console.error(e.message);
+		console.error(e.stack);
+		mapM.map = null;
 	}
 }
 
