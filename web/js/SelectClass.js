@@ -10,25 +10,25 @@ SelectClass.prototype.step = function(){
 		
 		if (game.mouse.a >= 154 && game.mouse.a < 214 && game.mouse.b >= 1){
 			if (game.mouse.b < 61){
-				playerS.virtue = "Compasion";
+				playerS.setVirtue("Compasion");
 			}else if (game.mouse.b >= 67 && game.mouse.b < 127){
-				playerS.virtue = "Honor";
+				playerS.setVirtue("Honor");
 			}else if (game.mouse.b >= 133 && game.mouse.b < 193){
-				playerS.virtue = "Humility";
+				playerS.setVirtue("Humility");
 			}
 		}else if (game.mouse.a >= 221 && game.mouse.a < 280 && game.mouse.b >= 1){
 			if (game.mouse.b < 61){
-				playerS.virtue = "Honesty";
+				playerS.setVirtue("Honesty");
 			}else if (game.mouse.b >= 133 && game.mouse.b < 193){
-				playerS.virtue = "Sacrifice";
+				playerS.setVirtue("Sacrifice");
 			}
 		}else if (game.mouse.a >= 288 && game.mouse.a < 347 && game.mouse.b >= 1){
 			if (game.mouse.b < 61){
-				playerS.virtue = "Valor";
+				playerS.setVirtue("Valor");
 			}else if (game.mouse.b >= 67 && game.mouse.b < 127){
-				playerS.virtue = "Spirituality";
+				playerS.setVirtue("Spirituality");
 			}else if (game.mouse.b >= 133 && game.mouse.b < 193){
-				playerS.virtue = "Justice";
+				playerS.setVirtue("Justice");
 			}
 		}
 		

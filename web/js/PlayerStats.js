@@ -1,6 +1,8 @@
 function PlayerStats(){
-	this.hp = 10;
-	this.mHP = 10;
+	this.hp = 0;
+	this.mHP = 0;
+	this.mana = 0;
+	this.mMana = 0;
 	
 	this.virtue = null;
 	
@@ -8,8 +10,10 @@ function PlayerStats(){
 	this.exp = 0;
 	
 	this.stats = {
-		str: '5D3',
-		dfs: '3D3'
+		str: '0D0',
+		dfs: '0D0',
+		dex: 0,
+		magicPower: '0D0'
 	};
 	
 	this.potions = 0;
@@ -38,13 +42,97 @@ PlayerStats.prototype.levelUp = function(console){
 	}
 	
 	var part1 = parseInt(this.stats[st].substring(0, this.stats[st].indexOf('D')), 10);
-	var part2 = parseInt(this.stats[st].substring(this.stats[st].indexOf('D') + 1), 10);
-	
 	part1 += Math.iRandom(1, 3);
-	if (Math.iRandom(6) == 3){ part2 += 1; }
 	
 	var old = this.stats[st];
-	this.stats[st] = part1 + 'D' + part2;
+	this.stats[st] = part1 + 'D3';
 	
 	console.addSFMessage(nm + " augmented from " + old + " to " + this.stats[st]);
+};
+
+PlayerStat.prototype.setVirtue = function(virtueName){
+	this.virtue = virtueName;
+	this.potions = 0;
+	this.lvl = 1;
+	this.exp = 0;
+	
+	switch (virtueName){
+		case "Honesty":
+			this.hp = 8;
+			this.mana = 18;
+			this.stats.magicPower = 6;
+			this.stats.str = '2';
+			this.stats.def = '2';
+			this.stats.dex = 0.5;
+		break;
+		
+		case "Compassion":
+			this.hp = 13;
+			this.mana = 13;
+			this.stats.magicPower = 4;
+			this.stats.str = '4';
+			this.stats.def = '4';
+			this.stats.dex = 0.7;
+		break;
+		
+		case "Valor":
+			this.hp = 18;
+			this.mana = 8;
+			this.stats.magicPower = 2;
+			this.stats.str = '6';
+			this.stats.def = '2';
+			this.stats.dex = 0.7;
+		break;
+		
+		case "Honor":
+			this.hp = 13;
+			this.mana = 13;
+			this.stats.magicPower = 4;
+			this.stats.str = '6';
+			this.stats.def = '2';
+			this.stats.dex = 0.7;
+		break;
+		
+		case "Spirituality":
+			this.hp = 13;
+			this.mana = 13;
+			this.stats.magicPower = 6;
+			this.stats.str = '4';
+			this.stats.def = '4';
+			this.stats.dex = 0.9;
+		break;
+		
+		case "Humility":
+			this.hp = 8;
+			this.mana = 8;
+			this.stats.magicPower = 2;
+			this.stats.str = '2';
+			this.stats.def = '2';
+			this.stats.dex = 0.5;
+		break;
+		
+		case "Sacrifice":
+			this.hp = 18;
+			this.mana = 8;
+			this.stats.magicPower = 2;
+			this.stats.str = '4';
+			this.stats.def = '6';
+			this.stats.dex = 0.9;
+		break;
+		
+		case "Justice":
+			this.hp = 13;
+			this.mana = 18;
+			this.stats.magicPower = 4;
+			this.stats.str = '2';
+			this.stats.def = '2';
+			this.stats.dex = 0.9;
+		break;
+	}
+	
+	this.mHP = this.hp;
+	this.stats.str += 'D3';
+	this.stats.def += 'D3';
+	this.stats.magicPower += 'D3';
+	this.mMana = this.mana; 
 };
