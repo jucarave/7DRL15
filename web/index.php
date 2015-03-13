@@ -32,6 +32,7 @@
 		<script type="text/javascript" src="<?php echo $contextPath; ?>js/EnemyFactory.js<?php echo $ver; ?>"></script>
 		<script type="text/javascript" src="<?php echo $contextPath; ?>js/PlayerStats.js<?php echo $ver; ?>"></script>
 		<script type="text/javascript" src="<?php echo $contextPath; ?>js/Missile.js<?php echo $ver; ?>"></script>
+		<script type="text/javascript" src="<?php echo $contextPath; ?>js/stygianGen.js<?php echo $ver; ?>"></script>
 		
 		<script type="text/javascript">
 			var version = "<?php echo $version; ?>";

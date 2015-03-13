@@ -33,7 +33,7 @@ SelectClass.prototype.step = function(){
 		}
 		
 		if (playerS.virtue != null){
-			game.loadMap("test");
+			game.loadMap(false, 1);
 		}
 	}
 };
