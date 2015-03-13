@@ -146,9 +146,9 @@ MapManager.prototype.getInstanceNormal = function(pos, spd, h, self){
 		var xx = Math.abs(ins.position.a - p.a);
 		var zz = Math.abs(ins.position.c - p.c);
 		
-		if (xx <= 0.5 && zz <= 0.5){
-			if (pos.a <= ins.position.a - 0.5 || pos.a >= ins.position.a + 0.5) hor = true;
-			else if (pos.c <= ins.position.c - 0.5 || pos.c >= ins.position.c + 0.5) hor = false;  
+		if (xx <= 0.8 && zz <= 0.8){
+			if (pos.a <= ins.position.a - 0.8 || pos.a >= ins.position.a + 0.8) hor = true;
+			else if (pos.c <= ins.position.c - 0.8 || pos.c >= ins.position.c + 0.8) hor = false;  
 			inst = ins;
 			i = len;
 		}

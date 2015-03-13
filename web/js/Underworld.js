@@ -80,6 +80,7 @@ Underworld.prototype.loadTextures = function(){
 	
 	// Walls
 	this.textures.wall.push(this.GL.loadImage(cp + "img/texWall01.png?version=" + version, true, 1, true));
+	this.textures.wall.push(this.GL.loadImage(cp + "img/texWall02.png?version=" + version, true, 2, true));
 	
 	// Floors
 	this.textures.floor.push(this.GL.loadImage(cp + "img/texFloor01.png?version=" + version, true, 1, true));
