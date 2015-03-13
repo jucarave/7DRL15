@@ -39,9 +39,12 @@ Player.prototype.castMissile = function(weapon){
 	var str = rollDice(ps.stats.str);
 	if (weapon) str += rollDice(weapon.str) * weapon.status;
 	
+	var prob = Math.random();
 	var missile = new Missile(this.position.clone(), this.rotation.clone(), weapon.code, 'enemy', this.mapManager);
 	missile.str = str;
+	missile.missed = (prob > ps.stats.dex);
 	if (weapon) weapon.status *= (1.0 - weapon.wear);
+	
 	
 	this.mapManager.addMessage("Shooting " + weapon.subItemName);
 	this.mapManager.instances.push(missile);
@@ -85,6 +88,12 @@ Player.prototype.meleeAttack = function(weapon){
 Player.prototype.castAttack = function(target, weapon){
 	var game = this.mapManager.game;
 	var ps = game.player;
+	
+	var prob = Math.random();
+	if (prob > ps.stats.dex){
+		this.mapManager.addMessage("Missed!");
+		return;
+	}
 	
 	var str = rollDice(ps.stats.str);
 	var dfs = rollDice(target.enemy.stats.dfs);

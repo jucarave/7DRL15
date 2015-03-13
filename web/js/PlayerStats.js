@@ -31,6 +31,10 @@ PlayerStats.prototype.levelUp = function(console){
 	this.lvl += 1;
 	console.addSFMessage("New level up: " + this.lvl + "!");
 	
+	// Upgrade HP and Mana
+	this.mHP += Math.iRandom(0, 5);
+	this.mMana += Math.iRandom(0, 3);
+	
 	// Upgrade a random stat by 1-3 points
 	var stats = ['str', 'dfs'];
 	var names = ['Strength', 'Defense'];

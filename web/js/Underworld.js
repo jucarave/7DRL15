@@ -20,6 +20,7 @@ function Underworld(){
 	
 	this.scene = null;
 	this.map = null;
+	this.maps = [];
 	this.keys = [];
 	this.mouse = vec3(0.0, 0.0, 0);
 	this.mouseMovement = {x: -10000, y: -10000};
@@ -144,10 +145,18 @@ Underworld.prototype.getObjectTexture = function(textureCode){
 	return this.objectTex[textureCode];
 };
 
-Underworld.prototype.loadMap = function(map, depth){
+Underworld.prototype.loadMap = function(map, depth, id){
 	var game = this;
-	game.map = new MapManager(this, map, 1);
-	game.scene = null;
+	if (id === undefined || !game.maps[id]){
+		id = game.maps.length;
+	
+		game.map = new MapManager(game, id, map, depth);
+		game.maps.push(game.map);
+		game.scene = null;
+	}else if (game.maps[id]){
+		game.map = game.maps[id];
+		game.scene = null;
+	}
 };
 
 Underworld.prototype.printGreet = function(){
@@ -324,8 +333,13 @@ Underworld.prototype.checkInvControl = function(){
 		if (ms > 0){
 			this.magicScrolls[0] -= 1;
 			
-			this.protection = 400;
-			this.console.addSFMessage("Protection!");
+			var prob = Math.random();
+			if (prob > ps.stats.dex){
+				this.console.addSFMessage("The protection cast failed!");
+			}else{
+				this.protection = 400;
+				this.console.addSFMessage("Protection!");
+			}
 		}else{
 			this.console.addSFMessage("No more protection scrolls left.");
 		}

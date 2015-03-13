@@ -11,6 +11,7 @@ function Missile(position, rotation, type, target, mapManager){
 	this.solid = false;
 	this.str = 0;
 	this.speed = 0.3;
+	this.missed = false;
 	
 	var subImg = 0;
 	switch (type){
@@ -80,6 +81,11 @@ Missile.prototype.checkCollision = function(){
 	}
 	
 	var dmg = Math.max(this.str - dfs, 0);
+	
+	if (this.missed){
+		this.mapManager.addMessage("Missed!");
+		return;
+	}
 	
 	if (dmg != 0){
 		this.mapManager.addMessage(dmg + " points inflicted");

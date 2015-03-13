@@ -1,4 +1,4 @@
-function MapManager(game, map, depth){
+function MapManager(game, id, map, depth){
 	this.map = null;
 	
 	this.waterTiles = [];
@@ -9,6 +9,8 @@ function MapManager(game, map, depth){
 	this.instances = [];
 	this.orderInstances = [];
 	this.doors = [];
+	this.id = id;
+	this.playerLast = null;
 	
 	this.mapToDraw = [];
 	
