@@ -102,16 +102,28 @@ Underworld.prototype.loadTextures = function(){
 	this.objectTex.bolts.buffers = AnimatedTexture.getTextureBufferCoords(1, 1, this.GL.ctx);
 	
 	// Enemies
-	this.objectTex.bat_run = this.GL.loadImage(cp + "img/texBatRun.png?version=" + version, true, 1, true);
-	this.objectTex.rat_run = this.GL.loadImage(cp + "img/texRatRun.png?version=" + version, true, 2, true);
-	this.objectTex.spider_run = this.GL.loadImage(cp + "img/texSpiderRun.png?version=" + version, true, 3, true);
-	this.objectTex.troll_run = this.GL.loadImage(cp + "img/texTrollRun.png?version=" + version, true, 4, true);
-	this.objectTex.gazer_run = this.GL.loadImage(cp + "img/texGazerRun.png?version=" + version, true, 5, true);
-	this.objectTex.ghost_run = this.GL.loadImage(cp + "img/texGhostRun.png?version=" + version, true, 6, true);
-	this.objectTex.headless_run = this.GL.loadImage(cp + "img/texHeadlessRun.png?version=" + version, true, 7, true);
-	this.objectTex.orc_run = this.GL.loadImage(cp + "img/texOrcRun.png?version=" + version, true, 8, true);
-	this.objectTex.reaper_run = this.GL.loadImage(cp + "img/texReaperRun.png?version=" + version, true, 9, true);
-	this.objectTex.skeleton_run = this.GL.loadImage(cp + "img/texSkeletonRun.png?version=" + version, true, 10, true);
+	this.objectTex.bat_run = this.GL.loadImage(cp + "img/enemies/texBatRun.png?version=" + version, true, 1, true);
+	this.objectTex.rat_run = this.GL.loadImage(cp + "img/enemies/texRatRun.png?version=" + version, true, 2, true);
+	this.objectTex.spider_run = this.GL.loadImage(cp + "img/enemies/texSpiderRun.png?version=" + version, true, 3, true);
+	this.objectTex.troll_run = this.GL.loadImage(cp + "img/enemies/texTrollRun.png?version=" + version, true, 4, true);
+	this.objectTex.gazer_run = this.GL.loadImage(cp + "img/enemies/texGazerRun.png?version=" + version, true, 5, true);
+	this.objectTex.ghost_run = this.GL.loadImage(cp + "img/enemies/texGhostRun.png?version=" + version, true, 6, true);
+	this.objectTex.headless_run = this.GL.loadImage(cp + "img/enemies/texHeadlessRun.png?version=" + version, true, 7, true);
+	this.objectTex.orc_run = this.GL.loadImage(cp + "img/enemies/texOrcRun.png?version=" + version, true, 8, true);
+	this.objectTex.reaper_run = this.GL.loadImage(cp + "img/enemies/texReaperRun.png?version=" + version, true, 9, true);
+	this.objectTex.skeleton_run = this.GL.loadImage(cp + "img/enemies/texSkeletonRun.png?version=" + version, true, 10, true);
+	
+	this.objectTex.daemon_run = this.GL.loadImage(cp + "img/enemies/texDaemonRun.png?version=" + version, true, 10, true);
+	this.objectTex.firelizard_run = this.GL.loadImage(cp + "img/enemies/texFirelizardRun.png?version=" + version, true, 10, true);
+	this.objectTex.hydra_run = this.GL.loadImage(cp + "img/enemies/texHydraRun.png?version=" + version, true, 10, true);
+	//this.objectTex.seaSerpent_run = this.GL.loadImage(cp + "img/enemies/texSeaSerpentRun.png?version=" + version, true, 10, true);
+	this.objectTex.octopus_run = this.GL.loadImage(cp + "img/enemies/texOctopusRun.png?version=" + version, true, 10, true);
+	this.objectTex.balron_run = this.GL.loadImage(cp + "img/enemies/texBalronRun.png?version=" + version, true, 10, true);
+	this.objectTex.liche_run = this.GL.loadImage(cp + "img/enemies/texLicheRun.png?version=" + version, true, 10, true);
+	this.objectTex.ghost_run = this.GL.loadImage(cp + "img/enemies/texGhostRun.png?version=" + version, true, 10, true);
+	this.objectTex.gremlin_run = this.GL.loadImage(cp + "img/enemies/texGremlinRun.png?version=" + version, true, 10, true);
+	//this.objectTex.dragon_run = this.GL.loadImage(cp + "img/enemies/texDragonRun.png?version=" + version, true, 10, true);
+	this.objectTex.zorn_run = this.GL.loadImage(cp + "img/enemies/texZornRun.png?version=" + version, true, 10, true);
 };
 
 Underworld.prototype.postLoading = function(){
