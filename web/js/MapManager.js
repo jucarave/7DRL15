@@ -44,7 +44,9 @@ MapManager.prototype.generateMap = function(depth){
 	
 	var mapM = this;
 	try{
+		window.generatedLevel = (generatedLevel.level);
 		var mapData = kramgineExporter.getLevel(generatedLevel.level);
+		window.mapData = (mapData);
 		new MapAssembler(mapM, mapData, mapM.game.GL.ctx);
 		mapM.map = mapData.map;
 		mapM.waterTiles = [101];
@@ -54,7 +56,7 @@ MapManager.prototype.generateMap = function(depth){
 		console.error(e.stack);
 		mapM.map = null;
 	}
-}
+};
 
 MapManager.prototype.loadMap = function(mapName){
 	var mapM = this;

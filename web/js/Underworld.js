@@ -60,9 +60,6 @@ Underworld.prototype.loadMusic = function(){
 };
 
 Underworld.prototype.loadImages = function(){
-	// Weapons in UI
-	this.images.uiBronzeSword = this.GL.loadImage(cp + "img/UIBronzeSword.png?version=" + version, false);
-	
 	this.images.uiItems = this.GL.loadImage(cp + "img/itemsUI.png?version=" + version, false, 0, 0, {imgNum: 2, imgVNum: 1});
 	this.images.titleScreen = this.GL.loadImage(cp + "img/titleScreen.png?version=" + version, false);
 	this.images.selectClass = this.GL.loadImage(cp + "img/selectClass.png?version=" + version, false);
@@ -109,6 +106,12 @@ Underworld.prototype.loadTextures = function(){
 	this.objectTex.rat_run = this.GL.loadImage(cp + "img/texRatRun.png?version=" + version, true, 2, true);
 	this.objectTex.spider_run = this.GL.loadImage(cp + "img/texSpiderRun.png?version=" + version, true, 3, true);
 	this.objectTex.troll_run = this.GL.loadImage(cp + "img/texTrollRun.png?version=" + version, true, 4, true);
+	this.objectTex.gazer_run = this.GL.loadImage(cp + "img/texGazerRun.png?version=" + version, true, 5, true);
+	this.objectTex.ghost_run = this.GL.loadImage(cp + "img/texGhostRun.png?version=" + version, true, 6, true);
+	this.objectTex.headless_run = this.GL.loadImage(cp + "img/texHeadlessRun.png?version=" + version, true, 7, true);
+	this.objectTex.orc_run = this.GL.loadImage(cp + "img/texOrcRun.png?version=" + version, true, 8, true);
+	this.objectTex.reaper_run = this.GL.loadImage(cp + "img/texReaperRun.png?version=" + version, true, 9, true);
+	this.objectTex.skeleton_run = this.GL.loadImage(cp + "img/texSkeletonRun.png?version=" + version, true, 10, true);
 };
 
 Underworld.prototype.postLoading = function(){
@@ -277,8 +280,6 @@ Underworld.prototype.drawUI = function(){
 	if (!player) return;
 	
 	var ctx = game.UI.ctx;
-	
-	//if (!player.destroyed) ctx.drawImage(game.images.uiBronzeSword, 200, 136);
 	
 	// Draw health bar
 	var hp = ps.hp / ps.mHP;
