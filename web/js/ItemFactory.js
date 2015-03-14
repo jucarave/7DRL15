@@ -1,10 +1,10 @@
 var ItemFactory = {
 	items: {
 		// Items
-		hpPotion: {name: "Health potion", tex: "items", subImg: 0, type: 'potion'},
-		protection: {name: "Scroll of protection", tex: "items", subImg: 1, type: 'magic_1'},
-		magicMissile: {name: "Scroll of magic missile", tex: "items", subImg: 2, type: 'magic_2', str: '4D4'},
-		fireExplosion: {name: "Scroll of fire explosion", tex: "items", subImg: 3, type: 'magic_3', str: '5D4'},
+		yellowPotion: {name: "Yellow potion", tex: "items", subImg: 0, type: 'potion'},
+		protection: {name: "Spellmix of protection", tex: "items", subImg: 1, type: 'magic_1'},
+		missile: {name: "Spellmix of magic missile", tex: "items", subImg: 2, type: 'magic_2', str: '4D4'},
+		fireball: {name: "Spellmix of Fireball", tex: "items", subImg: 3, type: 'magic_3', str: '5D4'},
 		
 		// Weapons
 		staff: {name: "Staff", tex: "items", subImg: 4, type: 'weapon', str: '2D1', wear: 0.02},
@@ -22,7 +22,21 @@ var ItemFactory = {
 		scale: {name: "Scale mail", tex: "items", subImg: 14, type: 'armour', dfs: '2D2', wear: 0.03},
 		chain: {name: "Chain mail", tex: "items", subImg: 15, type: 'armour', dfs: '4D1', wear: 0.015},
 		plate: {name: "Plate mail", tex: "items", subImg: 16, type: 'armour', dfs: '4D2', wear: 0.008},
-		mystic: {name: "Mystic armour", tex: "items", subImg: 17, type: 'armour', dfs: '5D2', wear: 0.005}
+		mystic: {name: "Mystic armour", tex: "items", subImg: 17, type: 'armour', dfs: '5D2', wear: 0.005},
+		
+		cure: {name: "Spellmix of Cure", tex: "items", subImg: 1, type: 'magic_1'},
+		heal: {name: "Spellmix of Heal", tex: "items", subImg: 1, type: 'magic_1'},
+		redPotion: {name: "Red Potion", tex: "items", subImg: 1, type: 'magic_1'},
+		light: {name: "Spellmix of Light", tex: "items", subImg: 1, type: 'magic_1'},
+		iceball: {name: "Spellmix of Iceball", tex: "items", subImg: 1, type: 'magic_1'},
+		repel: {name: "Spellmix of Repel Undead", tex: "items", subImg: 1, type: 'magic_1'},
+		blink: {name: "Spellmix of Blink", tex: "items", subImg: 1, type: 'magic_1'},
+		time: {name: "Spellmix of Time Stop", tex: "items", subImg: 1, type: 'magic_1'},
+		sleep: {name: "Spellmix of Sleep", tex: "items", subImg: 1, type: 'magic_1'},
+		jinx: {name: "Spellmix of Jinx", tex: "items", subImg: 1, type: 'magic_1'},
+		tremor: {name: "Spellmix of Tremor", tex: "items", subImg: 1, type: 'magic_1'},
+		kill: {name: "Spellmix of Kill", tex: "items", subImg: 1, type: 'magic_1'},
+		
 	},
 	
 	getItemByCode: function(itemCode){
