@@ -54,7 +54,7 @@ PlayerStats.prototype.levelUp = function(console){
 	console.addSFMessage(nm + " augmented from " + old + " to " + this.stats[st]);
 };
 
-PlayerStat.prototype.setVirtue = function(virtueName){
+PlayerStats.prototype.setVirtue = function(virtueName){
 	this.virtue = virtueName;
 	this.potions = 0;
 	this.lvl = 1;

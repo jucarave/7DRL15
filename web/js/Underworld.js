@@ -77,7 +77,6 @@ Underworld.prototype.loadTextures = function(){
 	this.textures.wall.push(noTex);
 	this.textures.floor.push(noTex);
 	this.textures.ceil.push(noTex);
-	this.textures.water.push(noTex);
 	
 	// Walls
 	this.textures.wall.push(this.GL.loadImage(cp + "img/texWall01.png?version=" + version, true, 1, true));
@@ -85,6 +84,14 @@ Underworld.prototype.loadTextures = function(){
 	
 	// Floors
 	this.textures.floor.push(this.GL.loadImage(cp + "img/texFloor01.png?version=" + version, true, 1, true));
+	this.textures.floor.push(this.GL.loadImage(cp + "img/texFloor02.png?version=" + version, true, 2, true));
+	this.textures.floor.push(this.GL.loadImage(cp + "img/texFloor03.png?version=" + version, true, 3, true));
+	
+	// Liquids
+	this.textures.water.push(this.GL.loadImage(cp + "img/texWater01.png?version=" + version, true, 1, true));
+	this.textures.water.push(this.GL.loadImage(cp + "img/texWater02.png?version=" + version, true, 2, true));
+	this.textures.water.push(this.GL.loadImage(cp + "img/texLava01.png?version=" + version, true, 3, true));
+	this.textures.water.push(this.GL.loadImage(cp + "img/texLava02.png?version=" + version, true, 4, true));
 	
 	// Ceilings
 	this.textures.ceil.push(this.GL.loadImage(cp + "img/texCeil01.png?version=" + version, true, 1, true));
