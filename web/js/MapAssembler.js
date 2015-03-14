@@ -179,9 +179,9 @@ MapAssembler.prototype.parseMap = function(mapData, GL){
 MapAssembler.prototype.parseObjects = function(mapData){
 	for (var i=0,len=mapData.objects.length;i<len;i++){
 		var o = mapData.objects[i];
-		var x = o.x;
+		var x = o.z;
 		var y = o.y;
-		var z = o.z;
+		var z = o.x;
 		
 		switch (o.type){
 			case "player":
@@ -193,7 +193,6 @@ MapAssembler.prototype.parseObjects = function(mapData){
 				this.mapManager.instances.push(new Item(vec3(x, y, z), item, this.mapManager));
 			break;
 			case "enemy":
-				continue;
 				var enemy = EnemyFactory.getEnemy(o.enemy);
 				this.mapManager.instances.push(new Enemy(vec3(x, y, z), enemy, this.mapManager));
 			break;

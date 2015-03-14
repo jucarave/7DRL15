@@ -13,11 +13,15 @@ function Missile(position, rotation, type, target, mapManager){
 	this.speed = 0.3;
 	this.missed = false;
 	
+	this.vspeed = 0;
+	this.gravity = 0;
+	
 	var subImg = 0;
 	switch (type){
 		case 'sling': 
 			subImg = 0;
 			this.speed = 0.2; 
+			this.gravity = 0.005;
 		break;
 		case 'bow': 
 			subImg = 1;
@@ -98,8 +102,10 @@ Missile.prototype.checkCollision = function(){
 };
 
 Missile.prototype.step = function(){
+	this.vspeed += this.gravity;
+	
 	var xTo = Math.cos(this.rotation.b) * this.speed;
-	var yTo = Math.sin(this.rotation.a) * this.speed;
+	var yTo = Math.sin(this.rotation.a) * this.speed - this.vspeed;
 	var zTo = -Math.sin(this.rotation.b) * this.speed;
 	
 	this.position.sum(vec3(xTo, yTo, zTo));
