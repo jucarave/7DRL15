@@ -14,7 +14,6 @@ function Underworld(){
 	
 	this.player = new PlayerStats();
 	this.inventory = new Inventory(10);
-	this.magicScrolls = [0,0,0];
 	this.console = new Console(10, 10, 300, this);
 	this.font = '10px "Courier"';
 	
@@ -60,9 +59,12 @@ Underworld.prototype.loadMusic = function(){
 };
 
 Underworld.prototype.loadImages = function(){
-	this.images.uiItems = this.GL.loadImage(cp + "img/itemsUI.png?version=" + version, false, 0, 0, {imgNum: 2, imgVNum: 1});
+	this.images.items_ui = this.GL.loadImage(cp + "img/itemsUI.png?version=" + version, false, 0, 0, {imgNum: 8, imgVNum: 2});
+	this.images.spells_ui = this.GL.loadImage(cp + "img/spellsUI.png?version=" + version, false, 0, 0, {imgNum: 4, imgVNum: 4});
 	this.images.titleScreen = this.GL.loadImage(cp + "img/titleScreen.png?version=" + version, false);
 	this.images.selectClass = this.GL.loadImage(cp + "img/selectClass.png?version=" + version, false);
+	this.images.inventory = this.GL.loadImage(cp + "img/inventory.png?version=" + version, false, 0, 0, {imgNum: 1, imgVNum: 2});
+	this.images.inventorySelected = this.GL.loadImage(cp + "img/inventory_selected.png?version=" + version, false);
 	this.images.scrollFont = this.GL.loadImage(cp + "img/scrollFontWhite.png?version=" + version, false);
 };
 
@@ -97,9 +99,12 @@ Underworld.prototype.loadTextures = function(){
 	this.objectTex.items = this.GL.loadImage(cp + "img/texItems.png?version=" + version, true, 1, true);
 	this.objectTex.items.buffers = AnimatedTexture.getTextureBufferCoords(8, 2, this.GL.ctx);
 	
+	this.objectTex.spells = this.GL.loadImage(cp + "img/texSpells.png?version=" + version, true, 1, true);
+	this.objectTex.spells.buffers = AnimatedTexture.getTextureBufferCoords(4, 4, this.GL.ctx);
+	
 	// Magic Bolts
 	this.objectTex.bolts = this.GL.loadImage(cp + "img/texBolts.png?version=" + version, true, 1, true);
-	this.objectTex.bolts.buffers = AnimatedTexture.getTextureBufferCoords(1, 1, this.GL.ctx);
+	this.objectTex.bolts.buffers = AnimatedTexture.getTextureBufferCoords(4, 2, this.GL.ctx);
 	
 	// Enemies
 	this.objectTex.bat_run = this.GL.loadImage(cp + "img/enemies/texBatRun.png?version=" + version, true, 1, true);
@@ -204,22 +209,7 @@ Underworld.prototype.loadGame = function(){
 };
 
 Underworld.prototype.addItem = function(item){
-	if (item.type == 'potion'){
-		if (this.player.potions == 16) return false;
-		this.player.potions += 1;
-		return true;
-	}else if (item.type.indexOf('magic_') == 0){
-		var ind = parseInt(item.type.replace('magic_', ''), 10) - 1;
-		
-		if (this.magicScrolls[ind] == 10) return false;
-		this.magicScrolls[ind] += 1;
-		
-		return true;
-	}else if (item.type == 'weapon' || item.type == 'armour'){
-		return this.inventory.addItem(item);
-	}
-	
-	return false;
+	return this.inventory.addItem(item);
 };
 
 Underworld.prototype.drawObject = function(object, texture){
@@ -300,19 +290,24 @@ Underworld.prototype.drawUI = function(){
 	ctx.fillStyle = "rgb(200,0,0)";
 	ctx.fillRect(8,8,80 * hp,4);
 	
-	// Draw potions
-	var x = 0, y = 0;
-	for (var i=0;i<ps.potions;i++){
-		this.UI.drawSprite(this.images.uiItems, -4 + (x * 10), 2 + (y * 10), 0);
-		if (++x == 8){
-			x = 0;
-			y += 1;
-		}
+	// Draw mana
+	var mana = ps.mana / ps.mMana;
+	ctx.fillStyle = "rgb(181,98,20)";
+	ctx.fillRect(8,14,60,2);
+	ctx.fillStyle = "rgb(255,138,28)";
+	ctx.fillRect(8,14,60 * mana,2);
+	
+	// Draw Inventory
+	this.UI.drawSprite(this.images.inventory, 110, 6, 0);
+	for (var i=0,len=this.inventory.items.length;i<len;i++){
+		var item = this.inventory.items[i];
+		var spr = item.tex + '_ui';
+
+		if ((item.type == 'weapon' || item.type == 'armour') && item.equipped)
+			this.UI.drawSprite(this.images.inventorySelected, 110 + (22 * i), 6, 0);		
+		this.UI.drawSprite(this.images[spr], 113 + (22 * i), 9, item.subImg);
 	}
-	
-	// Draw scrolls
-	this.UI.drawSprite(this.images.uiItems, 0, 32, 1);
-	
+	this.UI.drawSprite(this.images.inventory, 110, 6, 1);
 	
 	// If the player is hurt draw a red screen
 	if (player.hurt > 0.0){
@@ -335,6 +330,22 @@ Underworld.prototype.checkInvControl = function(){
 	var ps = this.player;
 	if (!player || player.destroyed) return;
 	
+	for (var i=0;i<10;i++){
+		if (this.getKeyPressed(49 + i)){
+			var item = this.inventory.items[i];
+			if (!item) continue;
+			
+			if (item.type == 'weapon'){
+				this.console.addSFMessage(item.name + ' wielded');
+				this.inventory.equipItem(i);
+			}else if (item.type == 'armour'){
+				this.console.addSFMessage(item.name + ' wore');
+				this.inventory.equipItem(i);
+			}
+		}
+	} 
+	
+	return;
 	if (this.getKeyPressed(49)){ // 1: Use potion
 		if (ps.potions > 0){
 			if (ps.hp == ps.mHP){

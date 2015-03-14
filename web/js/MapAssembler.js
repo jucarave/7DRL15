@@ -188,10 +188,12 @@ MapAssembler.prototype.parseObjects = function(mapData){
 				this.mapManager.player = new Player(vec3(x, y, z), vec3(0.0, o.dir * Math.PI_2, 0.0), this.mapManager);
 			break;
 			case "item":
-				var item = ItemFactory.getItemByCode(o.item);
+				var status = Math.min(0.3 + (Math.random() * 0.7), 1.0);
+				var item = ItemFactory.getItemByCode(o.item, status);
 				this.mapManager.instances.push(new Item(vec3(x, y, z), item, this.mapManager));
 			break;
 			case "enemy":
+				continue;
 				var enemy = EnemyFactory.getEnemy(o.enemy);
 				this.mapManager.instances.push(new Enemy(vec3(x, y, z), enemy, this.mapManager));
 			break;

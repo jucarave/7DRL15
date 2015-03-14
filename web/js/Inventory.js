@@ -5,16 +5,6 @@ function Inventory(limitItems){
 }
 
 Inventory.prototype.addItem = function(item){
-	if (item.stack){
-		for (var i=0,len=this.items.length;i<len;i++){
-			var it = this.items[i];
-			if (it.code == item.code){
-				it.amount += item.amount;
-				return true;
-			}
-		}
-	}
-	
 	if (this.items.length == this.limitItems){
 		return false;
 	}
@@ -69,4 +59,4 @@ Inventory.prototype.destroyItem = function(item){
 			return;
 		}
 	}
-}
+};

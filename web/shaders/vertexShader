@@ -18,7 +18,8 @@ void main(void){
 	vVertexIsDark = aVertexIsDark;
 	vPaintInRed = uPaintInRed;
 	
-	vVertexDepth = cos(gl_Position.z / 3.0);
+	float lightDepth = 2.0;
+	vVertexDepth = cos((gl_Position.z + lightDepth) / 3.0);
 	if (vVertexDepth < 0.0) vVertexDepth = 0.0;
 	else if (vVertexDepth > 1.0) vVertexDepth = 1.0;
 }

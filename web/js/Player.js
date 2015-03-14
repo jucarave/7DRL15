@@ -67,8 +67,8 @@ Player.prototype.meleeAttack = function(weapon){
 		
 		for (var j=0,jlen=enemies.length;j<jlen;j++){
 			var ins = enemies[j];
-			var x = ins.position.a - xx;
-			var z = ins.position.c - zz;
+			var x = Math.abs(ins.position.a - xx);
+			var z = Math.abs(ins.position.c - zz);
 			
 			if (x < 0.3 && z < 0.3){
 				object = ins;
@@ -274,20 +274,16 @@ Player.prototype.step = function(){
 		if (this.position.b >= this.targetY) this.position.b = this.targetY;
 	}
 	
-	// FLY
-	var game = this.mapManager.game;
-	if (game.keys[38] == 1){
-		this.position.b += 0.1;
-	}else if (game.keys[40] == 1){
-		this.position.b -= 0.1;
-	}
-	
 	this.targetY = this.position.b;
 };
 
 Player.prototype.loop = function(){
 	if (this.destroyed){
-		if (this.cameraHeight > 0.2) this.cameraHeight -= 0.01; 
+		if (this.onWater){
+			this.doFloat();
+		}else if (this.cameraHeight > 0.2){ 
+			this.cameraHeight -= 0.01; 
+		}
 		return;
 	}
 	

@@ -161,8 +161,8 @@ MapManager.prototype.getInstancesNearest = function(position, distance, hasPrope
 		if (this.instances[i].destroyed) continue;
 		if (hasProperty && !this.instances[i][hasProperty]) continue;
 		
-		var x = this.instances[i].position.a - position.a;
-		var z = this.instances[i].position.c - position.c;
+		var x = Math.abs(this.instances[i].position.a - position.a);
+		var z = Math.abs(this.instances[i].position.c - position.c);
 		
 		if (x <= distance && z <= distance){
 			ret.push(this.instances[i]);
@@ -314,7 +314,7 @@ MapManager.prototype.getWallNormal = function(pos, spd, h, inWater){
 	return null;
 };
 
-MapManager.prototype.getYFloor = function(x, y){
+MapManager.prototype.getYFloor = function(x, y, noWater){
 	var ins = this.getInstanceAtGrid(vec3(x<<0,0,y<<0));
 	if (ins != null && ins.height){
 		return ins.position.b + ins.height;
@@ -334,7 +334,7 @@ MapManager.prototype.getYFloor = function(x, y){
 	if (t.w) tt += t.h;
 	if (t.fy) tt = t.fy;
 	
-	if (this.isWaterTile(t.f)) tt -= 0.3;
+	if (!noWater && this.isWaterTile(t.f)) tt -= 0.3;
 	
 	if (t.sl){
 		if (t.dir == 0) tt += yy * 0.5; else

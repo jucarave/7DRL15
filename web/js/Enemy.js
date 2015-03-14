@@ -74,7 +74,7 @@ Enemy.prototype.lookFor = function(){
 };
 
 Enemy.prototype.doVerticalChecks = function(){
-	var pointY = this.mapManager.getYFloor(this.position.a, this.position.c);
+	var pointY = this.mapManager.getYFloor(this.position.a, this.position.c, true);
 	var py = Math.floor((pointY - this.position.b) * 100) / 100;
 	if (py <= 0.3) this.targetY = pointY;
 };
@@ -102,9 +102,16 @@ Enemy.prototype.moveTo = function(xTo, zTo){
 	}
 	
 	if (movement.a != 0 || movement.b != 0){
-		this.doVerticalChecks();
 		this.position.a += movement.a;
 		this.position.c += movement.b;
+		
+		if (!this.enemy.stats.fly && this.mapManager.isWaterPosition(this.position.a, this.position.c)){
+			this.position.a -= movement.a;
+			this.position.c -= movement.b;
+			return false;
+		}
+		
+		this.doVerticalChecks();
 	}
 };
 

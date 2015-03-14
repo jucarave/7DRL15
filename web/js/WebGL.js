@@ -142,6 +142,8 @@ WebGL.prototype.loadImage = function(src, makeItTexture, textureIndex, isSolid, 
 		img.imgHeight = img.height / img.vImgNum;
 		img.ready = true;
 		
+		if (img.vImgNum == 2) console.log(img.imgHeight);
+		
 		if (makeItTexture){
 			img.texture = gl.parseTexture(img);
 			img.texture.textureIndex = img.textureIndex;

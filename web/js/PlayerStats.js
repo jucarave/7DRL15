@@ -15,8 +15,6 @@ function PlayerStats(){
 		dex: 0,
 		magicPower: '0D0'
 	};
-	
-	this.potions = 0;
 }
 
 PlayerStats.prototype.addExperience = function(amount, console){
@@ -56,7 +54,6 @@ PlayerStats.prototype.levelUp = function(console){
 
 PlayerStats.prototype.setVirtue = function(virtueName){
 	this.virtue = virtueName;
-	this.potions = 0;
 	this.lvl = 1;
 	this.exp = 0;
 	
@@ -66,7 +63,7 @@ PlayerStats.prototype.setVirtue = function(virtueName){
 			this.mana = 18;
 			this.stats.magicPower = 6;
 			this.stats.str = '2';
-			this.stats.def = '2';
+			this.stats.dfs = '2';
 			this.stats.dex = 0.5;
 		break;
 		
@@ -75,7 +72,7 @@ PlayerStats.prototype.setVirtue = function(virtueName){
 			this.mana = 13;
 			this.stats.magicPower = 4;
 			this.stats.str = '4';
-			this.stats.def = '4';
+			this.stats.dfs = '4';
 			this.stats.dex = 0.7;
 		break;
 		
@@ -84,7 +81,7 @@ PlayerStats.prototype.setVirtue = function(virtueName){
 			this.mana = 8;
 			this.stats.magicPower = 2;
 			this.stats.str = '6';
-			this.stats.def = '2';
+			this.stats.dfs = '2';
 			this.stats.dex = 0.7;
 		break;
 		
@@ -93,7 +90,7 @@ PlayerStats.prototype.setVirtue = function(virtueName){
 			this.mana = 13;
 			this.stats.magicPower = 4;
 			this.stats.str = '6';
-			this.stats.def = '2';
+			this.stats.dfs = '2';
 			this.stats.dex = 0.7;
 		break;
 		
@@ -102,7 +99,7 @@ PlayerStats.prototype.setVirtue = function(virtueName){
 			this.mana = 13;
 			this.stats.magicPower = 6;
 			this.stats.str = '4';
-			this.stats.def = '4';
+			this.stats.dfs = '4';
 			this.stats.dex = 0.9;
 		break;
 		
@@ -111,7 +108,7 @@ PlayerStats.prototype.setVirtue = function(virtueName){
 			this.mana = 8;
 			this.stats.magicPower = 2;
 			this.stats.str = '2';
-			this.stats.def = '2';
+			this.stats.dfs = '2';
 			this.stats.dex = 0.5;
 		break;
 		
@@ -120,7 +117,7 @@ PlayerStats.prototype.setVirtue = function(virtueName){
 			this.mana = 8;
 			this.stats.magicPower = 2;
 			this.stats.str = '4';
-			this.stats.def = '6';
+			this.stats.dfs = '6';
 			this.stats.dex = 0.9;
 		break;
 		
@@ -129,14 +126,14 @@ PlayerStats.prototype.setVirtue = function(virtueName){
 			this.mana = 18;
 			this.stats.magicPower = 4;
 			this.stats.str = '2';
-			this.stats.def = '2';
+			this.stats.dfs = '2';
 			this.stats.dex = 0.9;
 		break;
 	}
 	
 	this.mHP = this.hp;
 	this.stats.str += 'D3';
-	this.stats.def += 'D3';
+	this.stats.dfs += 'D3';
 	this.stats.magicPower += 'D3';
 	this.mMana = this.mana; 
 };
