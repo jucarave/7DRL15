@@ -179,9 +179,9 @@ MapAssembler.prototype.parseMap = function(mapData, GL){
 MapAssembler.prototype.parseObjects = function(mapData){
 	for (var i=0,len=mapData.objects.length;i<len;i++){
 		var o = mapData.objects[i];
-		var x = o.z;
+		var x = o.x;
 		var y = o.y;
-		var z = o.x;
+		var z = o.z;
 		
 		switch (o.type){
 			case "player":
