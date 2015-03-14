@@ -49,7 +49,7 @@ MapManager.prototype.generateMap = function(depth){
 		window.mapData = (mapData);
 		new MapAssembler(mapM, mapData, mapM.game.GL.ctx);
 		mapM.map = mapData.map;
-		mapM.waterTiles = [101];
+		mapM.waterTiles = [101, 103];
 		mapM.getInstancesToDraw();
 	}catch (e){
 		console.error(e.message);
@@ -71,7 +71,7 @@ MapManager.prototype.loadMap = function(mapName){
 				
 				mapM.map = mapData.map;
 				
-				mapM.waterTiles = [101];
+				mapM.waterTiles = [101, 103];
 				mapM.getInstancesToDraw();
 			}catch (e){
 				console.error(e.message);
