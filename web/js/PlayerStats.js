@@ -95,7 +95,7 @@ PlayerStats.prototype.setVirtue = function(virtueName){
 			this.stats.magicPower = 6;
 			this.stats.str = '2';
 			this.stats.dfs = '2';
-			this.stats.dex = 0.5;
+			this.stats.dex = 0.8;
 			this.className = 'Mage';
 		break;
 		
@@ -105,7 +105,7 @@ PlayerStats.prototype.setVirtue = function(virtueName){
 			this.stats.magicPower = 4;
 			this.stats.str = '4';
 			this.stats.dfs = '4';
-			this.stats.dex = 0.7;
+			this.stats.dex = 0.9;
 			this.className = 'Bard';
 		break;
 		
@@ -115,7 +115,7 @@ PlayerStats.prototype.setVirtue = function(virtueName){
 			this.stats.magicPower = 2;
 			this.stats.str = '6';
 			this.stats.dfs = '2';
-			this.stats.dex = 0.7;
+			this.stats.dex = 0.9;
 			this.className = 'Fighter';
 		break;
 		
@@ -125,7 +125,7 @@ PlayerStats.prototype.setVirtue = function(virtueName){
 			this.stats.magicPower = 4;
 			this.stats.str = '6';
 			this.stats.dfs = '2';
-			this.stats.dex = 0.7;
+			this.stats.dex = 0.9;
 			this.className = 'Paladin';
 		break;
 		
@@ -135,7 +135,7 @@ PlayerStats.prototype.setVirtue = function(virtueName){
 			this.stats.magicPower = 6;
 			this.stats.str = '4';
 			this.stats.dfs = '4';
-			this.stats.dex = 0.9;
+			this.stats.dex = 0.95;
 			this.className = 'Ranger';
 		break;
 		
@@ -145,7 +145,7 @@ PlayerStats.prototype.setVirtue = function(virtueName){
 			this.stats.magicPower = 2;
 			this.stats.str = '2';
 			this.stats.dfs = '2';
-			this.stats.dex = 0.5;
+			this.stats.dex = 0.8;
 			this.className = 'Shepherd';
 		break;
 		
@@ -155,7 +155,7 @@ PlayerStats.prototype.setVirtue = function(virtueName){
 			this.stats.magicPower = 2;
 			this.stats.str = '4';
 			this.stats.dfs = '6';
-			this.stats.dex = 0.9;
+			this.stats.dex = 0.95;
 			this.className = 'Tinker';
 		break;
 		
@@ -165,7 +165,7 @@ PlayerStats.prototype.setVirtue = function(virtueName){
 			this.stats.magicPower = 4;
 			this.stats.str = '2';
 			this.stats.dfs = '2';
-			this.stats.dex = 0.9;
+			this.stats.dex = 0.95;
 			this.className = 'Druid';
 		break;
 	}
