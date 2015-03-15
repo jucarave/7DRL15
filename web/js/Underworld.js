@@ -158,7 +158,7 @@ Underworld.prototype.loadTextures = function(){
 	this.objectTex.liche_run = this.GL.loadImage(cp + "img/enemies/texLicheRun.png?version=" + version, true, 10, true);
 	this.objectTex.ghost_run = this.GL.loadImage(cp + "img/enemies/texGhostRun.png?version=" + version, true, 10, true);
 	this.objectTex.gremlin_run = this.GL.loadImage(cp + "img/enemies/texGremlinRun.png?version=" + version, true, 10, true);
-	//this.objectTex.dragon_run = this.GL.loadImage(cp + "img/enemies/texDragonRun.png?version=" + version, true, 10, true);
+	this.objectTex.dragon_run = this.GL.loadImage(cp + "img/enemies/texDragonRun.png?version=" + version, true, 10, true);
 	this.objectTex.zorn_run = this.GL.loadImage(cp + "img/enemies/texZornRun.png?version=" + version, true, 10, true);
 };
 
