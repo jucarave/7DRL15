@@ -22,10 +22,9 @@ function Stairs(position, mapManager, direction){
 }
 
 Stairs.prototype.activate = function(){
-	if (targetId < 9)
+	if (this.targetId < 9)
 		this.mapManager.game.loadMap(false, this.targetId);
 	else {
-		// Show ending
 		this.mapManager.game.loadMap('codexRoom');
 	}
 };
