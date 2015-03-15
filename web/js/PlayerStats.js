@@ -9,6 +9,8 @@ function PlayerStats(){
 	this.lvl = 1;
 	this.exp = 0;
 	
+	this.poisoned = false;
+	
 	this.stats = {
 		str: '0D0',
 		dfs: '0D0',

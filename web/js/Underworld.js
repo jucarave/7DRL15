@@ -308,17 +308,17 @@ Underworld.prototype.drawUI = function(){
 	
 	// Draw health bar
 	var hp = ps.hp / ps.mHP;
-	ctx.fillStyle = "rgb(122,0,0)";
+	ctx.fillStyle = (ps.poisoned)? "rgb(122,0,122)" : "rgb(122,0,0)";
 	ctx.fillRect(8,8,80,4);
-	ctx.fillStyle = "rgb(200,0,0)";
-	ctx.fillRect(8,8,80 * hp,4);
+	ctx.fillStyle = (ps.poisoned)? "rgb(200,0,200)" : "rgb(200,0,0)";
+	ctx.fillRect(8,8,(80 * hp) << 0,4);
 	
 	// Draw mana
 	var mana = ps.mana / ps.mMana;
 	ctx.fillStyle = "rgb(181,98,20)";
 	ctx.fillRect(8,14,60,2);
 	ctx.fillStyle = "rgb(255,138,28)";
-	ctx.fillRect(8,14,60 * mana,2);
+	ctx.fillRect(8,14,(60 * mana) << 0,2);
 	
 	// Draw Inventory
 	if (this.dropItem)

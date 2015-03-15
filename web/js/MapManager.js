@@ -11,6 +11,7 @@ function MapManager(game, map, depth){
 	this.doors = [];
 	this.playerLast = null;
 	this.depth = depth;
+	this.poisonCount = 0;
 	
 	this.mapToDraw = [];
 	
@@ -522,4 +523,11 @@ MapManager.prototype.loop = function(){
 	}
 	
 	this.player.loop();
+	
+	if (this.poisonCount > 0){
+		this.poisonCount -= 1;
+	}else if (this.game.player.poisoned && this.poisonCount == 0){
+		this.player.receiveDamage(10);
+		this.poisonCount = 100;
+	}
 };
