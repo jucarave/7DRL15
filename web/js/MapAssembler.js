@@ -193,7 +193,6 @@ MapAssembler.prototype.parseObjects = function(mapData){
 				this.mapManager.instances.push(new Item(vec3(x, y, z), item, this.mapManager));
 			break;
 			case "enemy":
-				o.enemy = 'hydra';
 				var enemy = EnemyFactory.getEnemy(o.enemy);
 				this.mapManager.instances.push(new Enemy(vec3(x, y, z), enemy, this.mapManager));
 			break;
