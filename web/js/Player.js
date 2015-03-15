@@ -41,7 +41,7 @@ Player.prototype.castMissile = function(weapon){
 	
 	var prob = Math.random();
 	var missile = new Missile(this.position.clone(), this.rotation.clone(), weapon.code, 'enemy', this.mapManager);
-	missile.str = str;
+	missile.str = str << 0;
 	missile.missed = (prob > ps.stats.dex);
 	if (weapon) weapon.status *= (1.0 - weapon.wear);
 	
@@ -100,7 +100,7 @@ Player.prototype.castAttack = function(target, weapon){
 	
 	if (weapon) str += rollDice(weapon.str) * weapon.status;
 	
-	var dmg = Math.max(str - dfs, 0);
+	var dmg = Math.max(str - dfs, 0) << 0;
 	
 	this.mapManager.addMessage("Attacking to " + target.enemy.name);
 	
