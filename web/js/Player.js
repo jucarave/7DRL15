@@ -18,6 +18,8 @@ function Player(position, direction, mapManager){
 
 	this.hurt = 0.0;	
 	this.attackWait = 0;
+	
+	this.lavaCounter = 0;
 }
 
 Player.prototype.receiveDamage = function(dmg){
@@ -234,13 +236,22 @@ Player.prototype.doVerticalChecks = function(){
 	var wy = (this.onWater)? 0.3 : 0;
 	var py = Math.floor((pointY - (this.position.b + wy)) * 100) / 100;
 	if (py <= 0.3) this.targetY = pointY;
-	if (this.mapManager.isWaterPosition(this.position.a, this.position.c)){
+	if (this.mapManager.isLavaPosition(this.position.a, this.position.c)){
+		this.onWater = false;
+		if (!this.onLava){
+			this.receiveDamage(80);
+		}
+		this.onLava = true;
+		
+	} else if (this.mapManager.isWaterPosition(this.position.a, this.position.c)){
 		if (this.position.b == this.targetY)
 			this.movementSpd = 0.025;
 		this.onWater = true;
-	}else{
+		this.onLava = false;
+	}else {
 		this.movementSpd = 0.05;
 		this.onWater = false;
+		this.onLava = false;
 	}
 	
 	this.cameraHeight = 0.5 + this.jog.a + this.jog.c;
@@ -288,7 +299,16 @@ Player.prototype.loop = function(){
 		}
 		return;
 	}
-	
+	if (this.onLava){
+		if (this.lavaCounter > 30){
+			this.receiveDamage(80);
+			this.lavaCounter = 0;
+		} else {
+			this.lavaCounter++;
+		}
+	} else {
+		this.lavaCounter = 0;
+	}
 	if (this.attackWait > 0) this.attackWait -= 1;
 	if (this.hurt > 0) this.hurt -= 1;
 	

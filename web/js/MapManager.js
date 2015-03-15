@@ -111,6 +111,24 @@ MapManager.prototype.isWaterPosition = function(x, z){
 	return this.isWaterTile(t.f);
 };
 
+MapManager.prototype.isLavaPosition = function(x, z){
+	x = x << 0;
+	z = z << 0;
+	if (!this.map[z]) return 0;
+	if (this.map[z][x] === undefined) return 0;
+	else if (this.map[z][x] === 0) return 0;
+	
+	var t = this.map[z][x];
+	if (!t.f) return false;
+	
+	return this.isLavaTile(t.f);
+};
+
+MapManager.prototype.isLavaTile = function(tileId){
+	return tileId == 103;
+};
+
+
 MapManager.prototype.changeWallTexture = function(x, z, textureId){
 	if (!this.map[z]) return false;
 	if (this.map[z][x] === undefined) return false;
@@ -529,7 +547,6 @@ MapManager.prototype.loop = function(){
 	}
 	
 	this.player.loop();
-	
 	if (this.poisonCount > 0){
 		this.poisonCount -= 1;
 	}else if (this.game.player.poisoned && this.poisonCount == 0){
