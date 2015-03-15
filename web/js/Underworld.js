@@ -87,15 +87,27 @@ Underworld.prototype.loadTextures = function(){
 	// Walls
 	this.textures.wall.push(this.GL.loadImage(cp + "img/texWall01.png?version=" + version, true, 1, true));
 	this.textures.wall.push(this.GL.loadImage(cp + "img/texWall02.png?version=" + version, true, 2, true));
-	this.textures.wall.push(this.GL.loadImage(cp + "img/texWall03.png?version=" + version, true, 3, true));
-	this.textures.wall.push(this.GL.loadImage(cp + "img/texWall04.png?version=" + version, true, 4, true));
+	
+	this.textures.wall.push(this.GL.loadImage(cp + "img/roomWall1.png?version=" + version, true, 3, true));
+	this.textures.wall.push(this.GL.loadImage(cp + "img/roomWall2.png?version=" + version, true, 4, true));
+	this.textures.wall.push(this.GL.loadImage(cp + "img/roomWall3.png?version=" + version, true, 5, true));
+	this.textures.wall.push(this.GL.loadImage(cp + "img/roomWall4.png?version=" + version, true, 6, true));
+	this.textures.wall.push(this.GL.loadImage(cp + "img/roomWall5.png?version=" + version, true, 7, true));
+	this.textures.wall.push(this.GL.loadImage(cp + "img/roomWall6.png?version=" + version, true, 8, true));
+	this.textures.wall.push(this.GL.loadImage(cp + "img/cavernWall1.png?version=" + version, true, 9, true));
 	
 	// Floors
 	this.textures.floor.push(this.GL.loadImage(cp + "img/texFloor01.png?version=" + version, true, 1, true));
 	this.textures.floor.push(this.GL.loadImage(cp + "img/texFloor02.png?version=" + version, true, 2, true));
 	this.textures.floor.push(this.GL.loadImage(cp + "img/texFloor03.png?version=" + version, true, 3, true));
-	this.textures.floor.push(this.GL.loadImage(cp + "img/texFloor04.png?version=" + version, true, 4, true));
-	this.textures.floor.push(this.GL.loadImage(cp + "img/texFloor05.png?version=" + version, true, 5, true));
+	
+	this.textures.floor.push(this.GL.loadImage(cp + "img/cavernFloor1.png?version=" + version, true, 4, true));
+	this.textures.floor.push(this.GL.loadImage(cp + "img/cavernFloor2.png?version=" + version, true, 5, true));
+	this.textures.floor.push(this.GL.loadImage(cp + "img/cavernFloor3.png?version=" + version, true, 6, true));
+	this.textures.floor.push(this.GL.loadImage(cp + "img/cavernFloor4.png?version=" + version, true, 7, true));
+	this.textures.floor.push(this.GL.loadImage(cp + "img/roomFloor1.png?version=" + version, true, 8, true));
+	this.textures.floor.push(this.GL.loadImage(cp + "img/roomFloor2.png?version=" + version, true, 9, true));
+	this.textures.floor.push(this.GL.loadImage(cp + "img/roomFloor3.png?version=" + version, true, 10, true));
 	
 	this.textures.floor[50] = (this.GL.loadImage(cp + "img/texHole.png?version=" + version, true, 50, true));
 	
@@ -107,7 +119,7 @@ Underworld.prototype.loadTextures = function(){
 	
 	// Ceilings
 	this.textures.ceil.push(this.GL.loadImage(cp + "img/texCeil01.png?version=" + version, true, 1, true));
-	this.textures.ceil.push(this.GL.loadImage(cp + "img/texWall03.png?version=" + version, true, 2, true));
+	this.textures.ceil.push(this.GL.loadImage(cp + "img/cavernWall1.png?version=" + version, true, 2, true));
 	this.textures.ceil[50] = (this.GL.loadImage(cp + "img/texHole.png?version=" + version, true, 50, true));
 	
 	// Items
