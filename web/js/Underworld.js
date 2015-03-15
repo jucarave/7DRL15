@@ -88,10 +88,26 @@ Underworld.prototype.loadTextures = function(){
 	this.textures.wall.push(this.GL.loadImage(cp + "img/texWall01.png?version=" + version, true, 1, true));
 	this.textures.wall.push(this.GL.loadImage(cp + "img/texWall02.png?version=" + version, true, 2, true));
 	
+	this.textures.wall.push(this.GL.loadImage(cp + "img/roomWall1.png?version=" + version, true, 3, true));
+	this.textures.wall.push(this.GL.loadImage(cp + "img/roomWall2.png?version=" + version, true, 4, true));
+	this.textures.wall.push(this.GL.loadImage(cp + "img/roomWall3.png?version=" + version, true, 5, true));
+	this.textures.wall.push(this.GL.loadImage(cp + "img/roomWall4.png?version=" + version, true, 6, true));
+	this.textures.wall.push(this.GL.loadImage(cp + "img/roomWall5.png?version=" + version, true, 7, true));
+	this.textures.wall.push(this.GL.loadImage(cp + "img/roomWall6.png?version=" + version, true, 8, true));
+	this.textures.wall.push(this.GL.loadImage(cp + "img/cavernWall1.png?version=" + version, true, 9, true));
+	
 	// Floors
 	this.textures.floor.push(this.GL.loadImage(cp + "img/texFloor01.png?version=" + version, true, 1, true));
 	this.textures.floor.push(this.GL.loadImage(cp + "img/texFloor02.png?version=" + version, true, 2, true));
 	this.textures.floor.push(this.GL.loadImage(cp + "img/texFloor03.png?version=" + version, true, 3, true));
+	
+	this.textures.floor.push(this.GL.loadImage(cp + "img/cavernFloor1.png?version=" + version, true, 4, true));
+	this.textures.floor.push(this.GL.loadImage(cp + "img/cavernFloor2.png?version=" + version, true, 5, true));
+	this.textures.floor.push(this.GL.loadImage(cp + "img/cavernFloor3.png?version=" + version, true, 6, true));
+	this.textures.floor.push(this.GL.loadImage(cp + "img/cavernFloor4.png?version=" + version, true, 7, true));
+	this.textures.floor.push(this.GL.loadImage(cp + "img/roomFloor1.png?version=" + version, true, 8, true));
+	this.textures.floor.push(this.GL.loadImage(cp + "img/roomFloor2.png?version=" + version, true, 9, true));
+	this.textures.floor.push(this.GL.loadImage(cp + "img/roomFloor3.png?version=" + version, true, 10, true));
 	
 	this.textures.floor[50] = (this.GL.loadImage(cp + "img/texHole.png?version=" + version, true, 50, true));
 	
@@ -103,11 +119,12 @@ Underworld.prototype.loadTextures = function(){
 	
 	// Ceilings
 	this.textures.ceil.push(this.GL.loadImage(cp + "img/texCeil01.png?version=" + version, true, 1, true));
+	this.textures.ceil.push(this.GL.loadImage(cp + "img/cavernWall1.png?version=" + version, true, 2, true));
 	this.textures.ceil[50] = (this.GL.loadImage(cp + "img/texHole.png?version=" + version, true, 50, true));
 	
 	// Items
 	this.objectTex.items = this.GL.loadImage(cp + "img/texItems.png?version=" + version, true, 1, true);
-	this.objectTex.items.buffers = AnimatedTexture.getTextureBufferCoords(8, 2, this.GL.ctx);
+	this.objectTex.items.buffers = AnimatedTexture.getTextureBufferCoords(8, 8, this.GL.ctx);
 	
 	this.objectTex.spells = this.GL.loadImage(cp + "img/texSpells.png?version=" + version, true, 1, true);
 	this.objectTex.spells.buffers = AnimatedTexture.getTextureBufferCoords(4, 4, this.GL.ctx);
@@ -141,7 +158,7 @@ Underworld.prototype.loadTextures = function(){
 	this.objectTex.liche_run = this.GL.loadImage(cp + "img/enemies/texLicheRun.png?version=" + version, true, 10, true);
 	this.objectTex.ghost_run = this.GL.loadImage(cp + "img/enemies/texGhostRun.png?version=" + version, true, 10, true);
 	this.objectTex.gremlin_run = this.GL.loadImage(cp + "img/enemies/texGremlinRun.png?version=" + version, true, 10, true);
-	//this.objectTex.dragon_run = this.GL.loadImage(cp + "img/enemies/texDragonRun.png?version=" + version, true, 10, true);
+	this.objectTex.dragon_run = this.GL.loadImage(cp + "img/enemies/texDragonRun.png?version=" + version, true, 10, true);
 	this.objectTex.zorn_run = this.GL.loadImage(cp + "img/enemies/texZornRun.png?version=" + version, true, 10, true);
 };
 
@@ -190,6 +207,7 @@ Underworld.prototype.loadMap = function(map, depth){
 	var game = this;
 	if (depth === undefined || !game.maps[depth - 1]){
 		game.map = new MapManager(game, map, depth);
+		game.floorDepth = depth;
 		game.maps.push(game.map);
 		game.scene = null;
 	}else if (game.maps[depth - 1]){
@@ -202,10 +220,9 @@ Underworld.prototype.printGreet = function(){
 	this.console.messages = [];
 	
 	// Shows a welcome message with the game instructions.
-	this.console.addSFMessage("Welcome to the Stygian abbys!");
-	this.console.addSFMessage("Press WASD to move, Use the mouse to turn around");
+	this.console.addSFMessage("You enter the legendary Stygian Abyss.");
+	this.console.addSFMessage("Use WASD to move, Use the mouse to turn around");
 	this.console.addSFMessage("Press E to interact and Click to attack");
-	this.console.addSFMessage("Have fun!");
 };
 
 Underworld.prototype.newGame = function(){
@@ -318,9 +335,9 @@ Underworld.prototype.drawUI = function(){
 	// Draw mana
 	var mana = ps.mana / ps.mMana;
 	ctx.fillStyle = "rgb(181,98,20)";
-	ctx.fillRect(8,14,60,2);
+	ctx.fillRect(8,16,60,2);
 	ctx.fillStyle = "rgb(255,138,28)";
-	ctx.fillRect(8,14,(60 * mana) << 0,2);
+	ctx.fillRect(8,16,(60 * mana) << 0,2);
 	
 	// Draw Inventory
 	if (this.setDropItem)
@@ -352,6 +369,10 @@ Underworld.prototype.drawUI = function(){
 	}else if (this.paused){
 		this.UI.drawSprite(this.images.paused, 147, 94, 0);
 	}
+	this.UI.drawText('Level '+this.floorDepth, 10,24,this.console);
+	this.UI.drawText(this.player.className, 10,31,this.console);
+	this.UI.drawText('HP: '+ps.hp, 10,9,this.console);
+	this.UI.drawText('Mana:'+ps.mana, 10,17,this.console);
 	
 	game.console.render(8, 130);
 };

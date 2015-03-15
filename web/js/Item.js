@@ -24,7 +24,19 @@ Item.prototype.activate = function(){
 	var mm = this.mapManager;
 	var game = this.mapManager.game;
 	if (this.item.isItem){
-		if (game.addItem(this.item)){
+		if (this.item.type == 'codex'){
+			// 10 lines
+			mm.addMessage("The boundless knownledge of the Codex is revealed unto thee.");
+			mm.addMessage("A voice thunders!")
+			mm.addMessage("Thou hast proven thyself to be truly good in nature")
+			mm.addMessage("Thou must know that thy quest to become an Avatar is the endless ")
+			mm.addMessage("quest of a lifetime.");
+			mm.addMessage("Avatarhood is a living gift, It must always and forever be nurtured");
+			mm.addMessage("to fluorish, for if thou dost stray from the paths of virtue, thy way");
+			mm.addMessage("may be lost forever.")
+			mm.addMessage("Return now unto thine our world, live there as an example to thy");
+			mm.addMessage("people, as our memory of thy gallant deeds serves us.")
+		} else if (game.addItem(this.item)){
 			var stat = '';
 			if (this.item.status !== undefined)
 				stat = ItemFactory.getStatusName(this.item.status) + ' ';

@@ -22,7 +22,11 @@ function Stairs(position, mapManager, direction){
 }
 
 Stairs.prototype.activate = function(){
-	this.mapManager.game.loadMap(false, this.targetId);
+	if (this.targetId < 9)
+		this.mapManager.game.loadMap(false, this.targetId);
+	else {
+		this.mapManager.game.loadMap('codexRoom');
+	}
 };
 
 Stairs.prototype.getTile = function(){

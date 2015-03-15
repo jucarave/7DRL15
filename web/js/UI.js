@@ -35,6 +35,21 @@ UI.prototype.drawSprite = function(sprite, x, y, subImage){
 		);
 };
 
+UI.prototype.drawText = function(text, x, y, console){
+	var w = console.spaceChars;
+	var h = console.spriteFont.height;
+	for (var j=0,jlen=text.length;j<jlen;j++){
+		var chara = text.charAt(j);
+		var ind = console.listOfChars.indexOf(chara);
+		if (ind != -1){
+			this.ctx.drawImage(console.spriteFont,
+				w * ind, 0, w, h,
+				x, y, w, h);
+		}
+		x += w;
+	}
+}
+
 UI.prototype.clear = function(){
 	this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 };

@@ -91,74 +91,82 @@ PlayerStats.prototype.setVirtue = function(virtueName){
 	switch (virtueName){
 		case "Honesty":
 			this.hp = 600;
-			this.mana = 18;
+			this.mana = 200;
 			this.stats.magicPower = 6;
 			this.stats.str = '2';
 			this.stats.dfs = '2';
 			this.stats.dex = 0.5;
+			this.className = 'Mage';
 		break;
 		
 		case "Compassion":
 			this.hp = 700;
-			this.mana = 13;
+			this.mana = 100;
 			this.stats.magicPower = 4;
 			this.stats.str = '4';
 			this.stats.dfs = '4';
 			this.stats.dex = 0.7;
+			this.className = 'Bard';
 		break;
 		
 		case "Valor":
 			this.hp = 800;
-			this.mana = 8;
+			this.mana = 0;
 			this.stats.magicPower = 2;
 			this.stats.str = '6';
 			this.stats.dfs = '2';
 			this.stats.dex = 0.7;
+			this.className = 'Fighter';
 		break;
 		
 		case "Honor":
 			this.hp = 700;
-			this.mana = 13;
+			this.mana = 100;
 			this.stats.magicPower = 4;
 			this.stats.str = '6';
 			this.stats.dfs = '2';
 			this.stats.dex = 0.7;
+			this.className = 'Paladin';
 		break;
 		
 		case "Spirituality":
 			this.hp = 700;
-			this.mana = 13;
+			this.mana = 100;
 			this.stats.magicPower = 6;
 			this.stats.str = '4';
 			this.stats.dfs = '4';
 			this.stats.dex = 0.9;
+			this.className = 'Ranger';
 		break;
 		
 		case "Humility":
 			this.hp = 600;
-			this.mana = 8;
+			this.mana = 0;
 			this.stats.magicPower = 2;
 			this.stats.str = '2';
 			this.stats.dfs = '2';
 			this.stats.dex = 0.5;
+			this.className = 'Shepherd';
 		break;
 		
 		case "Sacrifice":
 			this.hp = 800;
-			this.mana = 8;
+			this.mana = 50;
 			this.stats.magicPower = 2;
 			this.stats.str = '4';
 			this.stats.dfs = '6';
 			this.stats.dex = 0.9;
+			this.className = 'Tinker';
 		break;
 		
 		case "Justice":
 			this.hp = 700;
-			this.mana = 18;
+			this.mana = 150;
 			this.stats.magicPower = 4;
 			this.stats.str = '2';
 			this.stats.dfs = '2';
 			this.stats.dex = 0.9;
+			this.className = 'Druid';
 		break;
 	}
 	
