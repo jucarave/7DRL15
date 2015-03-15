@@ -10,7 +10,7 @@ SelectClass.prototype.step = function(){
 		
 		if (game.mouse.a >= 154 && game.mouse.a < 214 && game.mouse.b >= 1){
 			if (game.mouse.b < 61){
-				playerS.setVirtue("Compasion");
+				playerS.setVirtue("Compassion");
 			}else if (game.mouse.b >= 67 && game.mouse.b < 127){
 				playerS.setVirtue("Honor");
 			}else if (game.mouse.b >= 133 && game.mouse.b < 193){
