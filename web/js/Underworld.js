@@ -91,6 +91,8 @@ Underworld.prototype.loadTextures = function(){
 	this.textures.floor.push(this.GL.loadImage(cp + "img/texFloor02.png?version=" + version, true, 2, true));
 	this.textures.floor.push(this.GL.loadImage(cp + "img/texFloor03.png?version=" + version, true, 3, true));
 	
+	this.textures.floor[50] = (this.GL.loadImage(cp + "img/texHole.png?version=" + version, true, 50, true));
+	
 	// Liquids
 	this.textures.water.push(this.GL.loadImage(cp + "img/texWater01.png?version=" + version, true, 1, true));
 	this.textures.water.push(this.GL.loadImage(cp + "img/texWater02.png?version=" + version, true, 2, true));
@@ -99,6 +101,7 @@ Underworld.prototype.loadTextures = function(){
 	
 	// Ceilings
 	this.textures.ceil.push(this.GL.loadImage(cp + "img/texCeil01.png?version=" + version, true, 1, true));
+	this.textures.ceil[50] = (this.GL.loadImage(cp + "img/texHole.png?version=" + version, true, 50, true));
 	
 	// Items
 	this.objectTex.items = this.GL.loadImage(cp + "img/texItems.png?version=" + version, true, 1, true);
@@ -182,7 +185,6 @@ Underworld.prototype.getObjectTexture = function(textureCode){
 };
 
 Underworld.prototype.loadMap = function(map, depth){
-	console.log(depth);
 	var game = this;
 	if (depth === undefined || !game.maps[depth - 1]){
 		game.map = new MapManager(game, map, depth);
