@@ -381,7 +381,7 @@ Underworld.prototype.addExperience = function(expPoints){
 	this.player.addExperience(expPoints, this.console);
 };
 
-Underworld.prototype.createInitialInventory = function(){
+Underworld.prototype.createInitialInventory = function(className){
 	this.inventory.items = [];
 	
 	var item = ItemFactory.getItemByCode('mysticSword', 1.0);
@@ -391,6 +391,26 @@ Underworld.prototype.createInitialInventory = function(){
 	var item = ItemFactory.getItemByCode('mystic', 1.0);
 	item.equipped = true;
 	this.inventory.items.push(item);
+	
+	switch (className){
+	case 'Mage':
+		this.inventory.items.push(ItemFactory.getItemByCode('heal'));
+		this.inventory.items.push(ItemFactory.getItemByCode('heal'));
+		this.inventory.items.push(ItemFactory.getItemByCode('missile'));
+		this.inventory.items.push(ItemFactory.getItemByCode('missile'));
+		this.inventory.items.push(ItemFactory.getItemByCode('missile'));
+		this.inventory.items.push(ItemFactory.getItemByCode('missile'));
+		break;
+	case 'Druid':
+		this.inventory.items.push(ItemFactory.getItemByCode('heal'));
+		this.inventory.items.push(ItemFactory.getItemByCode('heal'));
+		this.inventory.items.push(ItemFactory.getItemByCode('missile'));
+	case 'Bard': case 'Paladin': case 'Ranger':
+		this.inventory.items.push(ItemFactory.getItemByCode('heal'));
+		this.inventory.items.push(ItemFactory.getItemByCode('light'));
+		this.inventory.items.push(ItemFactory.getItemByCode('missile'));
+		break;
+	}
 };
 
 Underworld.prototype.activeSpell = function(index){
