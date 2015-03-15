@@ -86,6 +86,13 @@
             "enemy":"octopus"
         },
         {
+            "x":6.3,
+            "z":7.3,
+            "y":0,
+            "type":"enemy",
+            "enemy":"seaSerpent"
+        },
+        {
             "x":1.5,
             "z":10.5,
             "y":0,
