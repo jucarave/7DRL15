@@ -141,7 +141,7 @@ Enemy.prototype.attackPlayer = function(player){
 		this.mapManager.addMessage("Blocked!");
 	}
 	
-	this.attackWait = 30;
+	this.attackWait = 90;
 };
 
 Enemy.prototype.step = function(){
@@ -159,8 +159,8 @@ Enemy.prototype.step = function(){
 		}
 		
 		var dir = Math.getAngle(this.position, p);
-		var dx = Math.cos(dir) * 0.05;
-		var dy = -Math.sin(dir) * 0.05;
+		var dx = Math.cos(dir) * 0.02;
+		var dy = -Math.sin(dir) * 0.02;
 		
 		this.moveTo(dx, dy);
 	}else{
