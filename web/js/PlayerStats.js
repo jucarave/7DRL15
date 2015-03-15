@@ -96,6 +96,7 @@ PlayerStats.prototype.setVirtue = function(virtueName){
 			this.stats.str = '2';
 			this.stats.dfs = '2';
 			this.stats.dex = 0.5;
+			this.className = 'Mage';
 		break;
 		
 		case "Compassion":
@@ -105,6 +106,7 @@ PlayerStats.prototype.setVirtue = function(virtueName){
 			this.stats.str = '4';
 			this.stats.dfs = '4';
 			this.stats.dex = 0.7;
+			this.className = 'Bard';
 		break;
 		
 		case "Valor":
@@ -114,6 +116,7 @@ PlayerStats.prototype.setVirtue = function(virtueName){
 			this.stats.str = '6';
 			this.stats.dfs = '2';
 			this.stats.dex = 0.7;
+			this.className = 'Fighter';
 		break;
 		
 		case "Honor":
@@ -123,6 +126,7 @@ PlayerStats.prototype.setVirtue = function(virtueName){
 			this.stats.str = '6';
 			this.stats.dfs = '2';
 			this.stats.dex = 0.7;
+			this.className = 'Paladin';
 		break;
 		
 		case "Spirituality":
@@ -132,6 +136,7 @@ PlayerStats.prototype.setVirtue = function(virtueName){
 			this.stats.str = '4';
 			this.stats.dfs = '4';
 			this.stats.dex = 0.9;
+			this.className = 'Ranger';
 		break;
 		
 		case "Humility":
@@ -141,6 +146,7 @@ PlayerStats.prototype.setVirtue = function(virtueName){
 			this.stats.str = '2';
 			this.stats.dfs = '2';
 			this.stats.dex = 0.5;
+			this.className = 'Shepherd';
 		break;
 		
 		case "Sacrifice":
@@ -150,6 +156,7 @@ PlayerStats.prototype.setVirtue = function(virtueName){
 			this.stats.str = '4';
 			this.stats.dfs = '6';
 			this.stats.dex = 0.9;
+			this.className = 'Tinker';
 		break;
 		
 		case "Justice":
@@ -159,6 +166,7 @@ PlayerStats.prototype.setVirtue = function(virtueName){
 			this.stats.str = '2';
 			this.stats.dfs = '2';
 			this.stats.dex = 0.9;
+			this.className = 'Druid';
 		break;
 	}
 	

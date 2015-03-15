@@ -195,6 +195,7 @@ Underworld.prototype.loadMap = function(map, depth){
 	var game = this;
 	if (depth === undefined || !game.maps[depth - 1]){
 		game.map = new MapManager(game, map, depth);
+		game.floorDepth = depth;
 		game.maps.push(game.map);
 		game.scene = null;
 	}else if (game.maps[depth - 1]){
@@ -322,9 +323,9 @@ Underworld.prototype.drawUI = function(){
 	// Draw mana
 	var mana = ps.mana / ps.mMana;
 	ctx.fillStyle = "rgb(181,98,20)";
-	ctx.fillRect(8,14,60,2);
+	ctx.fillRect(8,16,60,2);
 	ctx.fillStyle = "rgb(255,138,28)";
-	ctx.fillRect(8,14,(60 * mana) << 0,2);
+	ctx.fillRect(8,16,(60 * mana) << 0,2);
 	
 	// Draw Inventory
 	if (this.setDropItem)
@@ -356,6 +357,10 @@ Underworld.prototype.drawUI = function(){
 	}else if (this.paused){
 		this.UI.drawSprite(this.images.paused, 147, 94, 0);
 	}
+	this.UI.drawText('Level '+this.floorDepth, 10,24,this.console);
+	this.UI.drawText(this.player.className, 10,31,this.console);
+	this.UI.drawText('HP: '+ps.hp, 10,9,this.console);
+	this.UI.drawText('Mana:'+ps.mana, 10,17,this.console);
 	
 	game.console.render(8, 130);
 };
