@@ -12,15 +12,15 @@ var ItemFactory = {
 		axe: {name: "Axe", tex: "items", subImg: 6, type: 'weapon', str: '4D2', wear: 0.01},
 		shortSword: {name: "Short sword", tex: "items", subImg: 7, type: 'weapon', str: '3D3', wear: 0.01},
 		longSword: {name: "Long sword", tex: "items", subImg: 8, type: 'weapon', str: '4D3', wear: 0.008},
-		bow: {name: "Bow", tex: "items", subImg: 9, type: 'weapon', str: '3D3', ranged: true, subItemName: 'arrow', wear: 0.01},
-		crossbow: {name: "Crossbow", tex: "items", subImg: 10, type: 'weapon', str: '5D3', ranged: true, subItemName: 'crossbow bolt', wear: 0.008},
+		mysticSword: {name: "Mystic sword", tex: "items", subImg: 9, type: 'weapon', str: '6D3', wear: 0.008},
+		bow: {name: "Bow", tex: "items", subImg: 10, type: 'weapon', str: '3D3', ranged: true, subItemName: 'arrow', wear: 0.01},
+		crossbow: {name: "Crossbow", tex: "items", subImg: 11, type: 'weapon', str: '5D3', ranged: true, subItemName: 'crossbow bolt', wear: 0.008},
 		
 		// Armour
-		leather: {name: "Leather armour", tex: "items", subImg: 11, type: 'armour', dfs: '1D2', wear: 0.05},
-		scale: {name: "Scale mail", tex: "items", subImg: 12, type: 'armour', dfs: '2D2', wear: 0.03},
-		chain: {name: "Chain mail", tex: "items", subImg: 13, type: 'armour', dfs: '4D1', wear: 0.015},
-		plate: {name: "Plate mail", tex: "items", subImg: 14, type: 'armour', dfs: '4D2', wear: 0.008},
-		mystic: {name: "Mystic armour", tex: "items", subImg: 15, type: 'armour', dfs: '5D2', wear: 0.005},
+		leather: {name: "Leather armour", tex: "items", subImg: 12, type: 'armour', dfs: '1D2', wear: 0.05},
+		scale: {name: "Scale mail", tex: "items", subImg: 13, type: 'armour', dfs: '2D2', wear: 0.03},
+		plate: {name: "Plate mail", tex: "items", subImg: 14, type: 'armour', dfs: '4D2', wear: 0.015},
+		mystic: {name: "Mystic armour", tex: "items", subImg: 15, type: 'armour', dfs: '5D2', wear: 0.008},
 		
 		// Spell mixes
 		cure: {name: "Spellmix of Cure", tex: "spells", subImg: 0, type: 'magic_1'},
