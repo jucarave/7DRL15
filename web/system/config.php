@@ -1,5 +1,5 @@
 <?php
-	$version = "A0.4";
+	$version = "A0.1";
 	$environment = "LOCAL";
 	$contextPath = "/7DRL15/";
 	

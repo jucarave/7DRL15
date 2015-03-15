@@ -60,3 +60,11 @@ Inventory.prototype.destroyItem = function(item){
 		}
 	}
 };
+
+
+Inventory.prototype.dropItem = function(itemId){
+	if (this.items[i].type == 'weapon' || this.items[i].type == 'armour'){
+		this.items[i].equipped = false;
+	}
+	this.items.splice(itemId, 1);
+};

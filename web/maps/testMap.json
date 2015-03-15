@@ -100,7 +100,7 @@
             "z":10.5,
             "y":0,
             "type":"item",
-            "item":"hpPotion"
+            "item":"redPotion"
         },
         {
             "x":2.5,
@@ -114,14 +114,14 @@
             "z":10.5,
             "y":0,
             "type":"item",
-            "item":"magicMissile"
+            "item":"missile"
         },
         {
             "x":4.5,
             "z":10.5,
             "y":0,
             "type":"item",
-            "item":"fireExplosion"
+            "item":"fireball"
         },
         {
             "x":1.5,

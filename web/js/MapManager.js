@@ -155,6 +155,32 @@ MapManager.prototype.getInstanceAtGrid = function(position){
 	return null;
 };
 
+MapManager.prototype.getNearestCleanItemTile = function(x, z){
+	x = x << 0;
+	z = z << 0;
+	
+	var minX = x - 1;
+	var minZ = z - 1;
+	var maxX = x + 1;
+	var maxZ = z + 1;
+	
+	for (var zz=minZ;zz<=maxZ;zz++){
+		for (var xx=minX;xx<=maxX;xx++){
+			if (this.isSolid(xx, zz) || this.isWaterPosition(xx, zz)){
+				continue;
+			}
+			
+			var pos = vec3(xx, 0, zz);
+			var ins = this.getInstanceAtGrid(pos);
+			if (!ins || !ins.item){
+				return pos;
+			}
+		}
+	}
+	
+	return null;
+};
+
 MapManager.prototype.getInstancesNearest = function(position, distance, hasProperty){
 	var ret = [];
 	for (var i=0,len=this.instances.length;i<len;i++){
