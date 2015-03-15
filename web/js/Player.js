@@ -104,7 +104,7 @@ Player.prototype.castAttack = function(target, weapon){
 	
 	var dmg = Math.max(str - dfs, 0) << 0;
 	
-	this.mapManager.addMessage("Attacking to " + target.enemy.name);
+	this.mapManager.addMessage("Attacking " + target.enemy.name);
 	
 	if (dmg > 0){
 		this.mapManager.addMessage(dmg + " points inflicted");
