@@ -27,7 +27,7 @@ Player.prototype.receiveDamage = function(dmg){
 	player.hp -= dmg;
 	if (player.hp <= 0){
 		player.hp = 0;
-		this.mapManager.addMessage("Game over!");
+		this.mapManager.addMessage("You died!");
 		this.destroyed = true;
 	}
 };

@@ -158,6 +158,11 @@ Enemy.prototype.step = function(){
 			return;
 		}
 		
+		if (xx > 10 || yy > 10){
+			this.target = null;
+			return;
+		}
+		
 		var dir = Math.getAngle(this.position, p);
 		var dx = Math.cos(dir) * 0.02;
 		var dy = -Math.sin(dir) * 0.02;

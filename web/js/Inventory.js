@@ -4,6 +4,10 @@ function Inventory(limitItems){
 	this.limitItems = limitItems;
 }
 
+Inventory.prototype.reset = function(){
+	this.items = [];
+};
+
 Inventory.prototype.addItem = function(item){
 	if (this.items.length == this.limitItems){
 		return false;

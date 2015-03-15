@@ -68,6 +68,7 @@ Underworld.prototype.loadImages = function(){
 	this.images.inventoryDrop = this.GL.loadImage(cp + "img/inventoryDrop.png?version=" + version, false, 0, 0, {imgNum: 1, imgVNum: 2});
 	this.images.inventorySelected = this.GL.loadImage(cp + "img/inventory_selected.png?version=" + version, false);
 	this.images.scrollFont = this.GL.loadImage(cp + "img/scrollFontWhite.png?version=" + version, false);
+	this.images.restart = this.GL.loadImage(cp + "img/restart.png?version=" + version, false);
 };
 
 Underworld.prototype.loadTextures = function(){
@@ -189,11 +190,27 @@ Underworld.prototype.loadMap = function(map, depth, id){
 };
 
 Underworld.prototype.printGreet = function(){
+	this.console.messages = [];
+	
 	// Shows a welcome message with the game instructions.
-	this.console.addSFMessage("Welcome to 7DRL15 alpha test!");
+	this.console.addSFMessage("Welcome to the Stygian abbys!");
 	this.console.addSFMessage("Press WASD to move, Use the mouse to turn around");
 	this.console.addSFMessage("Press E to interact and Click to attack");
 	this.console.addSFMessage("Have fun!");
+};
+
+Underworld.prototype.newGame = function(){
+	this.inventory.reset();
+	this.player.reset();
+	
+	this.maps = [];
+	this.map = null;
+	this.scene = null;
+	
+	this.printGreet();
+		
+	this.scene = new TitleScreen(this);
+	this.loop();
 };
 
 Underworld.prototype.loadGame = function(){
@@ -201,10 +218,7 @@ Underworld.prototype.loadGame = function(){
 	
 	if (game.GL.areImagesReady()){
 		game.postLoading();
-		game.printGreet();
-		
-		game.scene = new TitleScreen(this);
-		game.loop();
+		game.newGame();
 	}else{
 		requestAnimFrame(function(){ game.loadGame(); });
 	}
@@ -324,6 +338,10 @@ Underworld.prototype.drawUI = function(){
 		ctx.fillRect(0,0,ctx.width,ctx.height);
 	}
 	
+	if (player.destroyed){
+		this.UI.drawSprite(this.images.restart, 85, 94, 0);
+	}
+	
 	game.console.render(8, 130);
 };
 
@@ -346,6 +364,14 @@ Underworld.prototype.createInitialInventory = function(){
 Underworld.prototype.checkInvControl = function(){
 	var player = this.map.player;
 	var ps = this.player;
+	
+	if (player && player.destroyed){
+		if (this.getKeyPressed(82)){
+			document.exitPointerLock();
+			this.newGame();
+		}
+	}
+	
 	if (!player || player.destroyed) return;
 	
 	if (this.getKeyPressed(84)){
