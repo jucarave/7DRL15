@@ -30,6 +30,7 @@ function Underworld(){
 	this.models = {};
 	this.protection = 0;
 	this.dropItem = false;
+	this.paused = false;
 	
 	this.fps = (1000 / 30) << 0;
 	this.lastT = 0;
@@ -69,6 +70,7 @@ Underworld.prototype.loadImages = function(){
 	this.images.inventorySelected = this.GL.loadImage(cp + "img/inventory_selected.png?version=" + version, false);
 	this.images.scrollFont = this.GL.loadImage(cp + "img/scrollFontWhite.png?version=" + version, false);
 	this.images.restart = this.GL.loadImage(cp + "img/restart.png?version=" + version, false);
+	this.images.paused = this.GL.loadImage(cp + "img/paused.png?version=" + version, false);
 };
 
 Underworld.prototype.loadTextures = function(){
@@ -340,6 +342,8 @@ Underworld.prototype.drawUI = function(){
 	
 	if (player.destroyed){
 		this.UI.drawSprite(this.images.restart, 85, 94, 0);
+	}else if (this.paused){
+		this.UI.drawSprite(this.images.paused, 147, 94, 0);
 	}
 	
 	game.console.render(8, 130);
@@ -374,6 +378,11 @@ Underworld.prototype.checkInvControl = function(){
 	
 	if (!player || player.destroyed) return;
 	
+	if (this.getKeyPressed(80)){
+		this.paused = !this.paused;
+	}
+	
+	if (this.paused) return;
 	if (this.getKeyPressed(84)){
 		if (!this.dropItem){
 			this.console.addSFMessage('Select the item to drop');

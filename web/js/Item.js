@@ -46,5 +46,10 @@ Item.prototype.draw = function(){
 
 Item.prototype.loop = function(){
 	if (this.destroyed) return;
+	if (this.mapManager.game.paused){
+		this.draw(); 
+		return;
+	}
+	
 	this.draw();
 };

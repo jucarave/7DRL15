@@ -278,6 +278,8 @@ Player.prototype.step = function(){
 };
 
 Player.prototype.loop = function(){
+	if (this.mapManager.game.paused) return;
+	
 	if (this.destroyed){
 		if (this.onWater){
 			this.doFloat();

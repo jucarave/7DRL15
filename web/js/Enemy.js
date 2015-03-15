@@ -196,6 +196,11 @@ Enemy.prototype.draw = function(){
 };
 
 Enemy.prototype.loop = function(){
+	if (this.mapManager.game.paused){
+		this.draw(); 
+		return;
+	}
+	
 	if (this.imgSpd > 0 && this.numFrames > 1){
 		this.imgInd += this.imgSpd;
 		if ((this.imgInd << 0) >= this.numFrames){
