@@ -425,167 +425,162 @@ Underworld.prototype.activeSpell = function(index){
 	}
 	
 	ps.mana = Math.max(ps.mana - item.mana, 0);
-	var prob = Math.random();
-	if (prob > ps.stats.dex){
-		this.console.addSFMessage("The cast failed!");
-	}else{
-		switch (item.code){
-			case 'cure':
-				if (this.player.poisoned){
-					this.player.poisoned = false;
-					this.console.addSFMessage("Poison cured");
-				}else{
-					this.console.addSFMessage("You were not poisoned");
-				}
-			break;
+	
+	switch (item.code){
+		case 'cure':
+			if (this.player.poisoned){
+				this.player.poisoned = false;
+				this.console.addSFMessage("AN NOX!");
+			}else{
+				this.console.addSFMessage("AN NOX...");
+			}
+		break;
+		
+		case 'heal':
+			var heal = (this.player.mHP * item.percent) << 0;
+			this.player.hp = Math.min(this.player.hp + heal, this.player.mHP);
+			this.console.addSFMessage("MANI! "+heal + " points healed");
+		break;
+		
+		case 'light':
+			if (this.GL.light > 0){
+				this.console.addSFMessage("The spell fizzles!");
+			}else{
+				this.GL.light = item.lightTime;
+				this.console.addSFMessage("IN LOR!");
+			}
+		break;
+		
+		case 'missile':
+			var str = rollDice(ps.stats.magicPower) + rollDice(item.str);
 			
-			case 'heal':
-				var heal = (this.player.mHP * item.percent) << 0;
-				this.player.hp = Math.min(this.player.hp + heal, this.player.mHP);
-				this.console.addSFMessage(heal + " points healed");
-			break;
+			var missile = new Missile(p.position.clone(), p.rotation.clone(), 'magicMissile', 'enemy', this.map);
+			missile.str = str << 0;
 			
-			case 'light':
-				if (this.GL.light > 0){
-					this.console.addSFMessage("The cast failed!");
-				}else{
-					this.GL.light = item.lightTime;
-					this.console.addSFMessage("Light!");
-				}
-			break;
+			this.map.addMessage("GRAV POR!");
+			this.map.instances.push(missile);
 			
-			case 'missile':
-				var str = rollDice(ps.stats.magicPower) + rollDice(item.str);
-				
-				var missile = new Missile(p.position.clone(), p.rotation.clone(), 'magicMissile', 'enemy', this.map);
-				missile.str = str << 0;
-				
-				this.map.addMessage("Magic missile casted");
-				this.map.instances.push(missile);
-				
-				p.attackWait = 30;
-			break;
+			p.attackWait = 30;
+		break;
+		
+		case 'iceball':
+			var str = rollDice(ps.stats.magicPower) + rollDice(item.str);
 			
-			case 'iceball':
-				var str = rollDice(ps.stats.magicPower) + rollDice(item.str);
-				
-				var missile = new Missile(p.position.clone(), p.rotation.clone(), 'iceBall', 'enemy', this.map);
-				missile.str = str << 0;
-				
-				this.map.addMessage("Ice ball casted");
-				this.map.instances.push(missile);
-				
-				p.attackWait = 30;
-			break;
+			var missile = new Missile(p.position.clone(), p.rotation.clone(), 'iceBall', 'enemy', this.map);
+			missile.str = str << 0;
 			
-			case 'repel':
-			break;
+			this.map.addMessage("VAS FRIO!");
+			this.map.instances.push(missile);
 			
-			case 'blink':
-				var lastPos = null;
-				var ported = false;
-				var pos = this.map.player.position.clone();
-				var dir = this.map.player.rotation;
+			p.attackWait = 30;
+		break;
+		
+		case 'repel':
+		break;
+		
+		case 'blink':
+			var lastPos = null;
+			var ported = false;
+			var pos = this.map.player.position.clone();
+			var dir = this.map.player.rotation;
+			
+			var dx = Math.cos(dir.b);
+			var dz = -Math.sin(dir.b);
+			
+			for (var i=0;i<15;i++){
+				pos.a += dx;
+				pos.c += dz;
 				
-				var dx = Math.cos(dir.b);
-				var dz = -Math.sin(dir.b);
-				
-				for (var i=0;i<15;i++){
-					pos.a += dx;
-					pos.c += dz;
-					
-					var cx = pos.a << 0;
-					var cy = pos.c << 0;
-					if (this.map.isSolid(cx, cy)){
-						if (lastPos){
-							this.console.addSFMessage("Blink!");
-							lastPos.sum(vec3(0.5,0,0.5));
-							var ported = true;
-							p.position = lastPos;
-						}else{
-							this.console.addSFMessage("The cast failed!");
-						}
-						
-						i = 15;
-					}else{
-						if (!this.map.isWaterPosition(cx, cy)){
-							var ins = this.map.getInstanceAtGrid(pos);
-							if (!ins){
-								lastPos = vec3(cx, pos.b, cy);
-							}
-						}
-					}
-				}
-				
-				if (!ported){
+				var cx = pos.a << 0;
+				var cy = pos.c << 0;
+				if (this.map.isSolid(cx, cy)){
 					if (lastPos){
-						this.console.addSFMessage("Blink!");
+						this.console.addSFMessage("IN POR!");
 						lastPos.sum(vec3(0.5,0,0.5));
+						var ported = true;
 						p.position = lastPos;
 					}else{
-						this.console.addSFMessage("The cast failed!");
+						this.console.addSFMessage("The spell fizzles!");
+					}
+					
+					i = 15;
+				}else{
+					if (!this.map.isWaterPosition(cx, cy)){
+						var ins = this.map.getInstanceAtGrid(pos);
+						if (!ins){
+							lastPos = vec3(cx, pos.b, cy);
+						}
 					}
 				}
-			break;
+			}
 			
-			case 'fireball':
-				var str = rollDice(ps.stats.magicPower) + rollDice(item.str);
-				
-				var missile = new Missile(p.position.clone(), p.rotation.clone(), 'fireBall', 'enemy', this.map);
-				missile.str = str << 0;
-				
-				this.map.addMessage("Fire ball casted");
-				this.map.instances.push(missile);
-				
-				p.attackWait = 30;
-			break;
-			
-			case 'protection':
-				if (this.protecion > 0){
-					this.console.addSFMessage("The cast failed!");
+			if (!ported){
+				if (lastPos){
+					this.console.addSFMessage("IN POR!");
+					lastPos.sum(vec3(0.5,0,0.5));
+					p.position = lastPos;
 				}else{
-					this.protection = item.protTime;
-					this.console.addSFMessage("Protection!");
+					this.console.addSFMessage("The spell fizzles!");
 				}
-			break;
+			}
+		break;
+		
+		case 'fireball':
+			var str = rollDice(ps.stats.magicPower) + rollDice(item.str);
 			
-			case 'time':
-				if (this.timeStop > 0){
-					this.console.addSFMessage("The cast failed!");
-				}else{
-					this.timeStop = item.stopTime;
-					this.console.addSFMessage("Stop time!");
-				}
-			break;
+			var missile = new Missile(p.position.clone(), p.rotation.clone(), 'fireBall', 'enemy', this.map);
+			missile.str = str << 0;
 			
-			case 'sleep':
-				this.console.addSFMessage("Sleep!");
-				var instances = this.map.getInstancesNearest(p.position, 6, 'enemy');
-				for (var i=0,len=instances.length;i<len;i++){
-					instances[i].sleep = item.sleepTime;
-				}
-			break;
+			this.map.addMessage("VAS FLAM!");
+			this.map.instances.push(missile);
 			
-			case 'jinx':
-			break;
+			p.attackWait = 30;
+		break;
+		
+		case 'protection':
+			if (this.protection > 0){
+				this.console.addSFMessage("The spell fizzles!");
+			}else{
+				this.protection = item.protTime;
+				this.console.addSFMessage("IN SANCT!");
+			}
+		break;
+		
+		case 'time':
+			if (this.timeStop > 0){
+				this.console.addSFMessage("The spell fizzles!");
+			}else{
+				this.timeStop = item.stopTime;
+				this.console.addSFMessage("REL TYM!");
+			}
+		break;
+		
+		case 'sleep':
+			this.console.addSFMessage("IN ZU!");
+			var instances = this.map.getInstancesNearest(p.position, 6, 'enemy');
+			for (var i=0,len=instances.length;i<len;i++){
+				instances[i].sleep = item.sleepTime;
+			}
+		break;
+		
+		case 'jinx':
+		break;
+		
+		case 'tremor':
+		break;
+		
+		case 'kill':
+			var str = rollDice(ps.stats.magicPower) + rollDice(item.str);
 			
-			case 'tremor':
-			break;
+			var missile = new Missile(p.position.clone(), p.rotation.clone(), 'kill', 'enemy', this.map);
+			missile.str = str << 0;
 			
-			case 'kill':
-				var str = rollDice(ps.stats.magicPower) + rollDice(item.str);
-				
-				var missile = new Missile(p.position.clone(), p.rotation.clone(), 'kill', 'enemy', this.map);
-				missile.str = str << 0;
-				
-				this.map.addMessage("Death bolt casted");
-				this.map.instances.push(missile);
-				
-				p.attackWait = 30;
-			break;
-		}
+			this.map.addMessage("XEN CORP!");
+			this.map.instances.push(missile);
+			
+			p.attackWait = 30;
+		break;
 	}
-	
 	this.inventory.dropItem(index);
 };
 
