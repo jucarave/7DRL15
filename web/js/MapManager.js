@@ -1,4 +1,4 @@
-function MapManager(game, id, map, depth){
+function MapManager(game, map, depth){
 	this.map = null;
 	
 	this.waterTiles = [];
@@ -9,8 +9,8 @@ function MapManager(game, id, map, depth){
 	this.instances = [];
 	this.orderInstances = [];
 	this.doors = [];
-	this.id = id;
 	this.playerLast = null;
+	this.depth = depth;
 	
 	this.mapToDraw = [];
 	
@@ -52,8 +52,12 @@ MapManager.prototype.generateMap = function(depth){
 		mapM.waterTiles = [101, 103];
 		mapM.getInstancesToDraw();
 	}catch (e){
-		console.error(e.message);
-		console.error(e.stack);
+		if (e.message){
+			console.error(e.message);
+			console.error(e.stack);
+		}else{
+			console.error(e);
+		}
 		mapM.map = null;
 	}
 };

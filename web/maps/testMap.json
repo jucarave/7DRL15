@@ -93,6 +93,13 @@
             "enemy":"seaSerpent"
         },
         {
+            "x":2.5,
+            "z":2.5,
+            "y":0,
+            "type":"stairs",
+            "dir":"down"
+        },
+        {
             "x":1.5,
             "z":10.5,
             "y":0,

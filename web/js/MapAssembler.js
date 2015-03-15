@@ -196,6 +196,9 @@ MapAssembler.prototype.parseObjects = function(mapData){
 				var enemy = EnemyFactory.getEnemy(o.enemy);
 				this.mapManager.instances.push(new Enemy(vec3(x, y, z), enemy, this.mapManager));
 			break;
+			case "stairs":
+				this.mapManager.instances.push(new Stairs(vec3(x, y, z), this.mapManager, o.dir));
+			break;
 			case "door":
 				var xx = (x << 0) - ((o.dir == "H")? 1 : 0);
 				var zz = (z << 0) - ((o.dir == "V")? 1 : 0);

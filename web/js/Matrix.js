@@ -46,7 +46,7 @@ var Matrix = {
 		//tMat = this.matrixMultiplication(tMat, this.getRotationZ(object.rotation.c));
 		
 		// If the object is a billboard, then make it look to the camera
-		if (object.isBillboard) tMat = this.matrixMultiplication(tMat, this.getRotationY(-(camera.rotation.b - Math.PI_2)));
+		if (object.isBillboard && !object.noRotate) tMat = this.matrixMultiplication(tMat, this.getRotationY(-(camera.rotation.b - Math.PI_2)));
 		
 		// Move the object to its position
 		tMat = this.matrixMultiplication(tMat, this.getTranslation(object.position.a, object.position.b, object.position.c));

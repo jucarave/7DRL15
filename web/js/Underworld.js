@@ -111,6 +111,10 @@ Underworld.prototype.loadTextures = function(){
 	this.objectTex.bolts = this.GL.loadImage(cp + "img/texBolts.png?version=" + version, true, 1, true);
 	this.objectTex.bolts.buffers = AnimatedTexture.getTextureBufferCoords(4, 2, this.GL.ctx);
 	
+	// Stairs
+	this.objectTex.stairs = this.GL.loadImage(cp + "img/texStairs.png?version=" + version, true, 1, true);
+	this.objectTex.stairs.buffers = AnimatedTexture.getTextureBufferCoords(2, 2, this.GL.ctx);
+	
 	// Enemies
 	this.objectTex.bat_run = this.GL.loadImage(cp + "img/enemies/texBatRun.png?version=" + version, true, 1, true);
 	this.objectTex.rat_run = this.GL.loadImage(cp + "img/enemies/texRatRun.png?version=" + version, true, 2, true);
@@ -177,16 +181,15 @@ Underworld.prototype.getObjectTexture = function(textureCode){
 	return this.objectTex[textureCode];
 };
 
-Underworld.prototype.loadMap = function(map, depth, id){
+Underworld.prototype.loadMap = function(map, depth){
+	console.log(depth);
 	var game = this;
-	if (id === undefined || !game.maps[id]){
-		id = game.maps.length;
-	
-		game.map = new MapManager(game, id, map, depth);
+	if (depth === undefined || !game.maps[depth - 1]){
+		game.map = new MapManager(game, map, depth);
 		game.maps.push(game.map);
 		game.scene = null;
-	}else if (game.maps[id]){
-		game.map = game.maps[id];
+	}else if (game.maps[depth - 1]){
+		game.map = game.maps[depth - 1];
 		game.scene = null;
 	}
 };

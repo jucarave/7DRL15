@@ -211,8 +211,12 @@ WebGL.prototype.drawObject = function(object, camera, texture){
 	gl.uniformMatrix4fv(this.uPerspectiveMatrix, false, new Float32Array(this.perspectiveMatrix));
 	gl.uniformMatrix4fv(this.uTransformationMatrix, false, new Float32Array(transformationMatrix));
 	
+	if (object.noRotate) gl.disable(gl.CULL_FACE);
+	
 	// Draw the triangles
 	gl.drawElements(gl.TRIANGLES, object.indicesBuffer.numItems, gl.UNSIGNED_SHORT, 0);
+	
+	gl.enable(gl.CULL_FACE);
 };
 
 WebGL.prototype.areImagesReady = function(){
