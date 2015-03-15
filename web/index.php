@@ -73,6 +73,12 @@
 		<audio id = "dungeonAudio">
 			<source src="ogg/08_-_Ultima_4_-_C64_-_Dungeons.ogg" type="audio/ogg"/>
 		</audio>
+		<audio id = "missAudio">
+			<source src="wav/miss.wav" type="audio/wav"/>
+		</audio>
+		<audio id = "hitAudio">
+			<source src="wav/hit.wav" type="audio/wav"/>
+		</audio>
 	</body>
 	
 </html>
