@@ -202,10 +202,9 @@ Underworld.prototype.printGreet = function(){
 	this.console.messages = [];
 	
 	// Shows a welcome message with the game instructions.
-	this.console.addSFMessage("Welcome to the Stygian abbys!");
-	this.console.addSFMessage("Press WASD to move, Use the mouse to turn around");
+	this.console.addSFMessage("You enter the legendary Stygian Abyss.");
+	this.console.addSFMessage("Use WASD to move, Use the mouse to turn around");
 	this.console.addSFMessage("Press E to interact and Click to attack");
-	this.console.addSFMessage("Have fun!");
 };
 
 Underworld.prototype.newGame = function(){
