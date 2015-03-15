@@ -10,7 +10,7 @@ var EnemyFactory = {
 		wisp: {name: 'Wisp', hp: 64, textureBase: 'wisp', stats: {str: '1D10', dfs: '2D2', exp: 5}},
 		ghost: {name: 'Ghost', hp: 80, textureBase: 'ghost', stats: {str: '1D15', dfs: '2D2', exp: 6, fly: true}},
 		troll: {name: 'Troll', hp: 96, textureBase: 'troll', stats: {str: '3D5', dfs: '2D2', exp: 7}}, // Not used by the generator?
-		firelizard: {name: 'Lava Lizard', hp: 96, textureBase: 'firelizard', stats: {str: '3D5', dfs: '2D2', exp: 7, fly: true}}, // Currently a mongbat actually
+		mongbat: {name: 'Mongbat', hp: 96, textureBase: 'mongbat', stats: {str: '3D5', dfs: '2D2', exp: 7, fly: true}}, 
 		octopus: {name: 'Giant Squid', hp: 96, textureBase: 'octopus', stats: {str: '2D6', dfs: '2D2', exp: 9}},
 		daemon: {name: 'Daemon', hp: 112, textureBase: 'daemon', stats: {str: '3D5', dfs: '2D2', exp: 8}},
 		//phantom: {name: 'Phantom', hp: 128, textureBase: 'bat', stats: {str: '1D15', dfs: '2D2', exp: 9}},			// not in u5

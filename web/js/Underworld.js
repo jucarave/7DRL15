@@ -124,7 +124,7 @@ Underworld.prototype.loadTextures = function(){
 	this.objectTex.skeleton_run = this.GL.loadImage(cp + "img/enemies/texSkeletonRun.png?version=" + version, true, 10, true);
 	
 	this.objectTex.daemon_run = this.GL.loadImage(cp + "img/enemies/texDaemonRun.png?version=" + version, true, 10, true);
-	this.objectTex.firelizard_run = this.GL.loadImage(cp + "img/enemies/texFirelizardRun.png?version=" + version, true, 10, true);
+	this.objectTex.mongbat_run = this.GL.loadImage(cp + "img/enemies/texMongbatRun.png?version=" + version, true, 10, true);
 	this.objectTex.hydra_run = this.GL.loadImage(cp + "img/enemies/texHydraRun.png?version=" + version, true, 10, true);
 	//this.objectTex.seaSerpent_run = this.GL.loadImage(cp + "img/enemies/texSeaSerpentRun.png?version=" + version, true, 10, true);
 	this.objectTex.octopus_run = this.GL.loadImage(cp + "img/enemies/texOctopusRun.png?version=" + version, true, 10, true);
