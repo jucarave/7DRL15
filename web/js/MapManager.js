@@ -79,8 +79,12 @@ MapManager.prototype.loadMap = function(mapName){
 				mapM.waterTiles = [101, 103];
 				mapM.getInstancesToDraw();
 			}catch (e){
-				console.error(e.message);
-				console.error(e.stack);
+				if (e.message){
+					console.error(e.message);
+					console.error(e.stack);
+				}else{
+					console.error(e);
+				}
 				mapM.map = null;
 			}
 			
@@ -177,7 +181,7 @@ MapManager.prototype.getNearestCleanItemTile = function(x, z){
 			
 			var pos = vec3(xx, 0, zz);
 			var ins = this.getInstanceAtGrid(pos);
-			if (!ins || !ins.item){
+			if (!ins || (!ins.item && !ins.stairs)){
 				return pos;
 			}
 		}
@@ -435,6 +439,8 @@ MapManager.prototype.addMessage = function(text){
 };
 
 MapManager.prototype.step = function(){
+	if (this.game.timeStop) return;
+	
 	this.waterFrame += 0.1;
 	if (this.waterFrame >= 2) this.waterFrame = 0;
 };

@@ -8,6 +8,7 @@ function WebGL(size, container){
 	this.audio = [];
 	
 	this.active = true;
+	this.light = 0;
 	
 	var gl = this;
 	addEvent(window, "blur", function(e){ gl.active = false; gl.pauseMusic(); });
@@ -105,6 +106,7 @@ WebGL.prototype.processShaders = function(){
 	this.uTransformationMatrix = gl.getUniformLocation(this.shaderProgram, "uTransformationMatrix");
 	this.uPerspectiveMatrix = gl.getUniformLocation(this.shaderProgram, "uPerspectiveMatrix");
 	this.uPaintInRed = gl.getUniformLocation(this.shaderProgram, "uPaintInRed");
+	this.uLightDepth = gl.getUniformLocation(this.shaderProgram, "uLightDepth");
 };
 
 WebGL.prototype.getShaderCode = function(shader){
@@ -195,6 +197,10 @@ WebGL.prototype.drawObject = function(object, camera, texture){
 	// Paint the object in red (When hurt for example)
 	var red = (object.paintInRed)? 1.0 : 0.0; 
 	gl.uniform1f(this.uPaintInRed, red);
+	
+	// How much light the player cast
+	var light = (this.light > 0)? 0.0 : 2.0;
+	gl.uniform1f(this.uLightDepth, light);
 	
 	// Set the texture to work with
 	gl.activeTexture(gl.TEXTURE0);

@@ -15,6 +15,7 @@ function Enemy(position, enemy, mapManager){
 	this.hurt = 0.0;
 	this.targetY = position.b;
 	this.solid = true;
+	this.sleep = 0;
 	
 	this.attackWait = 0.0;
 	
@@ -200,7 +201,11 @@ Enemy.prototype.draw = function(){
 };
 
 Enemy.prototype.loop = function(){
-	if (this.mapManager.game.paused){
+	if (this.hurt > 0){ this.hurt -= 1; }
+	if (this.sleep > 0){ this.sleep -= 1; }
+	
+	var game = this.mapManager.game;
+	if (game.paused || game.timeStop > 0 || this.sleep > 0){
 		this.draw(); 
 		return;
 	}
@@ -219,8 +224,6 @@ Enemy.prototype.loop = function(){
 		this.position.b += 0.08;
 		if (this.position.b >= this.targetY) this.position.b = this.targetY;
 	}
-	
-	if (--this.hurt < 0){ this.hurt = 0.0; }
 	
 	this.step();
 	

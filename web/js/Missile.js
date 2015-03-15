@@ -25,19 +25,27 @@ function Missile(position, rotation, type, target, mapManager){
 		break;
 		case 'bow': 
 			subImg = 1;
-			this.speed = 0.4; 
+			this.speed = 0.2; 
 		break;
 		case 'crossbow': 
 			subImg = 2; 
-			this.speed = 0.5;
+			this.speed = 0.3;
 		break;
 		case 'magicMissile': 
 			subImg = 3; 
-			this.speed = 0.5;
+			this.speed = 0.4;
 		break;
-		case 'fireExplosion':
+		case 'iceBall':
 			subImg = 4; 
-			this.speed = 0.6;
+			this.speed = 0.4;
+		break;
+		case 'fireBall':
+			subImg = 5; 
+			this.speed = 0.4;
+		break;
+		case 'kill':
+			subImg = 6; 
+			this.speed = 0.5;
 		break;
 	}
 	

@@ -28,9 +28,11 @@ function Underworld(){
 	this.textures = {wall: [], floor: [], ceil: []};
 	this.objectTex = {};
 	this.models = {};
-	this.protection = 0;
-	this.dropItem = false;
+	this.setDropItem = false;
 	this.paused = false;
+	
+	this.timeStop = 0;
+	this.protection = 0;
 	
 	this.fps = (1000 / 30) << 0;
 	this.lastT = 0;
@@ -321,7 +323,7 @@ Underworld.prototype.drawUI = function(){
 	ctx.fillRect(8,14,(60 * mana) << 0,2);
 	
 	// Draw Inventory
-	if (this.dropItem)
+	if (this.setDropItem)
 		this.UI.drawSprite(this.images.inventoryDrop, 110, 6, 0);
 	else
 		this.UI.drawSprite(this.images.inventory, 110, 6, 0);
@@ -330,7 +332,7 @@ Underworld.prototype.drawUI = function(){
 		var item = this.inventory.items[i];
 		var spr = item.tex + '_ui';
 
-		if (!this.dropItem && (item.type == 'weapon' || item.type == 'armour') && item.equipped)
+		if (!this.setDropItem && (item.type == 'weapon' || item.type == 'armour') && item.equipped)
 			this.UI.drawSprite(this.images.inventorySelected, 110 + (22 * i), 6, 0);		
 		this.UI.drawSprite(this.images[spr], 113 + (22 * i), 9, item.subImg);
 	}
@@ -370,6 +372,203 @@ Underworld.prototype.createInitialInventory = function(){
 	this.inventory.items.push(item);
 };
 
+Underworld.prototype.activeSpell = function(index){
+	var item = this.inventory.items[index];
+	var ps = this.player;
+	var p = this.map.player;
+	p.moved = true;
+	
+	if (ps.mana < item.mana){
+		this.console.addSFMessage("Not enough mana");
+		return;
+	}
+	
+	ps.mana = Math.max(ps.mana - item.mana, 0);
+	var prob = Math.random();
+	if (prob > ps.stats.dex){
+		this.console.addSFMessage("The cast failed!");
+	}else{
+		switch (item.code){
+			case 'cure':
+				if (this.player.poisoned){
+					this.player.poisoned = false;
+					this.console.addSFMessage("Poison cured");
+				}else{
+					this.console.addSFMessage("You were not poisoned");
+				}
+			break;
+			
+			case 'heal':
+				var heal = (this.player.mHP * item.percent) << 0;
+				this.player.hp = Math.min(this.player.hp + heal, this.player.mHP);
+				this.console.addSFMessage(heal + " points healed");
+			break;
+			
+			case 'light':
+				if (this.GL.light > 0){
+					this.console.addSFMessage("The cast failed!");
+				}else{
+					this.GL.light = item.lightTime;
+					this.console.addSFMessage("Light!");
+				}
+			break;
+			
+			case 'missile':
+				var str = rollDice(ps.stats.magicPower) + rollDice(item.str);
+				
+				var missile = new Missile(p.position.clone(), p.rotation.clone(), 'magicMissile', 'enemy', this.map);
+				missile.str = str << 0;
+				
+				this.map.addMessage("Magic missile casted");
+				this.map.instances.push(missile);
+				
+				p.attackWait = 30;
+			break;
+			
+			case 'iceball':
+				var str = rollDice(ps.stats.magicPower) + rollDice(item.str);
+				
+				var missile = new Missile(p.position.clone(), p.rotation.clone(), 'iceBall', 'enemy', this.map);
+				missile.str = str << 0;
+				
+				this.map.addMessage("Ice ball casted");
+				this.map.instances.push(missile);
+				
+				p.attackWait = 30;
+			break;
+			
+			case 'repel':
+			break;
+			
+			case 'blink':
+				var lastPos = null;
+				var ported = false;
+				var pos = this.map.player.position.clone();
+				var dir = this.map.player.rotation;
+				
+				var dx = Math.cos(dir.b);
+				var dz = -Math.sin(dir.b);
+				
+				for (var i=0;i<15;i++){
+					pos.a += dx;
+					pos.c += dz;
+					
+					var cx = pos.a << 0;
+					var cy = pos.c << 0;
+					if (this.map.isSolid(cx, cy)){
+						if (lastPos){
+							this.console.addSFMessage("Blink!");
+							lastPos.sum(vec3(0.5,0,0.5));
+							var ported = true;
+							p.position = lastPos;
+						}else{
+							this.console.addSFMessage("The cast failed!");
+						}
+						
+						i = 15;
+					}else{
+						if (!this.map.isWaterPosition(cx, cy)){
+							var ins = this.map.getInstanceAtGrid(pos);
+							if (!ins){
+								lastPos = vec3(cx, pos.b, cy);
+							}
+						}
+					}
+				}
+				
+				if (!ported){
+					if (lastPos){
+						this.console.addSFMessage("Blink!");
+						lastPos.sum(vec3(0.5,0,0.5));
+						p.position = lastPos;
+					}else{
+						this.console.addSFMessage("The cast failed!");
+					}
+				}
+			break;
+			
+			case 'fireball':
+				var str = rollDice(ps.stats.magicPower) + rollDice(item.str);
+				
+				var missile = new Missile(p.position.clone(), p.rotation.clone(), 'fireBall', 'enemy', this.map);
+				missile.str = str << 0;
+				
+				this.map.addMessage("Fire ball casted");
+				this.map.instances.push(missile);
+				
+				p.attackWait = 30;
+			break;
+			
+			case 'protection':
+				if (this.protecion > 0){
+					this.console.addSFMessage("The cast failed!");
+				}else{
+					this.protection = item.protTime;
+					this.console.addSFMessage("Protection!");
+				}
+			break;
+			
+			case 'time':
+				if (this.timeStop > 0){
+					this.console.addSFMessage("The cast failed!");
+				}else{
+					this.timeStop = item.stopTime;
+					this.console.addSFMessage("Stop time!");
+				}
+			break;
+			
+			case 'sleep':
+				this.console.addSFMessage("Sleep!");
+				var instances = this.map.getInstancesNearest(p.position, 6, 'enemy');
+				for (var i=0,len=instances.length;i<len;i++){
+					instances[i].sleep = item.sleepTime;
+				}
+			break;
+			
+			case 'jinx':
+			break;
+			
+			case 'tremor':
+			break;
+			
+			case 'kill':
+				var str = rollDice(ps.stats.magicPower) + rollDice(item.str);
+				
+				var missile = new Missile(p.position.clone(), p.rotation.clone(), 'kill', 'enemy', this.map);
+				missile.str = str << 0;
+				
+				this.map.addMessage("Death bolt casted");
+				this.map.instances.push(missile);
+				
+				p.attackWait = 30;
+			break;
+		}
+	}
+	
+	this.inventory.dropItem(index);
+};
+
+Underworld.prototype.dropItem = function(i){
+	var item = this.inventory.items[i];
+	var player = this.map.player;
+	var cleanPos = this.map.getNearestCleanItemTile(player.position.a, player.position.c);
+	if (!cleanPos){
+		this.console.addSFMessage('Can not drop it here');
+		this.setDropItem = false;
+	}else{
+		this.console.addSFMessage(item.name + ' dropped');
+		cleanPos.a += 0.5;
+		cleanPos.c += 0.5;
+		
+		var nIt = new Item(cleanPos, null, this.map);
+		nIt.setItem(item);
+		this.map.instances.push(nIt);
+		
+		this.inventory.dropItem(i);
+		this.setDropItem = false;
+	}
+};
+
 Underworld.prototype.checkInvControl = function(){
 	var player = this.map.player;
 	var ps = this.player;
@@ -389,11 +588,11 @@ Underworld.prototype.checkInvControl = function(){
 	
 	if (this.paused) return;
 	if (this.getKeyPressed(84)){
-		if (!this.dropItem){
+		if (!this.setDropItem){
 			this.console.addSFMessage('Select the item to drop');
-			this.dropItem = true;
-		}else if (this.dropItem){
-			this.dropItem = false;
+			this.setDropItem = true;
+		}else if (this.setDropItem){
+			this.setDropItem = false;
 		}
 	}
 	
@@ -401,31 +600,15 @@ Underworld.prototype.checkInvControl = function(){
 		if (this.getKeyPressed(49 + i)){
 			var item = this.inventory.items[i];
 			if (!item){
-				if (this.dropItem){
+				if (this.setDropItem){
 					this.console.addSFMessage('No item');
-					this.dropItem = false;
+					this.setDropItem = false;
 				}
 				continue;
 			}
 			
-			if (this.dropItem){
-				var cleanPos = this.map.getNearestCleanItemTile(player.position.a, player.position.c);
-				if (!cleanPos){
-					this.console.addSFMessage('Can not drop it here');
-					this.dropItem = false;
-				}else{
-					this.console.addSFMessage(item.name + ' dropped');
-					cleanPos.a += 0.5;
-					cleanPos.c += 0.5;
-					
-					var nIt = new Item(cleanPos, null, this.map);
-					nIt.setItem(item);
-					this.map.instances.push(nIt);
-					
-					this.inventory.dropItem(i);
-					this.dropItem = false;
-				}
-				
+			if (this.setDropItem){
+				this.dropItem(i);
 				continue;
 			}
 			
@@ -435,44 +618,32 @@ Underworld.prototype.checkInvControl = function(){
 			}else if (item.type == 'armour' && !item.equipped){
 				this.console.addSFMessage(item.name + ' wore');
 				this.inventory.equipItem(i);
+			}else if (item.type == 'magic'){
+				this.activeSpell(i);
 			}
 		}
 	} 
 	
 	return;
-	if (this.getKeyPressed(49)){ // 1: Use potion
-		if (ps.potions > 0){
-			if (ps.hp == ps.mHP){
-				this.console.addSFMessage("Health is already at max");
-				return;
-			}
-			
-			ps.potions -= 1;
-			ps.hp = Math.min(ps.mHP, ps.hp + 5);
-			this.console.addSFMessage("Potion used");
-		}else{
-			this.console.addSFMessage("No more potions left.");
+	
+	if (ps.potions > 0){
+		if (ps.hp == ps.mHP){
+			this.console.addSFMessage("Health is already at max");
+			return;
 		}
-	}else if (this.getKeyPressed(50)){	// 2: Use protection
-		var ms = this.magicScrolls[0];
-		if (ms > 0){
-			this.magicScrolls[0] -= 1;
-			
-			var prob = Math.random();
-			if (prob > ps.stats.dex){
-				this.console.addSFMessage("The protection cast failed!");
-			}else{
-				this.protection = 400;
-				this.console.addSFMessage("Protection!");
-			}
-		}else{
-			this.console.addSFMessage("No more protection scrolls left.");
-		}
+		
+		ps.potions -= 1;
+		ps.hp = Math.min(ps.mHP, ps.hp + 5);
+		this.console.addSFMessage("Potion used");
+	}else{
+		this.console.addSFMessage("No more potions left.");
 	}
 };
 
 Underworld.prototype.globalLoop = function(){
 	if (this.protection > 0){ this.protection -= 1; }
+	if (this.timeStop > 0){ this.timeStop -= 1; }
+	if (this.GL.light > 0){ this.GL.light -= 1; }
 };
 
 Underworld.prototype.loop = function(){

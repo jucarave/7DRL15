@@ -2,6 +2,7 @@ function Stairs(position, mapManager, direction){
 	this.position = position;
 	this.mapManager = mapManager;
 	this.direction = direction;
+	this.stairs = true;
 	
 	this.imgInd = 0;
 	
