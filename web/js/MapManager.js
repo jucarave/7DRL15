@@ -17,6 +17,8 @@ function MapManager(game, map, depth){
 	
 	if (map == "test"){
 		this.loadMap("testMap");
+	} else if (map == "codexRoom"){
+		this.loadMap("codexRoom");
 	} else {
 		this.generateMap(depth);
 	}

@@ -36,6 +36,9 @@ var ItemFactory = {
 		jinx: {name: "Spellmix of Jinx", tex: "spells", subImg: 11, type: 'magic', mana: 30},
 		tremor: {name: "Spellmix of Tremor", tex: "spells", subImg: 12, type: 'magic', mana: 30},
 		kill: {name: "Spellmix of Kill", tex: "spells", subImg: 13, type: 'magic', str: '200D20', mana: 25},
+		
+		// Codex
+		codex: {name: "Codex of Ultimate Wisdom", tex: "items", subImg: 16, type: 'codex'},
 	},
 	
 	getItemByCode: function(itemCode, status){

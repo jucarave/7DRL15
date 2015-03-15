@@ -112,7 +112,7 @@ Underworld.prototype.loadTextures = function(){
 	
 	// Items
 	this.objectTex.items = this.GL.loadImage(cp + "img/texItems.png?version=" + version, true, 1, true);
-	this.objectTex.items.buffers = AnimatedTexture.getTextureBufferCoords(8, 2, this.GL.ctx);
+	this.objectTex.items.buffers = AnimatedTexture.getTextureBufferCoords(8, 8, this.GL.ctx);
 	
 	this.objectTex.spells = this.GL.loadImage(cp + "img/texSpells.png?version=" + version, true, 1, true);
 	this.objectTex.spells.buffers = AnimatedTexture.getTextureBufferCoords(4, 4, this.GL.ctx);
