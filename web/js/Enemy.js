@@ -105,7 +105,11 @@ Enemy.prototype.moveTo = function(xTo, zTo){
 		this.position.a += movement.a;
 		this.position.c += movement.b;
 		
-		if (!this.enemy.stats.fly && this.mapManager.isWaterPosition(this.position.a, this.position.c)){
+		if (!this.enemy.stats.fly && !this.enemy.stats.swim && this.mapManager.isWaterPosition(this.position.a, this.position.c)){
+			this.position.a -= movement.a;
+			this.position.c -= movement.b;
+			return false;
+		}else if (this.enemy.stats.swim && !this.mapManager.isWaterPosition(this.position.a, this.position.c)){
 			this.position.a -= movement.a;
 			this.position.c -= movement.b;
 			return false;

@@ -11,10 +11,10 @@ var EnemyFactory = {
 		ghost: {name: 'Ghost', hp: 80, textureBase: 'ghost', stats: {str: '1D15', dfs: '2D2', exp: 6, fly: true}},
 		troll: {name: 'Troll', hp: 96, textureBase: 'troll', stats: {str: '3D5', dfs: '2D2', exp: 7}}, // Not used by the generator?
 		mongbat: {name: 'Mongbat', hp: 96, textureBase: 'mongbat', stats: {str: '3D5', dfs: '2D2', exp: 7, fly: true}}, 
-		octopus: {name: 'Giant Squid', hp: 96, textureBase: 'octopus', stats: {str: '2D6', dfs: '2D2', exp: 9}},
+		octopus: {name: 'Giant Squid', hp: 96, textureBase: 'octopus', stats: {str: '2D6', dfs: '2D2', exp: 9, swim: true}},
 		daemon: {name: 'Daemon', hp: 112, textureBase: 'daemon', stats: {str: '3D5', dfs: '2D2', exp: 8}},
 		//phantom: {name: 'Phantom', hp: 128, textureBase: 'bat', stats: {str: '1D15', dfs: '2D2', exp: 9}},			// not in u5
-		seaSerpent: {name: 'Sea Serpent', hp: 128, textureBase: 'seaSerpent', stats: {str: '2D6', dfs: '2D2', exp: 9}}, // not suitable
+		seaSerpent: {name: 'Sea Serpent', hp: 128, textureBase: 'seaSerpent', stats: {str: '2D6', dfs: '2D2', exp: 9, swim: true}}, // not suitable
 		evilMage: {name: 'Evil Mage', hp: 176, textureBase: 'mage', stats: {str: '4D5', dfs: '2D2', exp: 12}}, //TODO: Add texture
 		liche: {name: 'Liche', hp: 192, textureBase: 'liche', stats: {str: '6D4', dfs: '2D2', exp: 13}},
 		hydra: {name: 'Hydra', hp: 208, textureBase: 'hydra', stats: {str: '6D4', dfs: '2D2', exp: 14}},
