@@ -1,7 +1,7 @@
 <?php
 	$version = "A0.1";
 	$environment = "LOCAL";
-	$contextPath = "/7DRL15/";
+	$contextPath = "/sa/";
 	
 	if ($environment == "SERVER"){
 		$contextPath = "/games/7DRL15/"; 

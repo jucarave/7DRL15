@@ -331,6 +331,18 @@ Underworld.prototype.addExperience = function(expPoints){
 	this.player.addExperience(expPoints, this.console);
 };
 
+Underworld.prototype.createInitialInventory = function(){
+	this.inventory.items = [];
+	
+	var item = ItemFactory.getItemByCode('mysticSword', 1.0);
+	item.equipped = true;
+	this.inventory.items.push(item);
+	
+	var item = ItemFactory.getItemByCode('mystic', 1.0);
+	item.equipped = true;
+	this.inventory.items.push(item);
+};
+
 Underworld.prototype.checkInvControl = function(){
 	var player = this.map.player;
 	var ps = this.player;
@@ -366,7 +378,6 @@ Underworld.prototype.checkInvControl = function(){
 					cleanPos.a += 0.5;
 					cleanPos.c += 0.5;
 					
-					console.log(cleanPos);
 					var nIt = new Item(cleanPos, null, this.map);
 					nIt.setItem(item);
 					this.map.instances.push(nIt);
@@ -378,10 +389,10 @@ Underworld.prototype.checkInvControl = function(){
 				continue;
 			}
 			
-			if (item.type == 'weapon'){
+			if (item.type == 'weapon' && !item.equipped){
 				this.console.addSFMessage(item.name + ' wielded');
 				this.inventory.equipItem(i);
-			}else if (item.type == 'armour'){
+			}else if (item.type == 'armour' && !item.equipped){
 				this.console.addSFMessage(item.name + ' wore');
 				this.inventory.equipItem(i);
 			}
