@@ -199,7 +199,7 @@ WebGL.prototype.drawObject = function(object, camera, texture){
 	gl.uniform1f(this.uPaintInRed, red);
 	
 	// How much light the player cast
-	var light = (this.light > 0)? 0.0 : 2.0;
+	var light = (this.light > 0)? 0.0 : 1.0;
 	gl.uniform1f(this.uLightDepth, light);
 	
 	// Set the texture to work with
