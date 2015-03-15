@@ -59,7 +59,7 @@ Underworld.prototype.create3DObjects = function(){
 
 Underworld.prototype.loadMusic = function(){
 	//this.music.title = this.GL.loadAudio(cp + "ogg/Britannian_music.ogg?version=" + version, true);
-	//this.music.britannian = this.GL.loadAudio(cp + "ogg/Britannian_level.ogg?version=" + version, true);
+	//this.music.dungeon = this.GL.loadAudio(cp + "ogg/08_-_Ultima_4_-_C64_-_Dungeons.ogg?version=" + version, true);
 };
 
 Underworld.prototype.loadImages = function(){
@@ -182,10 +182,15 @@ Underworld.prototype.stopMusic = function(){
 Underworld.prototype.playMusic = function(musicCode){
 	var audioF = this.music[musicCode];
 	if (!audioF) return null;
-	
 	this.stopMusic();
 	this.GL.playSound(audioF, true, true);
 };
+
+Underworld.prototype.playMusicHumbly = function(audioElementId){
+	document.getElementById(audioElementId).volume = 0.3;
+	document.getElementById(audioElementId).play();
+};
+
 
 Underworld.prototype.getUI = function(){
 	return this.UI.ctx;
@@ -214,6 +219,7 @@ Underworld.prototype.loadMap = function(map, depth){
 		game.map = game.maps[depth - 1];
 		game.scene = null;
 	}
+	this.playMusicHumbly('dungeonAudio');
 };
 
 Underworld.prototype.printGreet = function(){

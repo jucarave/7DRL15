@@ -70,5 +70,9 @@
 	
 	<body>
 		<div id="divGame" ></div>
+		<audio id = "dungeonAudio">
+			<source src="ogg/08_-_Ultima_4_-_C64_-_Dungeons.ogg" type="audio/ogg"/>
+		</audio>
 	</body>
+	
 </html>
