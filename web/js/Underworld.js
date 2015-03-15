@@ -29,6 +29,7 @@ function Underworld(){
 	this.objectTex = {};
 	this.models = {};
 	this.protection = 0;
+	this.dropItem = false;
 	
 	this.fps = (1000 / 30) << 0;
 	this.lastT = 0;
@@ -64,6 +65,7 @@ Underworld.prototype.loadImages = function(){
 	this.images.titleScreen = this.GL.loadImage(cp + "img/titleScreen.png?version=" + version, false);
 	this.images.selectClass = this.GL.loadImage(cp + "img/selectClass.png?version=" + version, false);
 	this.images.inventory = this.GL.loadImage(cp + "img/inventory.png?version=" + version, false, 0, 0, {imgNum: 1, imgVNum: 2});
+	this.images.inventoryDrop = this.GL.loadImage(cp + "img/inventoryDrop.png?version=" + version, false, 0, 0, {imgNum: 1, imgVNum: 2});
 	this.images.inventorySelected = this.GL.loadImage(cp + "img/inventory_selected.png?version=" + version, false);
 	this.images.scrollFont = this.GL.loadImage(cp + "img/scrollFontWhite.png?version=" + version, false);
 };
@@ -298,12 +300,16 @@ Underworld.prototype.drawUI = function(){
 	ctx.fillRect(8,14,60 * mana,2);
 	
 	// Draw Inventory
-	this.UI.drawSprite(this.images.inventory, 110, 6, 0);
+	if (this.dropItem)
+		this.UI.drawSprite(this.images.inventoryDrop, 110, 6, 0);
+	else
+		this.UI.drawSprite(this.images.inventory, 110, 6, 0);
+	
 	for (var i=0,len=this.inventory.items.length;i<len;i++){
 		var item = this.inventory.items[i];
 		var spr = item.tex + '_ui';
 
-		if ((item.type == 'weapon' || item.type == 'armour') && item.equipped)
+		if (!this.dropItem && (item.type == 'weapon' || item.type == 'armour') && item.equipped)
 			this.UI.drawSprite(this.images.inventorySelected, 110 + (22 * i), 6, 0);		
 		this.UI.drawSprite(this.images[spr], 113 + (22 * i), 9, item.subImg);
 	}
@@ -330,10 +336,47 @@ Underworld.prototype.checkInvControl = function(){
 	var ps = this.player;
 	if (!player || player.destroyed) return;
 	
+	if (this.getKeyPressed(84)){
+		if (!this.dropItem){
+			this.console.addSFMessage('Select the item to drop');
+			this.dropItem = true;
+		}else if (this.dropItem){
+			this.dropItem = false;
+		}
+	}
+	
 	for (var i=0;i<10;i++){
 		if (this.getKeyPressed(49 + i)){
 			var item = this.inventory.items[i];
-			if (!item) continue;
+			if (!item){
+				if (this.dropItem){
+					this.console.addSFMessage('No item');
+					this.dropItem = false;
+				}
+				continue;
+			}
+			
+			if (this.dropItem){
+				var cleanPos = this.map.getNearestCleanItemTile(player.position.a, player.position.c);
+				if (!cleanPos){
+					this.console.addSFMessage('Can not drop it here');
+					this.dropItem = false;
+				}else{
+					this.console.addSFMessage(item.name + ' dropped');
+					cleanPos.a += 0.5;
+					cleanPos.c += 0.5;
+					
+					console.log(cleanPos);
+					var nIt = new Item(cleanPos, null, this.map);
+					nIt.setItem(item);
+					this.map.instances.push(nIt);
+					
+					this.inventory.dropItem(i);
+					this.dropItem = false;
+				}
+				
+				continue;
+			}
 			
 			if (item.type == 'weapon'){
 				this.console.addSFMessage(item.name + ' wielded');

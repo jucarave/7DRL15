@@ -2,7 +2,7 @@ var ItemFactory = {
 	items: {
 		// Items
 		yellowPotion: {name: "Yellow potion", tex: "items", subImg: 0, type: 'potion'},
-		redPotion: {name: "Red Potion", tex: "items", subImg: 1, type: 'magic_3'},
+		redPotion: {name: "Red Potion", tex: "items", subImg: 1, type: 'potion'},
 		
 		// Weapons
 		staff: {name: "Staff", tex: "items", subImg: 2, type: 'weapon', str: '2D1', wear: 0.02},
@@ -37,7 +37,6 @@ var ItemFactory = {
 		jinx: {name: "Spellmix of Jinx", tex: "spells", subImg: 11, type: 'magic_13'},
 		tremor: {name: "Spellmix of Tremor", tex: "spells", subImg: 12, type: 'magic_14'},
 		kill: {name: "Spellmix of Kill", tex: "spells", subImg: 13, type: 'magic_15'},
-		
 	},
 	
 	getItemByCode: function(itemCode, status){

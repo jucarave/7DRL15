@@ -49,7 +49,7 @@ MapManager.prototype.generateMap = function(depth){
 		window.mapData = (mapData);
 		new MapAssembler(mapM, mapData, mapM.game.GL.ctx);
 		mapM.map = mapData.map;
-		mapM.waterTiles = [101];
+		mapM.waterTiles = [101, 103];
 		mapM.getInstancesToDraw();
 	}catch (e){
 		console.error(e.message);
@@ -71,7 +71,7 @@ MapManager.prototype.loadMap = function(mapName){
 				
 				mapM.map = mapData.map;
 				
-				mapM.waterTiles = [101];
+				mapM.waterTiles = [101, 103];
 				mapM.getInstancesToDraw();
 			}catch (e){
 				console.error(e.message);
@@ -149,6 +149,32 @@ MapManager.prototype.getInstanceAtGrid = function(position){
 		
 		if (x == position.a && z == position.c){
 			return (this.instances[i]);
+		}
+	}
+	
+	return null;
+};
+
+MapManager.prototype.getNearestCleanItemTile = function(x, z){
+	x = x << 0;
+	z = z << 0;
+	
+	var minX = x - 1;
+	var minZ = z - 1;
+	var maxX = x + 1;
+	var maxZ = z + 1;
+	
+	for (var zz=minZ;zz<=maxZ;zz++){
+		for (var xx=minX;xx<=maxX;xx++){
+			if (this.isSolid(xx, zz) || this.isWaterPosition(xx, zz)){
+				continue;
+			}
+			
+			var pos = vec3(xx, 0, zz);
+			var ins = this.getInstanceAtGrid(pos);
+			if (!ins || !ins.item){
+				return pos;
+			}
 		}
 	}
 	

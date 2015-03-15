@@ -2,16 +2,23 @@ function Item(position, item, mapManager){
 	var gl = mapManager.game.GL.ctx;
 	
 	this.position = position;
-	this.item = item;
+	this.item = null;
 	this.mapManager = mapManager;
 	this.billboard = ObjectFactory.billboard(vec3(1.0,1.0,1.0), vec2(1.0, 1.0), gl);
-	this.billboard.texBuffer = mapManager.game.objectTex[this.item.tex].buffers[this.item.subImg];
-	
-	this.textureCode = item.tex;
+	this.billboard.texBuffer = null;
+	this.textureCode = null;
 	
 	this.destroyed = false;
 	this.solid = false;
+	
+	if (item) this.setItem(item);
 }
+
+Item.prototype.setItem = function(item){
+	this.item = item;
+	this.billboard.texBuffer = this.mapManager.game.objectTex[this.item.tex].buffers[this.item.subImg];
+	this.textureCode = item.tex;
+};
 
 Item.prototype.activate = function(){
 	var mm = this.mapManager;

@@ -4,7 +4,7 @@ function Player(position, direction, mapManager){
 	this.mapManager = mapManager;
 	
 	this.rotationSpd = vec2(Math.degToRad(1), Math.degToRad(4));
-	this.movementSpd = 0.1;
+	this.movementSpd = 0.05;
 	this.cameraHeight = 0.5;
 	this.maxVertRotation = Math.degToRad(45);
 	
@@ -236,10 +236,10 @@ Player.prototype.doVerticalChecks = function(){
 	if (py <= 0.3) this.targetY = pointY;
 	if (this.mapManager.isWaterPosition(this.position.a, this.position.c)){
 		if (this.position.b == this.targetY)
-			this.movementSpd = 0.05;
+			this.movementSpd = 0.025;
 		this.onWater = true;
 	}else{
-		this.movementSpd = 0.1;
+		this.movementSpd = 0.05;
 		this.onWater = false;
 	}
 	
