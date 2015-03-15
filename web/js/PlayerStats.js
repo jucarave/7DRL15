@@ -59,7 +59,7 @@ PlayerStats.prototype.setVirtue = function(virtueName){
 	
 	switch (virtueName){
 		case "Honesty":
-			this.hp = 8;
+			this.hp = 600;
 			this.mana = 18;
 			this.stats.magicPower = 6;
 			this.stats.str = '2';
@@ -68,7 +68,7 @@ PlayerStats.prototype.setVirtue = function(virtueName){
 		break;
 		
 		case "Compassion":
-			this.hp = 13;
+			this.hp = 700;
 			this.mana = 13;
 			this.stats.magicPower = 4;
 			this.stats.str = '4';
@@ -77,7 +77,7 @@ PlayerStats.prototype.setVirtue = function(virtueName){
 		break;
 		
 		case "Valor":
-			this.hp = 18;
+			this.hp = 800;
 			this.mana = 8;
 			this.stats.magicPower = 2;
 			this.stats.str = '6';
@@ -86,7 +86,7 @@ PlayerStats.prototype.setVirtue = function(virtueName){
 		break;
 		
 		case "Honor":
-			this.hp = 13;
+			this.hp = 700;
 			this.mana = 13;
 			this.stats.magicPower = 4;
 			this.stats.str = '6';
@@ -95,7 +95,7 @@ PlayerStats.prototype.setVirtue = function(virtueName){
 		break;
 		
 		case "Spirituality":
-			this.hp = 13;
+			this.hp = 700;
 			this.mana = 13;
 			this.stats.magicPower = 6;
 			this.stats.str = '4';
@@ -104,7 +104,7 @@ PlayerStats.prototype.setVirtue = function(virtueName){
 		break;
 		
 		case "Humility":
-			this.hp = 8;
+			this.hp = 600;
 			this.mana = 8;
 			this.stats.magicPower = 2;
 			this.stats.str = '2';
@@ -113,7 +113,7 @@ PlayerStats.prototype.setVirtue = function(virtueName){
 		break;
 		
 		case "Sacrifice":
-			this.hp = 18;
+			this.hp = 800;
 			this.mana = 8;
 			this.stats.magicPower = 2;
 			this.stats.str = '4';
@@ -122,7 +122,7 @@ PlayerStats.prototype.setVirtue = function(virtueName){
 		break;
 		
 		case "Justice":
-			this.hp = 13;
+			this.hp = 700;
 			this.mana = 18;
 			this.stats.magicPower = 4;
 			this.stats.str = '2';
