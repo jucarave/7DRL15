@@ -41,7 +41,7 @@ PlayerStats.prototype.reset = function(){
 PlayerStats.prototype.addExperience = function(amount, console){
 	this.exp += amount;
 	
-	console.addSFMessage(amount + " exp points gained");
+	console.addSFMessage(amount + " XP gained");
 	var nextExp = (Math.pow(this.lvl, 1.5) * 50) << 0;
 	if (this.exp >= nextExp){ this.levelUp(console); }
 };
