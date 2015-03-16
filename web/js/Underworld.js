@@ -398,6 +398,8 @@ Underworld.prototype.createInitialInventory = function(className){
 	item.equipped = true;
 	this.inventory.items.push(item);
 	
+	this.inventory.items.push(ItemFactory.getItemByCode('yellowPotion'));
+	this.inventory.items.push(ItemFactory.getItemByCode('redPotion'));
 	switch (className){
 	case 'Mage':
 		this.inventory.items.push(ItemFactory.getItemByCode('heal'));
@@ -418,6 +420,30 @@ Underworld.prototype.createInitialInventory = function(className){
 		break;
 	}
 };
+
+Underworld.prototype.useItem = function(index){
+	var item = this.inventory.items[index];
+	var ps = this.player;
+	var p = this.map.player;
+	p.moved = true;
+	switch (item.code){
+		case 'redPotion':
+			if (this.player.poisoned){
+				this.player.poisoned = false;
+				this.console.addSFMessage("The garlic potion cures you.");
+			}else{
+				this.console.addSFMessage("Nothing happens");
+			}
+		break;
+		
+		case 'yellowPotion':
+			var heal = 100;
+			this.player.hp = Math.min(this.player.hp + heal, this.player.mHP);
+			this.console.addSFMessage("The ginseng potion heals you for "+heal + " points.");
+		break;
+	}
+	this.inventory.dropItem(index);
+}
 
 Underworld.prototype.activeSpell = function(index){
 	var item = this.inventory.items[index];
@@ -442,10 +468,25 @@ Underworld.prototype.activeSpell = function(index){
 			}
 		break;
 		
+		case 'redPotion':
+			if (this.player.poisoned){
+				this.player.poisoned = false;
+				this.console.addSFMessage("The garlic potion cures you.");
+			}else{
+				this.console.addSFMessage("Nothing happens");
+			}
+		break;
+		
 		case 'heal':
 			var heal = (this.player.mHP * item.percent) << 0;
 			this.player.hp = Math.min(this.player.hp + heal, this.player.mHP);
 			this.console.addSFMessage("MANI! "+heal + " points healed");
+		break;
+		
+		case 'yellowPotion':
+			var heal = 100;
+			this.player.hp = Math.min(this.player.hp + heal, this.player.mHP);
+			this.console.addSFMessage("The ginseng potion heals you for "+heal + " points.");
 		break;
 		
 		case 'light':
@@ -662,6 +703,8 @@ Underworld.prototype.checkInvControl = function(){
 				this.inventory.equipItem(i);
 			}else if (item.type == 'magic'){
 				this.activeSpell(i);
+			}else if (item.type == 'potion'){
+				this.useItem(i);
 			}
 		}
 	} 
