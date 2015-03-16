@@ -401,15 +401,13 @@ Underworld.prototype.createInitialInventory = function(className){
 	case 'Mage':
 		this.inventory.items.push(ItemFactory.getItemByCode('heal'));
 		this.inventory.items.push(ItemFactory.getItemByCode('heal'));
-		this.inventory.items.push(ItemFactory.getItemByCode('missile'));
+		this.inventory.items.push(ItemFactory.getItemByCode('heal'));
 		this.inventory.items.push(ItemFactory.getItemByCode('missile'));
 		this.inventory.items.push(ItemFactory.getItemByCode('missile'));
 		this.inventory.items.push(ItemFactory.getItemByCode('missile'));
 		break;
 	case 'Druid':
 		this.inventory.items.push(ItemFactory.getItemByCode('heal'));
-		this.inventory.items.push(ItemFactory.getItemByCode('heal'));
-		this.inventory.items.push(ItemFactory.getItemByCode('missile'));
 	case 'Bard': case 'Paladin': case 'Ranger':
 		this.inventory.items.push(ItemFactory.getItemByCode('heal'));
 		this.inventory.items.push(ItemFactory.getItemByCode('light'));
@@ -417,7 +415,7 @@ Underworld.prototype.createInitialInventory = function(className){
 		break;
 	}
 	switch (className){
-	case 'Druid': case 'Bard':
+	case 'Bard':
 		this.inventory.items.push(ItemFactory.getItemByCode('yellowPotion'));
 	case 'Tinker':
 		this.inventory.items.push(ItemFactory.getItemByCode('yellowPotion'));
@@ -426,6 +424,18 @@ Underworld.prototype.createInitialInventory = function(className){
 		this.inventory.items.push(ItemFactory.getItemByCode('redPotion'));
 		break;
 	}
+	switch (className){
+	case 'Druid': case 'Ranger':
+		this.inventory.items.push(ItemFactory.getItemByCode('bow', 0.6));
+		break;
+	case 'Bard': case 'Tinker':
+		this.inventory.items.push(ItemFactory.getItemByCode('sling', 0.7));
+		break;
+		
+	}
+	
+	
+	
 };
 
 Underworld.prototype.useItem = function(index){
@@ -687,7 +697,10 @@ Underworld.prototype.checkInvControl = function(){
 	}
 	
 	for (var i=0;i<10;i++){
-		if (this.getKeyPressed(49 + i)){
+		var index = 49 + i;
+		if (i == 9)
+			index = 48;
+		if (this.getKeyPressed(index)){
 			var item = this.inventory.items[i];
 			if (!item){
 				if (this.setDropItem){
