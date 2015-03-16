@@ -41,8 +41,8 @@ PlayerStats.prototype.reset = function(){
 PlayerStats.prototype.addExperience = function(amount, console){
 	this.exp += amount;
 	
-	console.addSFMessage(amount + " exp points gained");
-	var nextExp = (Math.pow(this.lvl, 1.5) * 20) << 0;
+	console.addSFMessage(amount + " XP gained");
+	var nextExp = (Math.pow(this.lvl, 1.5) * 50) << 0;
 	if (this.exp >= nextExp){ this.levelUp(console); }
 };
 
@@ -50,8 +50,8 @@ PlayerStats.prototype.levelUp = function(console){
 	this.lvl += 1;
 	
 	// Upgrade HP and Mana
-	var hpNew = Math.iRandom(0, 5);
-	var manaNew = Math.iRandom(0, 5);
+	var hpNew = Math.iRandom(10, 25);
+	var manaNew = Math.iRandom(5, 15);
 	
 	var hpOld = this.mHP;
 	var manaOld = this.mMana;
@@ -62,6 +62,7 @@ PlayerStats.prototype.levelUp = function(console){
 	this.mMana += manaNew;
 	
 	// Upgrade a random stat by 1-3 points
+	/*
 	var stats = ['str', 'dfs'];
 	var names = ['Strength', 'Defense'];
 	var st, nm;
@@ -75,12 +76,12 @@ PlayerStats.prototype.levelUp = function(console){
 	part1 += Math.iRandom(1, 3);
 	
 	var old = this.stats[st];
-	this.stats[st] = part1 + 'D3';
+	this.stats[st] = part1 + 'D3';*/
 	
-	console.addSFMessage("New level up: " + this.lvl + "!");
-	console.addSFMessage("Health augmented from " + hpOld + " to " + this.mHP);
-	console.addSFMessage("Mana augmented from " + manaOld + " to " + this.mMana);
-	console.addSFMessage(nm + " augmented from " + old + " to " + this.stats[st]);
+	console.addSFMessage("Level up: " + this.lvl + "!");
+	console.addSFMessage("HP increased from " + hpOld + " to " + this.mHP);
+	console.addSFMessage("Mana increased from " + manaOld + " to " + this.mMana);
+	//console.addSFMessage(nm + " increased from " + old + " to " + this.stats[st]);
 };
 
 PlayerStats.prototype.setVirtue = function(virtueName){

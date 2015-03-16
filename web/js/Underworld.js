@@ -397,27 +397,70 @@ Underworld.prototype.createInitialInventory = function(className){
 	var item = ItemFactory.getItemByCode('mystic', 1.0);
 	item.equipped = true;
 	this.inventory.items.push(item);
-	
 	switch (className){
 	case 'Mage':
 		this.inventory.items.push(ItemFactory.getItemByCode('heal'));
 		this.inventory.items.push(ItemFactory.getItemByCode('heal'));
-		this.inventory.items.push(ItemFactory.getItemByCode('missile'));
+		this.inventory.items.push(ItemFactory.getItemByCode('heal'));
 		this.inventory.items.push(ItemFactory.getItemByCode('missile'));
 		this.inventory.items.push(ItemFactory.getItemByCode('missile'));
 		this.inventory.items.push(ItemFactory.getItemByCode('missile'));
 		break;
 	case 'Druid':
 		this.inventory.items.push(ItemFactory.getItemByCode('heal'));
-		this.inventory.items.push(ItemFactory.getItemByCode('heal'));
-		this.inventory.items.push(ItemFactory.getItemByCode('missile'));
 	case 'Bard': case 'Paladin': case 'Ranger':
 		this.inventory.items.push(ItemFactory.getItemByCode('heal'));
 		this.inventory.items.push(ItemFactory.getItemByCode('light'));
 		this.inventory.items.push(ItemFactory.getItemByCode('missile'));
 		break;
 	}
+	switch (className){
+	case 'Bard':
+		this.inventory.items.push(ItemFactory.getItemByCode('yellowPotion'));
+	case 'Tinker':
+		this.inventory.items.push(ItemFactory.getItemByCode('yellowPotion'));
+	default:
+		this.inventory.items.push(ItemFactory.getItemByCode('yellowPotion'));
+		this.inventory.items.push(ItemFactory.getItemByCode('redPotion'));
+		break;
+	}
+	switch (className){
+	case 'Druid': case 'Ranger':
+		this.inventory.items.push(ItemFactory.getItemByCode('bow', 0.6));
+		break;
+	case 'Bard': case 'Tinker':
+		this.inventory.items.push(ItemFactory.getItemByCode('sling', 0.7));
+		break;
+		
+	}
+	
+	
+	
 };
+
+Underworld.prototype.useItem = function(index){
+	var item = this.inventory.items[index];
+	var ps = this.player;
+	var p = this.map.player;
+	p.moved = true;
+	switch (item.code){
+		case 'redPotion':
+			if (this.player.poisoned){
+				this.player.poisoned = false;
+				this.console.addSFMessage("The garlic potion cures you.");
+			}else{
+				this.console.addSFMessage("Nothing happens");
+			}
+		break;
+		
+		case 'yellowPotion':
+			var heal = 100;
+			this.player.hp = Math.min(this.player.hp + heal, this.player.mHP);
+			this.console.addSFMessage("The ginseng potion heals you for "+heal + " points.");
+		break;
+	}
+	this.inventory.dropItem(index);
+}
 
 Underworld.prototype.activeSpell = function(index){
 	var item = this.inventory.items[index];
@@ -442,10 +485,25 @@ Underworld.prototype.activeSpell = function(index){
 			}
 		break;
 		
+		case 'redPotion':
+			if (this.player.poisoned){
+				this.player.poisoned = false;
+				this.console.addSFMessage("The garlic potion cures you.");
+			}else{
+				this.console.addSFMessage("Nothing happens");
+			}
+		break;
+		
 		case 'heal':
 			var heal = (this.player.mHP * item.percent) << 0;
 			this.player.hp = Math.min(this.player.hp + heal, this.player.mHP);
 			this.console.addSFMessage("MANI! "+heal + " points healed");
+		break;
+		
+		case 'yellowPotion':
+			var heal = 100;
+			this.player.hp = Math.min(this.player.hp + heal, this.player.mHP);
+			this.console.addSFMessage("The ginseng potion heals you for "+heal + " points.");
 		break;
 		
 		case 'light':
@@ -639,7 +697,10 @@ Underworld.prototype.checkInvControl = function(){
 	}
 	
 	for (var i=0;i<10;i++){
-		if (this.getKeyPressed(49 + i)){
+		var index = 49 + i;
+		if (i == 9)
+			index = 48;
+		if (this.getKeyPressed(index)){
 			var item = this.inventory.items[i];
 			if (!item){
 				if (this.setDropItem){
@@ -662,6 +723,8 @@ Underworld.prototype.checkInvControl = function(){
 				this.inventory.equipItem(i);
 			}else if (item.type == 'magic'){
 				this.activeSpell(i);
+			}else if (item.type == 'potion'){
+				this.useItem(i);
 			}
 		}
 	} 

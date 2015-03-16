@@ -137,10 +137,10 @@ Enemy.prototype.attackPlayer = function(player){
 	
 	var dmg = Math.max(str - dfs, 0);
 	
-	this.mapManager.addMessage(this.enemy.name + " is attacking you!");
+	this.mapManager.addMessage(this.enemy.name + " attacks!");
 	
 	if (dmg > 0){
-		this.mapManager.addMessage(dmg + " points inflicted");
+		this.mapManager.addMessage(dmg + " damage inflicted");
 		player.receiveDamage(dmg);
 	}else{
 		this.mapManager.addMessage("Blocked!");

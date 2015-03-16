@@ -99,7 +99,8 @@ Player.prototype.castAttack = function(target, weapon){
 	}
 	
 	var str = rollDice(ps.stats.str);
-	var dfs = rollDice(target.enemy.stats.dfs);
+	//var dfs = rollDice(target.enemy.stats.dfs);
+	var dfs = 0;
 	
 	if (weapon) str += rollDice(weapon.str) * weapon.status;
 	
@@ -185,8 +186,8 @@ Player.prototype.movement = function(){
 		A = Math.cos(this.rotation.b) * this.movementSpd;
 		B = -Math.sin(this.rotation.b) * this.movementSpd;
 	}else if (game.keys[83] == 1){
-		A = -Math.cos(this.rotation.b) * this.movementSpd;
-		B = Math.sin(this.rotation.b) * this.movementSpd;
+		A = -Math.cos(this.rotation.b) * this.movementSpd * 0.2;
+		B = Math.sin(this.rotation.b) * this.movementSpd * 0.2;
 	}
 	
 	if (game.keys[65] == 1){
