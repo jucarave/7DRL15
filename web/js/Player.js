@@ -24,7 +24,7 @@ function Player(position, direction, mapManager){
 
 Player.prototype.receiveDamage = function(dmg){
 	this.hurt = 5.0;
-	
+	this.mapManager.game.playMusicHumbly('hitAudio');
 	var player = this.mapManager.game.player;
 	player.hp -= dmg;
 	if (player.hp <= 0){
@@ -94,6 +94,7 @@ Player.prototype.castAttack = function(target, weapon){
 	var prob = Math.random();
 	if (prob > ps.stats.dex){
 		this.mapManager.addMessage("Missed!");
+		this.mapManager.game.playMusicHumbly('missAudio');
 		return;
 	}
 	
@@ -109,8 +110,10 @@ Player.prototype.castAttack = function(target, weapon){
 	if (dmg > 0){
 		this.mapManager.addMessage(dmg + " points inflicted");
 		target.receiveDamage(dmg);
+		this.mapManager.game.playMusicHumbly('hitAudio');
 	}else{
 		this.mapManager.addMessage("Blocked!");
+		this.mapManager.game.playMusicHumbly('missAudio');
 	}
 	
 	if (weapon) weapon.status *= (1.0 - weapon.wear);
@@ -240,6 +243,7 @@ Player.prototype.doVerticalChecks = function(){
 		this.onWater = false;
 		if (!this.onLava){
 			this.receiveDamage(80);
+			this.mapManager.game.playMusicHumbly('hitAudio');
 		}
 		this.onLava = true;
 		
@@ -303,6 +307,7 @@ Player.prototype.loop = function(){
 		if (this.lavaCounter > 30){
 			this.receiveDamage(80);
 			this.lavaCounter = 0;
+			this.mapManager.game.playMusicHumbly('hitAudio');
 		} else {
 			this.lavaCounter++;
 		}
