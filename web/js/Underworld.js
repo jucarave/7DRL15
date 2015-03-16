@@ -397,9 +397,6 @@ Underworld.prototype.createInitialInventory = function(className){
 	var item = ItemFactory.getItemByCode('mystic', 1.0);
 	item.equipped = true;
 	this.inventory.items.push(item);
-	
-	this.inventory.items.push(ItemFactory.getItemByCode('yellowPotion'));
-	this.inventory.items.push(ItemFactory.getItemByCode('redPotion'));
 	switch (className){
 	case 'Mage':
 		this.inventory.items.push(ItemFactory.getItemByCode('heal'));
@@ -417,6 +414,16 @@ Underworld.prototype.createInitialInventory = function(className){
 		this.inventory.items.push(ItemFactory.getItemByCode('heal'));
 		this.inventory.items.push(ItemFactory.getItemByCode('light'));
 		this.inventory.items.push(ItemFactory.getItemByCode('missile'));
+		break;
+	}
+	switch (className){
+	case 'Druid': case 'Bard':
+		this.inventory.items.push(ItemFactory.getItemByCode('yellowPotion'));
+	case 'Tinker':
+		this.inventory.items.push(ItemFactory.getItemByCode('yellowPotion'));
+	default:
+		this.inventory.items.push(ItemFactory.getItemByCode('yellowPotion'));
+		this.inventory.items.push(ItemFactory.getItemByCode('redPotion'));
 		break;
 	}
 };
