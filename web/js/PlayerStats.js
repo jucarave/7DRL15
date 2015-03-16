@@ -62,6 +62,7 @@ PlayerStats.prototype.levelUp = function(console){
 	this.mMana += manaNew;
 	
 	// Upgrade a random stat by 1-3 points
+	/*
 	var stats = ['str', 'dfs'];
 	var names = ['Strength', 'Defense'];
 	var st, nm;
@@ -75,12 +76,12 @@ PlayerStats.prototype.levelUp = function(console){
 	part1 += Math.iRandom(1, 3);
 	
 	var old = this.stats[st];
-	this.stats[st] = part1 + 'D3';
+	this.stats[st] = part1 + 'D3';*/
 	
 	console.addSFMessage("Level up: " + this.lvl + "!");
 	console.addSFMessage("HP increased from " + hpOld + " to " + this.mHP);
 	console.addSFMessage("Mana increased from " + manaOld + " to " + this.mMana);
-	console.addSFMessage(nm + " increased from " + old + " to " + this.stats[st]);
+	//console.addSFMessage(nm + " increased from " + old + " to " + this.stats[st]);
 };
 
 PlayerStats.prototype.setVirtue = function(virtueName){
