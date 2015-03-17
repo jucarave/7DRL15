@@ -26,8 +26,7 @@ function getHttp(){
 function rollDice(param){
 	var a = parseInt(param.substring(0, param.indexOf('D')), 10);
 	var b = parseInt(param.substring(param.indexOf('D') + 1), 10);
-	
-	return a + Math.round(Math.random() * b);
+	return a * Math.round(Math.random() * b);
 };
 
 Math.radRelation = Math.PI / 180;
