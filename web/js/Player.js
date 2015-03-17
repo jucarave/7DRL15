@@ -182,10 +182,14 @@ Player.prototype.movement = function(){
 	this.mouseLook();
 	
 	// Rotation with keyboard
-	if (game.keys[81] == 1){
+	if (game.keys[81] == 1 || game.keys[37] == 1){
 		this.rotation.b += this.rotationSpd.b;
-	}else if (game.keys[69] == 1){
+	}else if (game.keys[69] == 1 || game.keys[39] == 1){
 		this.rotation.b -= this.rotationSpd.b;
+	}else if (game.keys[38] == 1){ // Up arrow
+		this.rotation.a += this.rotationSpd.a;
+	}else if (game.keys[40] == 1){ // Down arrow
+		this.rotation.a -= this.rotationSpd.a;
 	}
 	
 	var A = 0.0, B = 0.0;
@@ -212,7 +216,7 @@ Player.prototype.movement = function(){
 
 Player.prototype.checkAction = function(){
 	var game = this.mapManager.game;
-	if (game.getKeyPressed(32)){ // Space bar
+	if (game.getKeyPressed(32)){ // Space
 		var xx = (this.position.a + Math.cos(this.rotation.b) * 0.6) << 0;
 		var zz = (this.position.c - Math.sin(this.rotation.b) * 0.6) << 0;
 		
@@ -226,7 +230,7 @@ Player.prototype.checkAction = function(){
 			if (object && object.activate)
 				object.activate();
 		}
-	}else if (game.getMouseButtonPressed() && this.attackWait == 0){	// Melee attack
+	}else if ((game.getMouseButtonPressed() || game.getKeyPressed(13)) && this.attackWait == 0){	// Melee attack, Enter
 		var weapon = game.inventory.getWeapon();
 		
 		if (!weapon || !weapon.ranged){ 
