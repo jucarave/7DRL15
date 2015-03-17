@@ -181,13 +181,20 @@ Player.prototype.movement = function(){
 	
 	this.mouseLook();
 	
+	// Rotation with keyboard
+	if (game.keys[81] == 1){
+		this.rotation.b += this.rotationSpd.b;
+	}else if (game.keys[69] == 1){
+		this.rotation.b -= this.rotationSpd.b;
+	}
+	
 	var A = 0.0, B = 0.0;
 	if (game.keys[87] == 1){
 		A = Math.cos(this.rotation.b) * this.movementSpd;
 		B = -Math.sin(this.rotation.b) * this.movementSpd;
 	}else if (game.keys[83] == 1){
-		A = -Math.cos(this.rotation.b) * this.movementSpd * 0.2;
-		B = Math.sin(this.rotation.b) * this.movementSpd * 0.2;
+		A = -Math.cos(this.rotation.b) * this.movementSpd * 0.4;
+		B = Math.sin(this.rotation.b) * this.movementSpd * 0.4;
 	}
 	
 	if (game.keys[65] == 1){
@@ -205,7 +212,7 @@ Player.prototype.movement = function(){
 
 Player.prototype.checkAction = function(){
 	var game = this.mapManager.game;
-	if (game.getKeyPressed(69)){ // E Key
+	if (game.getKeyPressed(32)){ // Space bar
 		var xx = (this.position.a + Math.cos(this.rotation.b) * 0.6) << 0;
 		var zz = (this.position.c - Math.sin(this.rotation.b) * 0.6) << 0;
 		
