@@ -197,8 +197,8 @@ Player.prototype.movement = function(){
 		A = Math.cos(this.rotation.b) * this.movementSpd;
 		B = -Math.sin(this.rotation.b) * this.movementSpd;
 	}else if (game.keys[83] == 1){
-		A = -Math.cos(this.rotation.b) * this.movementSpd * 0.4;
-		B = Math.sin(this.rotation.b) * this.movementSpd * 0.4;
+		A = -Math.cos(this.rotation.b) * this.movementSpd * 0.3;
+		B = Math.sin(this.rotation.b) * this.movementSpd * 0.3;
 	}
 	
 	if (game.keys[65] == 1){
