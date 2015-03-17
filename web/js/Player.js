@@ -45,10 +45,10 @@ Player.prototype.castMissile = function(weapon){
 	var missile = new Missile(this.position.clone(), this.rotation.clone(), weapon.code, 'enemy', this.mapManager);
 	missile.str = str << 0;
 	missile.missed = (prob > ps.stats.dex);
-	if (weapon) weapon.status *= (1.0 - weapon.wear);
+	//if (weapon) weapon.status *= (1.0 - weapon.wear); Disable weapon wear
 	
 	
-	this.mapManager.addMessage("Shooting " + weapon.subItemName);
+	this.mapManager.addMessage("You shoot a " + weapon.subItemName);
 	this.mapManager.instances.push(missile);
 	this.attackWait = 30;
 	this.moved = true;
@@ -117,7 +117,7 @@ Player.prototype.castAttack = function(target, weapon){
 		this.mapManager.game.playMusicHumbly('missAudio');
 	}
 	
-	if (weapon) weapon.status *= (1.0 - weapon.wear);
+	// if (weapon) weapon.status *= (1.0 - weapon.wear); disable weapon wear
 };
 
 Player.prototype.jogMovement = function(){
